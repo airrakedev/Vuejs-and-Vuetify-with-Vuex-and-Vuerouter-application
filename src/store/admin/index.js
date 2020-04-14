@@ -26,7 +26,7 @@ const mutations = {
         session.set('admin-session', true)
         state.adminSessionStatus = session.has('admin-session')
         state.adminId = res.data._id
-        state.adminProfile = _.pick(res.data, [ 'firstname', 'lastname', 'email' ])
+        state.adminProfile = _.pick(res.data, ['firstname', 'lastname', 'email'])
 
         Vue.notify({
             group: 'movie',
@@ -112,11 +112,6 @@ const actions = {
     },
 
     createMovie({ commit }, payload) {
-        const head = {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        }
 
         return Api.post('/movie/v1', payload)
             .then(res => {

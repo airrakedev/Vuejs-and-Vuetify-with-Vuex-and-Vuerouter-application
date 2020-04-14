@@ -9,6 +9,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
+    "country-state-city": "^1.0.4",
     "lodash": "^4.17.15",
     "nprogress": "^0.2.0",
     "velocity-animate": "^1.5.2",

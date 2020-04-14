@@ -25,7 +25,7 @@ const routes = [
     name: 'AdminLogin',
     component: () => import('Views/admin/login'),
     beforeEnter: (to, from, next) => {
-      if (store.getters[ 'Admin/getAdminSessionStatus' ]) {
+      if (store.getters['Admin/getAdminSessionStatus']) {
         next({ name: 'AdminDashboard' })
       } else {
         next()
@@ -44,15 +44,32 @@ const routes = [
         meta: {
           requireAuth: true
         }
+
       },
-      // {
-      //   path: 'create-movie',
-      //   name: 'CreateMovie',
-      //   component: () => import('Views/admin/createMovie'),
-      //   meta: {
-      //     requireAuth: true
-      //   }
-      // }
+      {
+        path: 'movie-list',
+        name: 'AdminMovieList',
+        component: () => import('Views/admin/movieList'),
+        meta: {
+          requireAuth: true
+        }
+      },
+      {
+        path: 'all-clients',
+        name: 'AllClientList',
+        component: () => import('Views/admin/clientList'),
+        meta: {
+          requireAuth: true
+        }
+      },
+      {
+        path: 'admin-profile',
+        name: 'AdminProfile',
+        component: () => import('Views/admin/adminProfile'),
+        meta: {
+          requireAuth: true
+        }
+      }
     ]
   }
 ]
@@ -67,7 +84,7 @@ router.beforeEach((to, from, next) => {
   Nprogress.start()
 
   if (to.matched.some(route => route.meta.requireAuth)) {
-    if (store.getters[ 'Admin/getAdminSessionStatus' ]) {
+    if (store.getters['Admin/getAdminSessionStatus']) {
       next()
     } else {
       next({ name: 'main-dashboard' })
