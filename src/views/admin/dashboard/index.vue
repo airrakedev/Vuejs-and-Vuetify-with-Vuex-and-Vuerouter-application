@@ -5,18 +5,14 @@
 				<v-card class="mx-auto" elevation="2">
 					<v-container fluid>
 						<v-row>
-							<v-col cols="4" justify="center" align="center">
+							<v-col cols="4" md="6" justify="center" align="center">
 								<v-card color="pink lighten-1" class="card-icon" dark>
 									<v-icon large>mdi-movie-filter-outline</v-icon>
 								</v-card>
 							</v-col>
-							<v-col justify="end" align="end" class="pt-0">
-								<v-list-item>
-									<v-list-item-content class="pt-2">
-										<v-list-item-title class="font-weight-light grey--text body-2">Number of Rented Movies</v-list-item-title>
-										<h1 class="font-weight-light pink--text">15</h1>
-									</v-list-item-content>
-								</v-list-item>
+							<v-col cols="6" md="6" justify="end" align="end" class="pt-0">
+								<p class="font-weight-light grey--text body-2">Number of Rented Movies</p>
+								<h1 class="font-weight-light pink--text">15</h1>
 							</v-col>
 						</v-row>
 						<v-divider></v-divider>
@@ -34,18 +30,14 @@
 				<v-card class="mx-auto" elevation="2">
 					<v-container fluid>
 						<v-row>
-							<v-col cols="4" justify="center" align="center">
+							<v-col cols="4" md="6" justify="center" align="center">
 								<v-card color="green darken-1" class="card-icon" dark>
 									<v-icon large>mdi-account-group-outline</v-icon>
 								</v-card>
 							</v-col>
-							<v-col justify="end" align="end" class="pt-0">
-								<v-list-item>
-									<v-list-item-content class="pt-2">
-										<v-list-item-title class="font-weight-light grey--text body-2">List of Clients</v-list-item-title>
-										<h1 class="font-weight-light green--text">10</h1>
-									</v-list-item-content>
-								</v-list-item>
+							<v-col cols="6" md="6" justify="end" align="end" class="pt-0">
+								<p class="font-weight-light grey--text body-2">List of Clients</p>
+								<h1 class="font-weight-light green--text">10</h1>
 							</v-col>
 						</v-row>
 						<v-divider></v-divider>
@@ -63,18 +55,14 @@
 				<v-card class="mx-auto" elevation="2">
 					<v-container fluid>
 						<v-row>
-							<v-col cols="4" justify="center" align="center">
+							<v-col cols="4" md="6" justify="center" align="center">
 								<v-card color="cyan lighten-1" class="card-icon" dark>
 									<v-icon large>mdi-purse-outline</v-icon>
 								</v-card>
 							</v-col>
-							<v-col justify="end" align="end" class="pt-0">
-								<v-list-item>
-									<v-list-item-content class="pt-2">
-										<v-list-item-title class="font-weight-light grey--text body-2">Inventory</v-list-item-title>
-										<h1 class="font-weight-light cyan--text">124</h1>
-									</v-list-item-content>
-								</v-list-item>
+							<v-col cols="6" md="6" justify="end" align="end" class="pt-0">
+								<p class="font-weight-light grey--text body-2">Inventory</p>
+								<h1 class="font-weight-light cyan--text">124</h1>
 							</v-col>
 						</v-row>
 						<v-divider></v-divider>
@@ -92,18 +80,14 @@
 				<v-card class="mx-auto" elevation="2">
 					<v-container fluid>
 						<v-row>
-							<v-col cols="4" justify="center" align="center">
+							<v-col cols="4" md="6" justify="center" align="center">
 								<v-card color="warning lighten-1" class="card-icon" dark>
 									<v-icon large>mdi-cube-scan</v-icon>
 								</v-card>
 							</v-col>
-							<v-col justify="end" align="end" class="pt-0">
-								<v-list-item>
-									<v-list-item-content class="pt-2">
-										<v-list-item-title class="font-weight-light grey--text body-2">List of No Stock</v-list-item-title>
-										<h1 class="font-weight-light warning--text">5</h1>
-									</v-list-item-content>
-								</v-list-item>
+							<v-col cols="6" md="6" justify="end" align="end" class="pt-0">
+								<p class="font-weight-light grey--text body-2">List of No Stock</p>
+								<h1 class="font-weight-light warning--text">5</h1>
 							</v-col>
 						</v-row>
 						<v-divider></v-divider>
@@ -122,7 +106,7 @@
 
 <script>
 export default {
-	name: "AdminDashboard"
+	name: "AdminDashboard",
 };
 </script>
 

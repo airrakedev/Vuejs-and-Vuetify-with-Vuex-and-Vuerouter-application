@@ -1,7 +1,7 @@
 <template>
 	<v-app-bar app clipped-left elevation="2">
 		<v-toolbar flat>
-			<v-toolbar-title class="font-weight-bold primary--text">Movie Rental</v-toolbar-title>
+			<v-toolbar-title class="font-weight-bold primary--text">Prime Movies</v-toolbar-title>
 			<v-spacer></v-spacer>
 			<div v-if="!userSession">
 				<v-btn
@@ -28,7 +28,7 @@ import ClientNotifications from "Components/client/notification";
 export default {
 	name: "AppHeader",
 	components: {
-		ClientNotifications
+		ClientNotifications,
 	},
 	methods: {
 		showLoginForm() {
@@ -37,13 +37,13 @@ export default {
 		registerUser() {
 			console.log("hoy");
 			eventEmitter.$emit("open-registration", {});
-		}
+		},
 	},
 	computed: {
 		userSession() {
 			return this.$store.getters.getClientSession;
-		}
-	}
+		},
+	},
 };
 </script>
 

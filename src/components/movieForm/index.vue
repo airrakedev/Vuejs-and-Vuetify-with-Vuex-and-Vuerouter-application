@@ -131,7 +131,7 @@
 									solo
 									color="deep-purple"
 									placeholder="Movie description"
-									rows="1"
+									rows="5"
 								></v-textarea>
 							</v-col>
 							<v-col cols="12" md="12" class="pt-1 pb-0">
@@ -176,15 +176,15 @@ export default {
 	props: {
 		movieDialog: Boolean,
 		title: String,
-		movieData: Object
+		movieData: Object,
 	},
 	validations: {
 		movieData: {
 			title: { required },
 			genre: { required },
 			inStock: { required },
-			rentPrice: { required }
-		}
+			rentPrice: { required },
+		},
 	},
 	data() {
 		return {
@@ -192,16 +192,11 @@ export default {
 			deletableChips: true,
 			previewImage: "https://via.placeholder.com/150",
 			defaultMovieUploadImage: "https://via.placeholder.com/150",
-			imageRules: [
-				value =>
-					!value ||
-					value.size < 2000000 ||
-					"Avatar size should be less than 2 MB!"
-			],
+			imageRules: [(value) => !value || value.size < 2000000 || "Avatar size should be less than 2 MB!"],
 			createdActors: [],
 			newActor: "",
 			movieProfile: null,
-			checkIfUploadImage: false
+			checkIfUploadImage: false,
 		};
 	},
 	computed: {
@@ -224,31 +219,27 @@ export default {
 		movieTitleErrors() {
 			const errors = [];
 			if (!this.$v.movieData.title.$dirty) return errors;
-			!this.$v.movieData.title.required &&
-				errors.push("Movie title is required.");
+			!this.$v.movieData.title.required && errors.push("Movie title is required.");
 			return errors;
 		},
 		movieGenreErrors() {
 			const errors = [];
 			if (!this.$v.movieData.genre.$dirty) return errors;
-			!this.$v.movieData.genre.required &&
-				errors.push("Please select movie genre.");
+			!this.$v.movieData.genre.required && errors.push("Please select movie genre.");
 			return errors;
 		},
 		movieInstockErrors() {
 			const errors = [];
 			if (!this.$v.movieData.inStock.$dirty) return errors;
-			!this.$v.movieData.inStock.required &&
-				errors.push("Movie quantity is required.");
+			!this.$v.movieData.inStock.required && errors.push("Movie quantity is required.");
 			return errors;
 		},
 		movieRentPriceErrors() {
 			const errors = [];
 			if (!this.$v.movieData.rentPrice.$dirty) return errors;
-			!this.$v.movieData.rentPrice.required &&
-				errors.push("Movie rent price is required.");
+			!this.$v.movieData.rentPrice.required && errors.push("Movie rent price is required.");
 			return errors;
-		}
+		},
 	},
 	methods: {
 		uploadImage(event) {
@@ -266,7 +257,7 @@ export default {
 			let reader = new FileReader();
 			const $this = this;
 
-			reader.onload = function(e) {
+			reader.onload = function (e) {
 				$this.previewImage = this.result;
 			};
 			reader.readAsDataURL(event);
@@ -283,7 +274,7 @@ export default {
 			this.$emit("close-movie-form", {});
 		},
 		removeChip(val) {
-			let removeActor = _.remove(this.createdActors, function(value) {
+			let removeActor = _.remove(this.createdActors, function (value) {
 				return value !== val;
 			});
 			this.createdActors = removeActor;
@@ -319,7 +310,7 @@ export default {
 			formData.append("description", this.movieData.description);
 			formData.append("plot", this.movieData.plot);
 
-			store.dispatch("Admin/createMovie", formData).then(res => {
+			store.dispatch("Admin/createMovie", formData).then((res) => {
 				console.log("Created successfully");
 				// CLOSE FORM
 				this.closeMovieForm();
@@ -337,12 +328,12 @@ export default {
 			this.movieData.plot = "";
 			this.movieData.description = "";
 			this.createdActors = [];
-		}
+		},
 	},
 	watch: {},
 	created() {
 		this.fetchGenres();
-	}
+	},
 };
 </script>
 
