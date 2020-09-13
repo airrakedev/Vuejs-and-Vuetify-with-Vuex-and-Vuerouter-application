@@ -1,9 +1,9 @@
 <template>
 	<v-col>
 		<v-row>
-			<v-col md="4" v-for="(movie, i) in allMovies" :key="i">
+			<v-col md="3" v-for="(movie, i) in allMovies" :key="i">
 				<v-card dark>
-					<v-img :src="getThumbnail(movie.image)" height="300px"></v-img>
+					<v-img contain="true" :src="getThumbnail(movie.image)"></v-img>
 					<v-card-title class="pb-1">{{movie.title}}</v-card-title>
 					<v-card-text class="pb-1">
 						<div class="font-weight-bold">P {{movie.rentPrice}}</div>
