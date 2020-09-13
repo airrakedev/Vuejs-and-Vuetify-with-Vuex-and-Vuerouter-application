@@ -1,8 +1,12 @@
 # A Movie Store Management
 
-A Vuejs application designed to display wide array of movies with different Genres. Users can select movies and added to their cart. Administrator can create update and track all movies on hand.
+A Vuejs application for movie rentals, a movie listing with different Genres. Customers can select listed movies and can be added to their cart. Before adding movies to a cart, customers should signup for account as credentials or can logged in to current accounts. 
 
-An Application designed to utilize the power of Vuetify combined with Routing setup and Vuex Management and other packages such as Axios.
+An admin will create or update the movies availability, also it manages and track its records on movies and its customers records.
+
+Once the customers checkout it will automatically popup to Admin dashboard that customers have check out and wanted to pay for its rentals. Once customers return all movies rented it will be managed by Admin to update the customers rentals records and the movie listing.
+
+This application designed to utilize the power of Vuetify combined with Routing setup and Vuex Management and other packages such as Axios.
 
 To start using the application
 
