@@ -1,6 +1,6 @@
 <template>
 	<v-navigation-drawer
-		color="teal"
+		color="primary"
 		:mini-variant="drawerStatus"
 		:clipped="$vuetify.breakpoint.lgAndUp"
 		app
@@ -83,19 +83,19 @@ import { eventEmitter } from "Event";
 import formMovie from "Components/movieForm";
 export default {
 	components: {
-		formMovie
+		formMovie,
 	},
 	name: "navigationDrawer",
 	data: () => ({
 		movieData: {},
 		movieDialog: false,
-		title: "Create a Movie"
+		title: "Create a Movie",
 	}),
 	methods: {
 		displayFormMovie() {
 			this.movieDialog = true;
 			console.log(this.movieDialog, "Booi");
-		}
+		},
 	},
 	computed: {
 		adminData() {
@@ -111,23 +111,20 @@ export default {
 			},
 			set(ambot) {
 				return ambot;
-			}
-		}
+			},
+		},
 	},
-	created() {}
+	created() {},
 };
 </script>
 
 <style scoped>
-a.router-link-exact-active
-	.v-list-item
-	.v-list-item__content
-	.v-list-item__title {
+a.router-link-exact-active .v-list-item .v-list-item__content .v-list-item__title {
 	font-weight: bold !important;
 }
 
 a.router-link-exact-active .v-list-item {
-	background: #3ba59b !important;
+	background: #037bdb !important;
 }
 .v-navigation-drawer__content a {
 	text-decoration: none;

@@ -64,14 +64,14 @@ export default {
 		userRegistrationForm,
 		userLoginForm,
 
-		AppHeader
+		AppHeader,
 	},
 	data() {
 		return {
 			menu: false,
 			show: false,
 			dialog: false,
-			loginDialog: false
+			loginDialog: false,
 		};
 	},
 	computed: {
@@ -80,7 +80,7 @@ export default {
 		},
 		registrationDialogStatus() {
 			return this.dialog;
-		}
+		},
 	},
 	methods: {
 		showLoginForm() {
@@ -106,7 +106,7 @@ export default {
 			eventEmitter.$on("close-dialog-registration", () => {
 				this.dialog = false;
 			});
-		}
+		},
 	},
 	created() {
 		this.eventEmitterOn();
@@ -114,7 +114,7 @@ export default {
 
 		this.displayRegistrationForm();
 		this.closeRegistrationForm();
-	}
+	},
 };
 </script>
 

@@ -7,8 +7,8 @@
 						<v-row class="admin-login-header pl-1 pr-1 pb-3 pt-0">
 							<v-col class="pl-5 pr-5 pb-5 pt-0">
 								<v-card class="teal pa-5 text-center" elevation="2">
-									<h2 class="text-center font-weight-light white--text pt-5 pb-2">Administrator Login</h2>
-									<v-icon class="admin-login-header-icon" color="white">mdi-account-box-outline</v-icon>
+									<h2 class="text-center font-weight-regular white--text pt-5 pb-2">Administrator Login</h2>
+									<v-icon class="admin-login-header-icon" color="white">mdi-account-circle-outline</v-icon>
 								</v-card>
 							</v-col>
 						</v-row>
@@ -135,7 +135,7 @@ export default {
 	font-size: 60px !important;
 }
 .admin-login-header {
-	margin-top: -40px;
+	margin-top: -60px;
 }
 .icon-title {
 	font-size: 90px !important;
