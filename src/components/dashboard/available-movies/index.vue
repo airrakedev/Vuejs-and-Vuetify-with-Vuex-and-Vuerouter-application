@@ -3,8 +3,8 @@
 		<v-row>
 			<v-col md="3" v-for="(movie, i) in allMovies" :key="i">
 				<v-card dark>
-					<v-img contain="true" :src="getThumbnail(movie.image)"></v-img>
-					<v-card-title class="pb-1">{{movie.title}}</v-card-title>
+					<v-img position="top center" aspect-ratio="1" :src="getThumbnail(movie.image)"></v-img>
+					<v-card-title class="pb-2">{{movie.title}}</v-card-title>
 					<v-card-text class="pb-1">
 						<div class="font-weight-bold">P {{movie.rentPrice}}</div>
 					</v-card-text>
@@ -22,12 +22,31 @@
 							<v-icon>mdi-thumb-up</v-icon>
 						</v-btn>-->
 						<v-spacer></v-spacer>
-						<v-btn fab dark @click="registerUser" small color="primary">
-							<v-icon dark>mdi-plus</v-icon>
-						</v-btn>
+						<v-tooltip top>
+							<template v-slot:activator="{ on, attrs }">
+								<v-btn fab dark @click="addMovie(movie._id)" small color="primary" v-bind="attrs" v-on="on">
+									<v-icon dark>mdi-plus</v-icon>
+								</v-btn>
+							</template>
+							<span>Rent Movie</span>
+						</v-tooltip>
 					</v-card-actions>
 				</v-card>
 			</v-col>
+			<v-snackbar
+				:multi-line="imageContain"
+				v-model="snackbar"
+				:top="imageContain"
+				:centered="imageContain"
+				color="primary"
+				dark
+				elevation="24"
+			>
+				{{ text }}
+				<template v-slot:action="{ attrs }">
+					<v-btn color="red" text v-bind="attrs" @click="snackbar = false">Close</v-btn>
+				</template>
+			</v-snackbar>
 		</v-row>
 	</v-col>
 </template>
@@ -40,8 +59,11 @@ export default {
 	name: "available-movies",
 	data() {
 		return {
+			snackbar: false,
+			text: "A movie was added to your list.",
+			timeout: 2500,
 			fav: true,
-
+			imageContain: true,
 			message: false,
 			hints: true,
 
@@ -72,8 +94,14 @@ export default {
 			const getAllMovies = store.getters["Admin/getAllMovies"];
 			return getAllMovies.docs;
 		},
+		isClientLogin() {
+			return store.getters["Customer/getClientSession"];
+		},
 	},
 	methods: {
+		getAMovie(id) {
+			return this.allMovies.filter((item) => item._id == id);
+		},
 		getThumbnail(image) {
 			let thumbnail = "https://www.tinastable.com/wp-content/plugins/penci-portfolio//images/no-thumbnail.jpg";
 			if (image) {
@@ -87,10 +115,18 @@ export default {
 				page: 1,
 			};
 			const movies = await store.dispatch("Admin/gettingAllMovies", params);
-			console.log("FE Lapos");
 		},
-		registerUser() {
-			eventEmitter.$emit("open-registration", {});
+		async addMovie(id) {
+			if (this.isClientLogin) {
+				if (this.getAMovie(id).length) {
+					let { _id, title, rentPrice } = this.getAMovie(id)[0];
+					await store.commit("Customer/ADD_MOVIE_ITEM", { _id, title, rentPrice, qty: 1 });
+					this.snackbar = true;
+				}
+
+				return;
+			}
+			eventEmitter.$emit("display-login-form", {});
 		},
 		getImage() {
 			const min = 550;
