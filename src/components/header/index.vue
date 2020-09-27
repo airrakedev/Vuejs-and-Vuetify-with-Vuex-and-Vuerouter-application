@@ -1,5 +1,5 @@
 <template>
-	<v-app-bar app clipped-left elevation="2">
+	<v-app-bar app clipped-left elevation="2" color="white">
 		<v-toolbar flat>
 			<v-toolbar-title class="font-weight-bold primary--text">Prime Movies</v-toolbar-title>
 			<v-spacer></v-spacer>
@@ -7,10 +7,10 @@
 				<v-btn
 					color="primary"
 					rounded
-					class="mr-4 font-weight-light caption"
+					class="mr-4 font-weight-bold caption"
 					@click="registerUser"
 				>Signup</v-btn>
-				<v-btn color="primary" rounded @click="showLoginForm" class="font-weight-light caption">Login</v-btn>
+				<v-btn color="primary" rounded @click="showLoginForm" class="font-weight-bold caption">Login</v-btn>
 			</div>
 
 			<div v-else>
@@ -23,7 +23,7 @@
 
 <script>
 import { eventEmitter } from "Event";
-
+import store from "Store";
 import ClientNotifications from "Components/client/notification";
 export default {
 	name: "AppHeader",
@@ -35,13 +35,12 @@ export default {
 			eventEmitter.$emit("display-login-form", {});
 		},
 		registerUser() {
-			console.log("hoy");
 			eventEmitter.$emit("open-registration", {});
 		},
 	},
 	computed: {
 		userSession() {
-			return this.$store.getters.getClientSession;
+			return store.getters["Customer/getClientSession"];
 		},
 	},
 };

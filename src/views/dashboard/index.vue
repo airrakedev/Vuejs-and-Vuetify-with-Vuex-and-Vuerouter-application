@@ -15,19 +15,6 @@
 								<v-btn text color="primary">New Release</v-btn>
 
 								<v-spacer></v-spacer>
-
-								<div>
-									<v-menu v-model="menu" :close-on-content-click="false" :nudge-width="200" offset-x>
-										<template v-slot:activator="{ on }">
-											<v-btn dark v-on="on" icon text>
-												<v-icon color="primary">{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
-											</v-btn>
-										</template>
-
-										<!-- CLIENT MOVIE LISTING -->
-										<myMovieListing @close-me="menu=false"></myMovieListing>
-									</v-menu>
-								</div>
 							</v-card-actions>
 						</v-card>
 					</v-col>
@@ -47,7 +34,6 @@
 </template>
 
 <script>
-import myMovieListing from "Components/client/movie-listing";
 import availableMovies from "Components/dashboard/available-movies";
 import userRegistrationForm from "Components/client/registration";
 import userLoginForm from "Components/client/login";
@@ -59,7 +45,6 @@ import { eventEmitter } from "Event";
 export default {
 	name: "main-dashboard",
 	components: {
-		myMovieListing,
 		availableMovies,
 		userRegistrationForm,
 		userLoginForm,
@@ -92,7 +77,6 @@ export default {
 			});
 		},
 		eventEmitterOff() {
-			console.log("Out");
 			eventEmitter.$on("hide-login-form", () => {
 				this.loginDialog = false;
 			});
