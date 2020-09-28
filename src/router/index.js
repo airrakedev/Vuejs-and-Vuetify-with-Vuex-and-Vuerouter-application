@@ -76,8 +76,7 @@ const routes = [
 
 const router = new VueRouter({
    mode: 'history',
-   base: (process.env.NODE_ENV != 'development') ? process.env.VUE_APP_PROD_URL : process.env.VUE_APP_API_URL,
-   //   base: process.env.BASE_URL,
+   base: process.env.BASE_URL,
    routes
 })
 
