@@ -4,6 +4,7 @@
    "private": true,
    "scripts": {
       "start": "vue-cli-service serve --host https://vue-frontent.herokuapp.com/",
+      "serve": "vue-cli-service serve --host localhost",
       "build": "vue-cli-service build"
    },
    "dependencies": {
