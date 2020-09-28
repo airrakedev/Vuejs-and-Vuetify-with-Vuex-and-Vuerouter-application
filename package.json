@@ -3,7 +3,7 @@
    "version": "0.1.0",
    "private": true,
    "scripts": {
-      "start": "vue-cli-service serve --host https://vue-frontent.herokuapp.com/",
+      "start": "vue-cli-service serve --host https://competent-shockley-45b27e.netlify.app/",
       "serve": "vue-cli-service serve --host localhost",
       "build": "vue-cli-service build"
    },
