@@ -137,7 +137,6 @@ export default {
 	},
 	created() {
 		this.getAllMovies();
-		console.log(this.allMovies, "moveis");
 	},
 };
 </script>

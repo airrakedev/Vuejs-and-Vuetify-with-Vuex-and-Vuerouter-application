@@ -120,7 +120,6 @@ const actions = {
             return res
          })
          .catch((err) => {
-            console.log(err, 'asdajsdja')
             commit('LOGIN_ERROR', err)
          })
    },
@@ -130,16 +129,13 @@ const actions = {
       return Api.post('/movie/v1', payload)
          .then(res => {
             if (!res.data.success) {
-               console.log(res, 'failed')
                return commit('MOVIE_FAILED_TO_CREATE', res.data)
             }
             commit('MOVIE_CREATED_SUCCES')
-            console.log(res, 'Responses with multipart/form-data')
             return res
          })
          .catch(err => {
             commit('MOVIE_FAILED_TO_CREATE')
-            console.log(err, "Error on saving a movie.")
          })
    },
 
@@ -147,7 +143,6 @@ const actions = {
    gettingAllMovies({ commit }, params) {
       return Api.get('/movie/v1', { params })
          .then(res => {
-            console.log(res, "All Movies")
             if (!res.data.success) {
                return commit('FAILED_GETTING_ALL_MOVIES')
             }
@@ -155,7 +150,6 @@ const actions = {
          })
          .catch(err => {
             commit('MOVIE_FAILED_TO_CREATE')
-            console.log(err, "Error on saving a movie.")
          })
    },
    // ADMIN LOGOUT
