@@ -5,9 +5,7 @@ import Nprogress from 'nprogress';
 import 'nprogress/nprogress.css'
 
 let client = axios.create({
-//    baseURL: (process.env.NODE_ENV !== 'development') ? process.env.VUE_APP_PROD_URL : process.env.VUE_APP_API_URL,
-//    baseURL:'https://movie-api-endpoint.herokuapp.com',
-   baseURL: process.env.VUE_APP_PROD_URL,
+   baseURL: (process.env.NODE_ENV !== 'development') ? process.env.VUE_APP_PROD_URL : process.env.VUE_APP_API_URL,
    timeout: 5000,
    headers: { 'Content-Type': 'application/json' },
    validateStatus: function (status) {
@@ -18,8 +16,6 @@ let client = axios.create({
       }
    }
 })
-
-console.log(process.env.VUE_APP_PROD_URL, 'Ngano Ka?')
 
 // REQUEST
 client.interceptors.request.use(function (config) {
