@@ -6,7 +6,8 @@ import 'nprogress/nprogress.css'
 
 let client = axios.create({
 //    baseURL: (process.env.NODE_ENV !== 'development') ? process.env.VUE_APP_PROD_URL : process.env.VUE_APP_API_URL,
-   baseURL:'https://movie-api-endpoint.herokuapp.com',
+//    baseURL:'https://movie-api-endpoint.herokuapp.com',
+   baseURL: process.env.VUE_APP_PROD_URL,
    timeout: 5000,
    headers: { 'Content-Type': 'application/json' },
    validateStatus: function (status) {
