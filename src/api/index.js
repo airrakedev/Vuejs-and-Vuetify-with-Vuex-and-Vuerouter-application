@@ -17,6 +17,7 @@ let client = axios.create({
    }
 })
 
+console.log((process.env.NODE_ENV != 'development') ? process.env.VUE_APP_PROD_URL : process.env.VUE_APP_API_URL, 'hmm')
 
 // REQUEST
 client.interceptors.request.use(function (config) {

@@ -141,7 +141,6 @@ const actions = {
 
    // GET ALL MOVIES
    gettingAllMovies({ commit }, params) {
-      console.log(Api, 'Api route')
       return Api.get('/movie/v1', { params })
          .then(res => {
             if (!res.data.success) {
