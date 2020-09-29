@@ -105,7 +105,7 @@ export default {
 		getThumbnail(image) {
 			let thumbnail = "https://www.tinastable.com/wp-content/plugins/penci-portfolio//images/no-thumbnail.jpg";
 			if (image) {
-				thumbnail = `${process.env.VUE_APP_API_URL}/uploads/${image}`;
+				thumbnail = `${process.env.NODE_ENV !== "development" ? process.env.VUE_APP_PROD_URL : process.env.VUE_APP_API_URL}/uploads/${image}`;
 			}
 			return thumbnail;
 		},
