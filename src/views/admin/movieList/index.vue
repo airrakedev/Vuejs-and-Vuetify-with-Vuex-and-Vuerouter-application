@@ -4,13 +4,13 @@
 			<v-col>
 				<v-card class="mx-auto pa-4 pt-0" elevation="1">
 					<v-row>
-						<v-col cols="1" justify="center" align="center">
+						<v-col cols="1" md="2" justify="center" align="center">
 							<v-card color="pink lighten-1" class="card-icon" dark elevation="5">
 								<v-icon large>mdi-playlist-check</v-icon>
 							</v-card>
 						</v-col>
 						<v-col>
-							<h2 class="pt-5 font-weight-light">List of All Movies</h2>
+							<h2 class="pt-5 green--text">All Movies</h2>
 						</v-col>
 					</v-row>
 					<v-card-title class="mr-5 pr-5">
@@ -21,7 +21,7 @@
 									v-model="search"
 									append-icon="mdi-magnify"
 									label="Search"
-									class="font-weight-light"
+									class="font-weight-medium"
 									background-color="grey lighten-4"
 									light
 									color="primary"
@@ -38,21 +38,67 @@
 							<v-col class="pa-5 pt-0">
 								<v-data-table
 									:headers="headers"
-									:items="desserts"
-									sort-by="calories"
+									:items="allMovies"
 									class="font-weight-light"
 									id="customBorder"
+									:search="search"
 								>
-									<!-- <template v-slot:top>
-								<v-toolbar flat color="white"></v-toolbar>
+									<template v-slot:body="{items}">
+										<tbody>
+											<tr v-for="(item, i) in items" :key="i">
+												<td>
+													<v-list-item>
+														<v-list-item-avatar>
+															<v-img :src="getMoviePoster(item.image)"></v-img>
+														</v-list-item-avatar>
+
+														<v-list-item-content>
+															<v-list-item-title>
+																<h4 class="blue-grey--text pl-2" v-html="item.title"></h4>
+															</v-list-item-title>
+															<v-list-item-subtitle>
+																<span v-for="(actor, index) in item.actor" :key="index">
+																	<v-chip
+																		class="ma-2 font-weight-bold"
+																		:color="randomColor()"
+																		label
+																		text-color="white"
+																	>{{actor}}</v-chip>
+																</span>
+															</v-list-item-subtitle>
+														</v-list-item-content>
+													</v-list-item>
+												</td>
+												<td>
+													<span v-for="(genre, ind) in item.genre" :key="ind">
+														<v-chip
+															class="ma-2 font-weight-bold"
+															color="blue"
+															label
+															text-color="white"
+														>{{genre.title}}</v-chip>
+													</span>
+												</td>
+												<td>
+													<h3 class="grey--text">{{ item.inStock }}</h3>
+												</td>
+												<td>
+													<h3 class="grey--text">₱ {{ item.rentPrice | formatNumber}}</h3>
+												</td>
+												<td>
+													<v-btn class="mr-1" height="35" width="40" dark small color="green">
+														<v-icon dark>mdi-square-edit-outline</v-icon>
+													</v-btn>
+													<v-btn class="ml-1" height="35" width="40" dark small color="error">
+														<v-icon dark>mdi-close</v-icon>
+													</v-btn>
+												</td>
+											</tr>
+										</tbody>
+									</template>
+									<!-- <template v-slot:no-data>
+										<span>No data available</span>
 									</template>-->
-									<template v-slot:item.actions="{ item }">
-										<v-icon class="mr-5" @click="editItem(item)">mdi-square-edit-outline</v-icon>
-										<v-icon color="error" @click="deleteItem(item)">mdi-trash-can-outline</v-icon>
-									</template>
-									<template v-slot:no-data>
-										<v-btn color="primary" @click="initialize">Reset</v-btn>
-									</template>
 								</v-data-table>
 							</v-col>
 						</v-row>
@@ -65,6 +111,7 @@
 
 <script>
 import store from "Store";
+import numeral from "numeral";
 export default {
 	name: "AdminMovieList",
 	data() {
@@ -73,147 +120,76 @@ export default {
 			search: "",
 			headers: [
 				{
-					text: "Dessert (100g serving)",
-					class: "font-weight-regular subtitle-1 grey lighten-3 pt-5 pb-5 primary--text pt-5 pb-5",
-					align: "start",
+					text: "Movie",
+					class: "font-weight-regular subtitle-1 grey lighten-4 pt-5 pb-5 primary--text pt-5 pb-5",
+					align: "",
 					sortable: false,
-					value: "name",
+					value: "title",
+					width: "200",
 				},
 				{
-					text: "Calories",
-					value: "calories",
-					class: "font-weight-regular subtitle-1 grey lighten-3 pt-5 pb-5 primary--text",
+					text: "Genres",
+					value: "genre",
+					class: "font-weight-regular subtitle-1 grey lighten-4 pt-5 pb-5 primary--text",
+					width: "200",
 				},
 				{
-					text: "Fat (g)",
-					value: "fat",
-					class: "font-weight-regular subtitle-1 grey lighten-3 pt-5 pb-5 primary--text",
+					text: "Quantity",
+					value: "inStock",
+					class: "font-weight-regular subtitle-1 grey lighten-4 pt-5 pb-5 primary--text",
+					width: "50",
 				},
 				{
-					text: "Carbs (g)",
-					value: "carbs",
-					class: "font-weight-regular subtitle-1 grey lighten-3 pt-5 pb-5 primary--text",
-				},
-				{
-					text: "Protein (g)",
-					value: "protein",
-					class: "font-weight-regular subtitle-1 grey lighten-3 pt-5 pb-5 primary--text",
+					text: "Rent",
+					value: "actor",
+					class: "font-weight-regular subtitle-1 grey lighten-4 pt-5 pb-5 primary--text",
+					width: "80",
 				},
 				{
 					text: "Actions",
-					value: "actions",
+					value: "",
 					sortable: false,
-					class: "font-weight-regular subtitle-1 grey lighten-3 pt-5 pb-5 primary--text",
+					class: "font-weight-regular subtitle-1 grey lighten-4 pt-5 pb-5 primary--text",
+					width: "100",
 				},
 			],
-			desserts: [
-				{
-					name: "Frozen Yogurt",
-					calories: 159,
-					fat: 6.0,
-					carbs: 24,
-					protein: 4.0,
-				},
-				{
-					name: "Ice cream sandwich",
-					calories: 237,
-					fat: 9.0,
-					carbs: 37,
-					protein: 4.3,
-				},
-				{
-					name: "Eclair",
-					calories: 262,
-					fat: 16.0,
-					carbs: 23,
-					protein: 6.0,
-				},
-				{
-					name: "Cupcake",
-					calories: 305,
-					fat: 3.7,
-					carbs: 67,
-					protein: 4.3,
-				},
-				{
-					name: "Gingerbread",
-					calories: 356,
-					fat: 16.0,
-					carbs: 49,
-					protein: 3.9,
-				},
-				{
-					name: "Jelly bean",
-					calories: 375,
-					fat: 0.0,
-					carbs: 94,
-					protein: 0.0,
-				},
-				{
-					name: "Lollipop",
-					calories: 392,
-					fat: 0.2,
-					carbs: 98,
-					protein: 0,
-				},
-				{
-					name: "Honeycomb",
-					calories: 408,
-					fat: 3.2,
-					carbs: 87,
-					protein: 6.5,
-				},
-				{
-					name: "Donut",
-					calories: 452,
-					fat: 25.0,
-					carbs: 51,
-					protein: 4.9,
-				},
-				{
-					name: "KitKat",
-					calories: 518,
-					fat: 26.0,
-					carbs: 65,
-					protein: 7,
-				},
-			],
+
 			movies: [],
-			editedIndex: -1,
-			editedItem: {
-				name: "",
-				calories: 0,
-				fat: 0,
-				carbs: 0,
-				protein: 0,
-			},
-			defaultItem: {
-				name: "",
-				calories: 0,
-				fat: 0,
-				carbs: 0,
-				protein: 0,
-			},
 		};
 	},
 	computed: {
 		allMovies() {
 			const getAllMovies = store.getters["Admin/getAllMovies"];
-			return getAllMovies;
+			return getAllMovies.docs;
 		},
 	},
 	methods: {
+		randomColor() {
+			const r = () => Math.floor(256 * Math.random());
+
+			return `rgb(${r()}, ${r()}, ${r()})`;
+		},
+		getMoviePoster(poster) {
+			let url = process.env.NODE_ENV !== "development" ? process.env.VUE_APP_PROD_URL : process.env.VUE_APP_API_URL;
+			return `${url}/uploads/${poster}`;
+		},
 		async getAllMovies() {
 			const params = {
-				limit: 5,
+				limit: 500,
 				page: 1,
+				sort: { title: 1 },
 			};
 			const movies = await store.dispatch("Admin/gettingAllMovies", params);
-			console.log("FE Lapos");
 		},
 	},
 	created() {
 		this.getAllMovies();
+	},
+	filters: {
+		formatNumber(val) {
+			if (!val) return "";
+			return numeral(val).format("0.00");
+		},
 	},
 };
 </script>
@@ -232,5 +208,8 @@ export default {
 	margin-top: -30px;
 	padding-top: 35px;
 	padding-bottom: 35px;
+}
+.v-btn:not(.v-btn--round).v-size--small {
+	min-width: unset;
 }
 </style>

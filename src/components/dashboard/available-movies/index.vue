@@ -92,6 +92,7 @@ export default {
 	computed: {
 		allMovies() {
 			const getAllMovies = store.getters["Admin/getAllMovies"];
+			console.log(getAllMovies, "hou");
 			return getAllMovies.docs;
 		},
 		isClientLogin() {
@@ -111,8 +112,9 @@ export default {
 		},
 		async getAllMovies() {
 			const params = {
-				limit: 15,
+				limit: 50,
 				page: 1,
+				sort: { title: 1 },
 			};
 			const movies = await store.dispatch("Admin/gettingAllMovies", params);
 		},

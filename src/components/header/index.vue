@@ -7,10 +7,19 @@
 				<v-btn
 					color="primary"
 					rounded
-					class="mr-4 font-weight-bold caption"
+					elevation="1"
+					class="font-weight-medium mr-4 pl-8 pr-8"
+					height="40"
 					@click="registerUser"
 				>Signup</v-btn>
-				<v-btn color="primary" rounded @click="showLoginForm" class="font-weight-bold caption">Login</v-btn>
+				<v-btn
+					color="primary"
+					rounded
+					elevation="1"
+					@click="showLoginForm"
+					height="40"
+					class="font-weight-medium pl-8 pr-8"
+				>Login</v-btn>
 			</div>
 
 			<div v-else>

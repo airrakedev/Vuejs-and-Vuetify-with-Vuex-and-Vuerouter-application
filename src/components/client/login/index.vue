@@ -1,7 +1,7 @@
 <template>
 	<v-dialog v-model="closeLoginForm" persistent max-width="600px">
 		<v-card>
-			<v-toolbar elevation="1" dark>
+			<v-toolbar elevation="0" dark>
 				<v-toolbar-title>Account Login</v-toolbar-title>
 
 				<v-spacer></v-spacer>
@@ -55,7 +55,11 @@
 			</v-card-text>
 			<v-divider></v-divider>
 			<v-card-actions class="pa-5">
-				<v-btn class="pl-5 pr-5" dark @click="registerUser">Create Account</v-btn>
+				<span class="font-weight-medium grey--text">
+					Dont have account?
+					<a href="#" @click.prevent="registerUser">Signup Here</a>
+				</span>
+
 				<v-spacer></v-spacer>
 				<v-btn class="pl-5 pr-5" dark @click="closeLogin">Close</v-btn>
 				<v-btn class="pl-5 pr-5" dark @click="submit">Login</v-btn>

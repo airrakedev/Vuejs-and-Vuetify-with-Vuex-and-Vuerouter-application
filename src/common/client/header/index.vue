@@ -35,8 +35,8 @@
 							<v-list-item-content>
 								<v-list-item-title
 									class="teal--text font-weight-bold"
-								>{{adminData.firstname}} {{adminData.lastname}}</v-list-item-title>
-								<v-list-item-subtitle class="font-weight-medium">{{adminData.email}}</v-list-item-subtitle>
+								>{{clientData.firstname}} {{clientData.lastname}}</v-list-item-title>
+								<v-list-item-subtitle class="font-weight-medium">{{clientData.email}}</v-list-item-subtitle>
 							</v-list-item-content>
 						</v-list-item>
 					</v-list>
@@ -44,7 +44,7 @@
 					<v-divider></v-divider>
 
 					<v-list>
-						<router-link :to="{name:'AdminProfile'}">
+						<router-link :to="{name:'ClientProfile'}">
 							<v-list-item link>
 								<v-list-item-action>
 									<v-icon>mdi-account-box</v-icon>
@@ -79,12 +79,13 @@ export default {
 			this.$store.dispatch("Global/toggleDrawer");
 		},
 		logout() {
-			store.dispatch("Admin/adminLogout");
+			store.commit("Customer/LOGOUT_USER");
+			this.$router.push({ name: "main-dashboard" });
 		},
 	},
 	computed: {
-		adminData() {
-			return store.getters["Admin/getAdminProfile"];
+		clientData() {
+			return store.getters["Customer/getClientProfile"];
 		},
 		drawerStatus() {
 			return this.$store.getters["Global/getDrawerStatus"];

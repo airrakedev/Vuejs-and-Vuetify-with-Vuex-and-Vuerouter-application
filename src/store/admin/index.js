@@ -10,14 +10,16 @@ const state = {
    adminSessionStatus: session.has('admin-session'),
    adminId: null,
    adminProfile: {},
-   allMovies: []
+   allMovies: [],
+   allClients: []
 }
 
 const getters = {
    getAdminSessionStatus: state => state.adminSessionStatus,
    getAdminId: state => state.adminId,
    getAdminProfile: state => state.adminProfile,
-   getAllMovies: state => state.allMovies
+   getAllMovies: state => state.allMovies,
+   getAllClients: state => state.allClients
 }
 
 
@@ -86,11 +88,22 @@ const mutations = {
    GETTING_ALL_MOVIES(state, data) {
       state.allMovies = data.data
    },
+   GETTING_ALL_CLIENTS(state, data) {
+      state.allClients = data.data
+   },
    FAILED_GETTING_ALL_MOVIES(state) {
       Vue.notify({
          group: 'movie',
          type: 'error',
          title: `Can't find any movie records.`,
+         duration: 6000
+      })
+   },
+   FAILED_GETTING_ALL_CLIENTS(state) {
+      Vue.notify({
+         group: 'movie',
+         type: 'error',
+         title: `Can't find any client records.`,
          duration: 6000
       })
    },
@@ -143,13 +156,26 @@ const actions = {
    gettingAllMovies({ commit }, params) {
       return Api.get('/movie/v1', { params })
          .then(res => {
+            console.log(res, "ljnjk")
             if (!res.data.success) {
                return commit('FAILED_GETTING_ALL_MOVIES')
             }
             return commit('GETTING_ALL_MOVIES', res.data)
          })
          .catch(err => {
-            commit('MOVIE_FAILED_TO_CREATE')
+            commit('FAILED_GETTING_ALL_MOVIES')
+         })
+   },
+   gettingAllClient({ commit }, params) {
+      return Api.get('/customer/v1/all-clients', { params })
+         .then(res => {
+            if (!res.data.success) {
+               return commit('FAILED_GETTING_ALL_CLIENTS')
+            }
+            return commit('GETTING_ALL_CLIENTS', res.data)
+         })
+         .catch(err => {
+            commit('FAILED_GETTING_ALL_CLIENTS')
          })
    },
    // ADMIN LOGOUT

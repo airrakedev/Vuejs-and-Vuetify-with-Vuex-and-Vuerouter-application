@@ -53,14 +53,16 @@
 								<v-list-item-title>My Profile</v-list-item-title>
 							</v-list-item-content>
 						</v-list-item>
-						<v-list-item>
-							<v-list-item-icon>
-								<v-icon>mdi-filmstrip</v-icon>
-							</v-list-item-icon>
-							<v-list-item-content>
-								<v-list-item-title>Records</v-list-item-title>
-							</v-list-item-content>
-						</v-list-item>
+						<router-link :to="{name:'MovieRecord'}">
+							<v-list-item>
+								<v-list-item-icon>
+									<v-icon>mdi-filmstrip</v-icon>
+								</v-list-item-icon>
+								<v-list-item-content>
+									<v-list-item-title>My Records</v-list-item-title>
+								</v-list-item-content>
+							</v-list-item>
+						</router-link>
 						<v-list-item @click="logout()">
 							<v-list-item-icon>
 								<v-icon color="error">mdi-power-standby</v-icon>
@@ -106,3 +108,8 @@ export default {
 	},
 };
 </script>
+<style scoped>
+.v-application a {
+	text-decoration: none;
+}
+</style>

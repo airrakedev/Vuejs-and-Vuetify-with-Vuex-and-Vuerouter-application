@@ -5,7 +5,7 @@
 				<v-card class="mx-auto pb-5" elevation="2">
 					<v-container fluid class="pb-0">
 						<v-row>
-							<v-col cols="2" justify="center" align="center">
+							<v-col cols="2" md="2" justify="center" align="center">
 								<v-card color="cyan lighten-1" class="card-icon" dark>
 									<v-icon large>mdi-account-outline</v-icon>
 								</v-card>
@@ -215,15 +215,15 @@
 					<v-col>
 						<v-card class="pb-5 mt-5">
 							<v-row justify="center" class="pl-2 pb-2">
-								<v-col cols="3" justify="center" align="center" class="pl-5">
+								<v-col cols="3" md="5" align="center" class="pl-5">
 									<v-card color="pink lighten-1" class="card-icon" dark>
 										<v-icon large>mdi-pencil-lock-outline</v-icon>
 									</v-card>
 								</v-col>
-								<v-col cols="9" class="pr-5" align="start">
-									<span class="font-weight-light grey--text body-2">Need to change your password? No problem.</span>
-									<h3 class="font-weight-light grey--text">Just click the link below to get started.</h3>
+								<v-col cols="9" md="7" class="pr-5" align="center">
+									<span class="grey--text body-2">Need to change your password? No problem.</span>
 								</v-col>
+								<h3 class="font-weight-medium grey--text mb-5">Just click the link below to get started.</h3>
 								<router-link :to="{name: 'userChangePassword'}">
 									<v-btn
 										class="font-weight-bold"
@@ -264,13 +264,13 @@ export default {
 					phone: { required },
 					address: {
 						street: { required },
-						zipcode: { required, numeric }
-					}
-				}
+						zipcode: { required, numeric },
+					},
+				},
 			},
 			cityValue: { required },
 			stateValue: { required },
-			countryValue: { required }
+			countryValue: { required },
 		};
 	},
 	data() {
@@ -290,10 +290,10 @@ export default {
 						city: "",
 						state: "",
 						zipcode: "",
-						country: ""
-					}
-				}
-			}
+						country: "",
+					},
+				},
+			},
 		};
 	},
 	mounted() {
@@ -314,44 +314,44 @@ export default {
 		},
 
 		countryValue: {
-			get: function() {
+			get: function () {
 				return {
-					id: this.defaultCountryId
+					id: this.defaultCountryId,
 				};
 			},
-			set: function(id) {
+			set: function (id) {
 				this.userData.profile.address.country = id;
-			}
+			},
 		},
 		stateValue: {
-			get: function() {
+			get: function () {
 				let state = {};
 
 				if (this.userData.profile.address.state) {
 					state = {
-						id: this.userData.profile.address.state.toString()
+						id: this.userData.profile.address.state.toString(),
 					};
 				}
 
 				return state;
 			},
-			set: function(id) {
+			set: function (id) {
 				this.userData.profile.address.state = id;
-			}
+			},
 		},
 		cityValue: {
-			get: function() {
+			get: function () {
 				let state = {};
 				if (this.userAddress.address) {
 					state = {
-						id: this.userAddress.address.city.toString()
+						id: this.userAddress.address.city.toString(),
 					};
 				}
 				return state;
 			},
-			set: function(id) {
+			set: function (id) {
 				this.userData.profile.address.city = id;
-			}
+			},
 		},
 		defaultCountry() {
 			let count = csc.getCountryById(this.defaultCountryId);
@@ -360,16 +360,12 @@ export default {
 			return Array.from(set);
 		},
 		getStates() {
-			let country = this.userData.profile.address.country
-				? this.userData.profile.address.country
-				: this.defaultCountryId;
+			let country = this.userData.profile.address.country ? this.userData.profile.address.country : this.defaultCountryId;
 			return csc.getStatesOfCountry(country.toString());
 		},
 		getCities() {
 			// let city = [];
-			let state = this.userAddress.address
-				? this.userAddress.address.state
-				: this.userData.profile.address.state;
+			let state = this.userAddress.address ? this.userAddress.address.state : this.userData.profile.address.state;
 
 			// if (this.userAddress.address) {
 			//     let count = csc.getCityById(state.toString());
@@ -380,84 +376,70 @@ export default {
 			//     return csc.getCitiesOfState(state.toString());
 			// }
 
-			return csc.getCitiesOfState(
-				this.userData.profile.address.state.toString()
-			);
+			return csc.getCitiesOfState(this.userData.profile.address.state.toString());
 		},
 		userFirstnameErrors() {
 			const errors = [];
 			if (!this.$v.userData.first_name.$dirty) return errors;
-			!this.$v.userData.first_name.required &&
-				errors.push("User's firstname is required.");
+			!this.$v.userData.first_name.required && errors.push("User's firstname is required.");
 			return errors;
 		},
 		userLastnameErrors() {
 			const errors = [];
 			if (!this.$v.userData.last_name.$dirty) return errors;
-			!this.$v.userData.last_name.required &&
-				errors.push("User's lastname is required.");
+			!this.$v.userData.last_name.required && errors.push("User's lastname is required.");
 			return errors;
 		},
 		userCompanyNameErrors() {
 			const errors = [];
 			if (!this.$v.userData.profile.companyName.$dirty) return errors;
-			!this.$v.userData.profile.companyName.required &&
-				errors.push("User's company name is required.");
+			!this.$v.userData.profile.companyName.required && errors.push("User's company name is required.");
 			return errors;
 		},
 		userAccountTypeErrors() {
 			const errors = [];
 			if (!this.$v.userData.account_type.$dirty) return errors;
-			!this.$v.userData.account_type.required &&
-				errors.push("User's account type is required.");
+			!this.$v.userData.account_type.required && errors.push("User's account type is required.");
 			return errors;
 		},
 		userEmailErrors() {
 			const errors = [];
 			if (!this.$v.userData.email.$dirty) return errors;
-			!this.$v.userData.email.required &&
-				errors.push("User's email is required.");
-			!this.$v.userData.email.email &&
-				errors.push("User's email must be valid.");
+			!this.$v.userData.email.required && errors.push("User's email is required.");
+			!this.$v.userData.email.email && errors.push("User's email must be valid.");
 			return errors;
 		},
 		userStreetErrors() {
 			const errors = [];
 			if (!this.$v.userData.profile.address.street.$dirty) return errors;
-			!this.$v.userData.profile.address.street.required &&
-				errors.push("User's address is required.");
+			!this.$v.userData.profile.address.street.required && errors.push("User's address is required.");
 			return errors;
 		},
 		userCityErrors() {
 			const errors = [];
 			if (!this.$v.cityValue.$dirty) return errors;
-			!this.$v.cityValue.required &&
-				errors.push("User's city address is required.");
+			!this.$v.cityValue.required && errors.push("User's city address is required.");
 			return errors;
 		},
 		userStateErrors() {
 			const errors = [];
 			if (!this.$v.stateValue.$dirty) return errors;
-			!this.$v.stateValue.required &&
-				errors.push("User's state address is required.");
+			!this.$v.stateValue.required && errors.push("User's state address is required.");
 			return errors;
 		},
 		userZipcodeErrors() {
 			const errors = [];
 			if (!this.$v.userData.profile.address.zipcode.$dirty) return errors;
-			!this.$v.userData.profile.address.zipcode.required &&
-				errors.push("User's zipcode is required.");
-			!this.$v.userData.profile.address.zipcode.numeric &&
-				errors.push("Only valid zipcode. eg.(90210)");
+			!this.$v.userData.profile.address.zipcode.required && errors.push("User's zipcode is required.");
+			!this.$v.userData.profile.address.zipcode.numeric && errors.push("Only valid zipcode. eg.(90210)");
 			return errors;
 		},
 		userCountryErrors() {
 			const errors = [];
 			if (!this.$v.countryValue.$dirty) return errors;
-			!this.$v.countryValue.required &&
-				errors.push("User's country is required");
+			!this.$v.countryValue.required && errors.push("User's country is required");
 			return errors;
-		}
+		},
 	},
 	methods: {
 		completeUserData() {
@@ -466,28 +448,16 @@ export default {
 				last_name: this.userProfile.last_name,
 				email: this.userProfile.email,
 				profile: {
-					companyName: this.userAddress.companyName
-						? this.userAddress.companyName
-						: "",
+					companyName: this.userAddress.companyName ? this.userAddress.companyName : "",
 					phone: this.userAddress.phone ? this.userAddress.phone : "",
 					address: {
-						street: this.userAddress.address
-							? this.userAddress.address.street
-							: "",
-						city: this.userAddress.address
-							? this.userAddress.address.city
-							: "",
-						state: this.userAddress.address
-							? this.userAddress.address.state
-							: "",
-						zipcode: this.userAddress.address
-							? this.userAddress.address.zipcode
-							: "",
-						country: this.userAddress.address
-							? this.userAddress.address.country
-							: ""
-					}
-				}
+						street: this.userAddress.address ? this.userAddress.address.street : "",
+						city: this.userAddress.address ? this.userAddress.address.city : "",
+						state: this.userAddress.address ? this.userAddress.address.state : "",
+						zipcode: this.userAddress.address ? this.userAddress.address.zipcode : "",
+						country: this.userAddress.address ? this.userAddress.address.country : "",
+					},
+				},
 			};
 
 			this.userData = userData;
@@ -496,10 +466,7 @@ export default {
 			this.$v.$touch();
 			if (this.$v.$pending || this.$v.$error) return;
 
-			this.userData.profile.address.country = _.get(
-				this.countryValue,
-				"id"
-			);
+			this.userData.profile.address.country = _.get(this.countryValue, "id");
 			this.userData.profile.address.state = _.get(this.stateValue, "id");
 			this.userData.profile.address.city = _.get(this.cityValue, "id");
 
@@ -512,20 +479,15 @@ export default {
 			// SUBMIT UPDATED PROFILE
 			store
 				.dispatch("AuthUser/updateProfile", this.userData)
-				.then(res => {
+				.then((res) => {
 					if (!res.data.errors) {
 						console.log(res, "Update Success");
 						this.completeUserData();
 					}
 				})
-				.catch(err =>
-					console.log(
-						err,
-						"Unable to update your profile from profile page"
-					)
-				);
-		}
-	}
+				.catch((err) => console.log(err, "Unable to update your profile from profile page"));
+		},
+	},
 };
 </script>
 

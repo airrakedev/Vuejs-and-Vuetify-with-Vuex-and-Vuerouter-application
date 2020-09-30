@@ -5,6 +5,7 @@ import Nprogress from 'nprogress';
 import 'nprogress/nprogress.css'
 
 import store from 'Store'
+import session from 'Session'
 
 Vue.use(VueRouter)
 
@@ -25,6 +26,11 @@ const routes = [
       name: 'AdminLogin',
       component: () => import('Views/admin/login'),
       beforeEnter: (to, from, next) => {
+
+         if (store.getters['Customer/getClientSession']) {
+            next({ name: 'MovieRecord' })
+         }
+
          if (store.getters['Admin/getAdminSessionStatus']) {
             next({ name: 'AdminDashboard' })
          } else {
@@ -70,7 +76,48 @@ const routes = [
                requireAuth: true
             }
          }
-      ]
+      ],
+      beforeEnter: (to, from, next) => {
+         if (store.getters['Admin/getAdminSessionStatus']) {
+            next()
+         } else {
+            next({ name: 'main-dashboard' })
+         }
+      }
+   },
+   {
+      path: '/client',
+      redirect: 'client/record',
+      component: () => import('Views/client'),
+      children: [
+         {
+            path: 'record',
+            name: 'MovieRecord',
+            component: () => import('Views/client/movieRecord'),
+            meta: {
+               requireAuth: true
+            }
+         },
+         {
+            path: 'client-profile',
+            name: 'ClientProfile',
+            component: () => import('Views/client/profile'),
+            meta: {
+               requireAuth: true
+            }
+         },
+      ],
+      beforeEnter: (to, from, next) => {
+         if (store.getters['Admin/getAdminSessionStatus']) {
+            next({ name: 'AdminDashboard' })
+         }
+
+         if (store.getters['Customer/getClientSession']) {
+            next()
+         } else {
+            next({ name: 'main-dashboard' })
+         }
+      }
    }
 ]
 
@@ -84,17 +131,13 @@ router.beforeEach((to, from, next) => {
    Nprogress.start()
 
    if (to.matched.some(route => route.meta.requireAuth)) {
-      if (store.getters['Admin/getAdminSessionStatus']) {
+
+      if (session.exists()) {
          next()
       } else {
          next({ name: 'main-dashboard' })
       }
    } else {
-      // if (store.getters[ 'Admin/getAdminSessionStatus' ]) {
-      //   next({ name: 'AdminDashboard' })
-      // } else {
-      //   next()
-      // }
       next()
    }
 

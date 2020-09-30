@@ -77,7 +77,7 @@ const mutations = {
          type: 'success',
          title: 'Registration Success!',
          text: this.$session.exists() ? 'You have successfully created customer account!' : 'Please login your account.',
-         duration: 5000
+         duration: 4500
       })
    },
    FAILED_SUBMIT_CLIENT_REGISTRATION_NOTIFY(state, res) {
@@ -86,7 +86,7 @@ const mutations = {
          type: 'error',
          title: 'Failed Registration!',
          text: session.exists() ? 'You\'ve failed to create customer account!' : 'Fail to submit your registration.',
-         duration: 5000
+         duration: 4500
       })
    },
    ADDING_MY_MOVIE_LIST(state, movie) {
@@ -124,7 +124,7 @@ const mutations = {
          type: 'warning',
          title: 'Logging Out!',
          text: 'You are now logged out.',
-         duration: 6000
+         duration: 4500
       })
    },
 
@@ -135,7 +135,7 @@ const mutations = {
          type: 'error',
          title: 'Unable to login.',
          text: res.message,
-         duration: 5000
+         duration: 4500
       })
    }
 }

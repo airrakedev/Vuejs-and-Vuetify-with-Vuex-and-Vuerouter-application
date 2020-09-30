@@ -1,7 +1,7 @@
 <template>
 	<v-dialog v-model="registrationDialog" persistent max-width="800px">
 		<v-card>
-			<v-toolbar dark elevation="1">
+			<v-toolbar dark elevation="0">
 				<v-toolbar-title lass="headline">Registration Form</v-toolbar-title>
 
 				<v-spacer></v-spacer>

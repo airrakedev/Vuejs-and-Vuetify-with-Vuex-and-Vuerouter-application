@@ -13,55 +13,31 @@
 				</v-list-item-avatar>
 
 				<v-list-item-content>
-					<v-list-item-title>{{adminData.firstname}} {{adminData.lastname}}</v-list-item-title>
-					<v-list-item-subtitle class="font-weight-medium">{{adminData.email}}</v-list-item-subtitle>
+					<v-list-item-title>{{clientData.firstname}} {{clientData.lastname}}</v-list-item-title>
+					<v-list-item-subtitle class="font-weight-medium">{{clientData.email}}</v-list-item-subtitle>
 				</v-list-item-content>
 			</v-list-item>
 
 			<v-divider></v-divider>
 			<!-- DASHBOARD -->
-			<router-link :to="{name:'AdminDashboard'}">
+			<router-link :to="{name:'MovieRecord'}">
 				<v-list-item link class="mt-5 pl-2">
 					<v-list-item-avatar>
 						<v-icon>mdi-view-dashboard-outline</v-icon>
 					</v-list-item-avatar>
 					<v-list-item-content>
-						<v-list-item-title class="font-weight-light">Dashboard</v-list-item-title>
+						<v-list-item-title class="font-weight-medium">Rented Movies</v-list-item-title>
 					</v-list-item-content>
 				</v-list-item>
 			</router-link>
 
-			<!-- CREATE MOVIES -->
-
-			<v-list-item link @click="displayFormMovie" class="pl-2">
-				<v-list-item-avatar>
-					<v-icon>mdi-filmstrip</v-icon>
-				</v-list-item-avatar>
-				<v-list-item-content>
-					<v-list-item-title class="font-weight-light">Create Movie</v-list-item-title>
-				</v-list-item-content>
-			</v-list-item>
-
-			<!-- RETURN MOVIES -->
-			<router-link :to="{name:'AdminMovieList'}">
+			<router-link :to="{name:'main-dashboard'}">
 				<v-list-item link class="pl-2">
 					<v-list-item-avatar>
-						<v-icon>mdi-movie-roll</v-icon>
+						<v-icon>mdi-arrow-left</v-icon>
 					</v-list-item-avatar>
 					<v-list-item-content>
-						<v-list-item-title class="font-weight-light">All Movies</v-list-item-title>
-					</v-list-item-content>
-				</v-list-item>
-			</router-link>
-
-			<!-- ALL CLIENTS -->
-			<router-link :to="{name:'AllClientList'}">
-				<v-list-item link class="pl-2">
-					<v-list-item-avatar>
-						<v-icon>mdi-account-group-outline</v-icon>
-					</v-list-item-avatar>
-					<v-list-item-content>
-						<v-list-item-title class="font-weight-light">All Clients</v-list-item-title>
+						<v-list-item-title class="font-weight-medium">Back to Dashboard</v-list-item-title>
 					</v-list-item-content>
 				</v-list-item>
 			</router-link>
@@ -98,8 +74,8 @@ export default {
 		},
 	},
 	computed: {
-		adminData() {
-			return store.getters["Admin/getAdminProfile"];
+		clientData() {
+			return store.getters["Customer/getClientProfile"];
 		},
 
 		movieDialogStatus() {

@@ -54,6 +54,9 @@
 			<v-divider></v-divider>
 			<!-- Total -->
 			<v-list-item v-if="allMyMovieList.length">
+				<v-list-item-content class="mr-4 pr-3">
+					<v-btn color="warning" width="60" class="ma-2 white--text">Checkout</v-btn>
+				</v-list-item-content>
 				<v-list-item-content>
 					<v-list-item-title>Grand Total</v-list-item-title>
 				</v-list-item-content>

@@ -2,7 +2,7 @@
 	<v-row justify="center">
 		<v-dialog v-model="movieDialogStatus" persistent max-width="900px">
 			<v-card>
-				<v-app-bar height="80" dark color="cyan accent-4" elevation="0">
+				<v-app-bar height="80" dark color="teal" elevation="0">
 					<v-toolbar-title class="pl-5">{{title}}</v-toolbar-title>
 
 					<v-spacer></v-spacer>
@@ -14,7 +14,7 @@
 							<v-col md="8">
 								<v-row>
 									<v-col cols="12" md="12" class="pt-1">
-										<label for>Movie Title</label>
+										<label for class="font-weight-bold">Movie Title</label>
 										<v-text-field
 											v-model="movieData.title"
 											:error-messages="movieTitleErrors"
@@ -27,12 +27,13 @@
 									</v-col>
 
 									<v-col cols="12" md="12" class="pt-1">
-										<label for>Actor/s</label>
+										<label for class="font-weight-bold">Actor/s</label>
 										<v-chip-group column v-if="actors.length">
 											<v-chip
 												v-for="(actor, i) in actors"
 												:key="i"
 												color="teal"
+												elevation="2"
 												close
 												dark
 												@click:close="removeChip(actor)"
@@ -43,7 +44,7 @@
 												<v-text-field class="mt-1" v-model="newActor" placeholder="Add actor/s" solo required></v-text-field>
 											</v-col>
 											<v-col cols="1" class="mb-5">
-												<v-btn fab x-small dark color="cyan accent-4" class="ml-2" @click="appendActors()">
+												<v-btn fab x-small dark color="teal" elevation="2" class="ml-2" @click="appendActors()">
 													<v-icon>mdi-plus</v-icon>
 												</v-btn>
 											</v-col>
@@ -54,13 +55,14 @@
 
 							<!-- IMAGE -->
 							<v-col md="4" class="pt-1">
-								<label for>Movie Poster</label>
+								<label for class="font-weight-bold">Movie Poster</label>
 								<v-file-input
 									class="mt-1"
 									solo
+									ref="fileInput"
 									:rules="imageRules"
 									accept="image/png, image/jpeg, image/bmp"
-									placeholder="Pick an avatar"
+									placeholder="Pick movie poster"
 									prepend-icon="mdi-camera"
 									label="Avatar"
 									@change="uploadImage"
@@ -80,7 +82,7 @@
 								</v-row>
 							</v-col>
 							<v-col cols="6" md="6" class="pt-1 pb-0">
-								<label for>Genre</label>
+								<label for class="font-weight-bold">Genre</label>
 								<v-select
 									v-model="movieData.genre"
 									:error-messages="movieGenreErrors"
@@ -98,7 +100,7 @@
 								></v-select>
 							</v-col>
 							<v-col cols="3" md="3" class="pt-1 pb-0">
-								<label for>Quantity</label>
+								<label for class="font-weight-bold">Quantity</label>
 								<v-text-field
 									v-model="movieData.inStock"
 									:error-messages="movieInstockErrors"
@@ -111,7 +113,7 @@
 								></v-text-field>
 							</v-col>
 							<v-col cols="3" md="3" class="pt-1 pb-0">
-								<label for>Rent</label>
+								<label for class="font-weight-bold">Rent</label>
 								<v-text-field
 									v-model="movieData.rentPrice"
 									:error-messages="movieRentPriceErrors"
@@ -123,7 +125,7 @@
 								></v-text-field>
 							</v-col>
 							<v-col cols="12" md="12" class="pt-1 pb-0">
-								<label for>Description</label>
+								<label for class="font-weight-bold">Description</label>
 								<v-textarea
 									class="mt-2"
 									v-model="movieData.description"
@@ -131,11 +133,11 @@
 									solo
 									color="deep-purple"
 									placeholder="Movie description"
-									rows="5"
+									rows="4"
 								></v-textarea>
 							</v-col>
 							<v-col cols="12" md="12" class="pt-1 pb-0">
-								<label for>Plot</label>
+								<label for class="font-weight-bold">Plot</label>
 								<v-textarea
 									v-model="movieData.plot"
 									class="mt-1"
@@ -150,11 +152,11 @@
 					</v-container>
 				</v-card-text>
 				<v-divider></v-divider>
-				<v-footer padless color="grey lighten-4" class="pr-5 pt-3 pb-3" align="end" justify="end">
+				<v-footer padless color="grey lighten-4" class="pr-5" align="end" justify="end">
 					<v-row align="end" justify="end">
 						<v-col>
-							<v-btn color="error" @click="closeMovieForm" height="45" width="120">Close</v-btn>
-							<v-btn class="ml-3 mr-5" color="teal" @click="submit()" dark height="45" width="120">Submit</v-btn>
+							<v-btn color="error" @click="closeMovieForm" height="40" width="120">Close</v-btn>
+							<v-btn class="ml-3 mr-5" color="teal" @click="submit()" dark height="40" width="120">Submit</v-btn>
 						</v-col>
 					</v-row>
 				</v-footer>
@@ -248,9 +250,7 @@ export default {
 				this.checkIfUploadImage = false;
 				return store.commit("Admin/INVALID_PROFILE_IMAGE");
 			}
-			// let data = new FormData();
-			// data.append("movieProfile", event);
-			// this.movieProfile = data;
+
 			this.movieProfile = event;
 
 			// TO PREVIEW IMAGE
@@ -296,10 +296,6 @@ export default {
 			// FORM DATA
 			let formData = new FormData();
 
-			// Object.keys(this.movieData).forEach(key =>
-			//     formData.append(key, this.movieData[key])
-			// );
-
 			formData.append("movieProfile", this.movieProfile);
 			formData.append("title", this.movieData.title);
 			formData.append("actor", JSON.stringify(this.createdActors));
@@ -311,16 +307,19 @@ export default {
 			formData.append("plot", this.movieData.plot);
 
 			store.dispatch("Admin/createMovie", formData).then((res) => {
-				console.log("Created successfully");
+				// console.log("Created successfully");
 				// CLOSE FORM
 				this.closeMovieForm();
 				// CLEAR FORM FIELDS
 				this.clearFields();
 			});
-			// console.log(typeof this.movieData.genre);
-			// console.log("Genre", JSON.stringify(this.movieData.genre));
 		},
 		clearFields() {
+			// default poster image
+			this.previewImage = this.defaultMovieUploadImage;
+			this.movieProfile = null;
+			this.$refs.fileInput.reset();
+
 			this.movieData.title = "";
 			this.movieData.genre = "";
 			this.movieData.inStock = "";

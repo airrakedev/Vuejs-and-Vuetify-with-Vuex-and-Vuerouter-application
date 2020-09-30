@@ -4,13 +4,13 @@
 			<v-col>
 				<v-card class="mx-auto pa-4 pt-0" elevation="1">
 					<v-row>
-						<v-col cols="1" justify="center" align="center">
-							<v-card color="pink lighten-1" class="card-icon" dark>
+						<v-col cols="1" md="2" justify="center" align="center">
+							<v-card color="pink lighten-1" class="card-icon" dark elevation="5">
 								<v-icon large>mdi-account-group-outline</v-icon>
 							</v-card>
 						</v-col>
 						<v-col>
-							<h2 class="pt-5 font-weight-light">List of Clients</h2>
+							<h2 class="pt-5 green--text">All Clients</h2>
 						</v-col>
 					</v-row>
 					<v-card-title class="mr-5 pr-5">
@@ -21,7 +21,7 @@
 									v-model="search"
 									append-icon="mdi-magnify"
 									label="Search"
-									class="font-weight-light"
+									class="font-weight-medium"
 									background-color="grey lighten-4"
 									light
 									color="primary"
@@ -38,21 +38,71 @@
 							<v-col class="pa-5 pt-0">
 								<v-data-table
 									:headers="headers"
-									:items="desserts"
-									sort-by="calories"
+									:items="allClients"
 									class="font-weight-light"
 									id="customBorder"
+									:search="search"
 								>
-									<!-- <template v-slot:top>
-								<v-toolbar flat color="white"></v-toolbar>
+									<template v-slot:body="{items}">
+										<tbody>
+											<tr v-for="(item, i) in items" :key="i">
+												<td>
+													<v-list-item class="pt-1 pb-2">
+														<v-list-item-avatar>
+															<v-img :src="getClientAvatar('')"></v-img>
+														</v-list-item-avatar>
+
+														<v-list-item-content>
+															<v-list-item-title>
+																<h4 class="teal--text pl-2">{{item.firstname}} {{item.lastname}}</h4>
+															</v-list-item-title>
+															<v-list-item-subtitle class="mt-1">
+																<!-- <v-chip class="ma-2 font-weight-bold" color="blue-grey" label text-color="white"> -->
+																<span class="font-weight-bold blue-grey--text">
+																	<v-icon color="blue-grey">mdi-map-marker</v-icon>
+																	{{item.address}}
+																</span>
+																<!-- </v-chip> -->
+															</v-list-item-subtitle>
+														</v-list-item-content>
+													</v-list-item>
+												</td>
+												<td>
+													<v-chip class="ma-2 font-weight-bold" color="green" label text-color="white">
+														<v-icon>mdi-cellphone-iphone</v-icon>
+														+{{item.phone}}
+													</v-chip>
+												</td>
+
+												<td>
+													<v-chip class="ma-2 font-weight-bold" color="warning" label text-color="white">
+														<v-avatar class="pl-1">
+															<v-icon class="mr-1">mdi-email</v-icon>
+														</v-avatar>
+														{{item.email}}
+													</v-chip>
+												</td>
+												<td>
+													<v-chip
+														class="ma-2 font-weight-bold"
+														color="indigo"
+														text-color="white"
+													>{{(item.status)? 'Active' : 'Inactive'}}</v-chip>
+												</td>
+												<td>
+													<v-btn class="mr-1" height="35" width="40" dark small color="green">
+														<v-icon dark>mdi-square-edit-outline</v-icon>
+													</v-btn>
+													<v-btn class="ml-1" height="35" width="40" dark small color="error">
+														<v-icon dark>mdi-close</v-icon>
+													</v-btn>
+												</td>
+											</tr>
+										</tbody>
+									</template>
+									<!-- <template v-slot:no-data>
+										<span>No data available</span>
 									</template>-->
-									<template v-slot:item.actions="{ item }">
-										<v-icon class="mr-5" @click="editItem(item)">mdi-square-edit-outline</v-icon>
-										<v-icon color="error" @click="deleteItem(item)">mdi-trash-can-outline</v-icon>
-									</template>
-									<template v-slot:no-data>
-										<v-btn color="primary" @click="initialize">Reset</v-btn>
-									</template>
 								</v-data-table>
 							</v-col>
 						</v-row>
@@ -64,142 +114,90 @@
 </template>
 
 <script>
+import store from "Store";
+import numeral from "numeral";
 export default {
-	name: "AllClientList",
+	name: "AdminMovieList",
 	data() {
 		return {
 			dialog: false,
 			search: "",
 			headers: [
 				{
-					text: "Dessert (100g serving)",
-					class:
-						"font-weight-regular subtitle-1 grey lighten-3 pt-5 pb-5 primary--text pt-5 pb-5",
-					align: "start",
+					text: "Client",
+					class: "font-weight-regular subtitle-1 grey lighten-4 pt-5 pb-5 primary--text pt-5 pb-5",
+					align: "",
 					sortable: false,
-					value: "name"
+					value: "firstname",
+					width: "200",
 				},
 				{
-					text: "Calories",
-					value: "calories",
-					class:
-						"font-weight-regular subtitle-1 grey lighten-3 pt-5 pb-5 primary--text"
+					text: "Phone",
+					value: "phone",
+					class: "font-weight-regular subtitle-1 grey lighten-4 pt-5 pb-5 primary--text",
+					width: "200",
 				},
 				{
-					text: "Fat (g)",
-					value: "fat",
-					class:
-						"font-weight-regular subtitle-1 grey lighten-3 pt-5 pb-5 primary--text"
+					text: "Email",
+					value: "lastname",
+					class: "font-weight-regular subtitle-1 grey lighten-4 pt-5 pb-5 primary--text",
+					width: "180",
 				},
 				{
-					text: "Carbs (g)",
-					value: "carbs",
-					class:
-						"font-weight-regular subtitle-1 grey lighten-3 pt-5 pb-5 primary--text"
-				},
-				{
-					text: "Protein (g)",
-					value: "protein",
-					class:
-						"font-weight-regular subtitle-1 grey lighten-3 pt-5 pb-5 primary--text"
+					text: "Status",
+					value: "actor",
+					class: "font-weight-regular subtitle-1 grey lighten-4 pt-5 pb-5 primary--text",
+					width: "100",
 				},
 				{
 					text: "Actions",
-					value: "actions",
+					value: "",
 					sortable: false,
-					class:
-						"font-weight-regular subtitle-1 grey lighten-3 pt-5 pb-5 primary--text"
-				}
+					class: "font-weight-regular subtitle-1 grey lighten-4 pt-5 pb-5 primary--text",
+					width: "130",
+				},
 			],
-			desserts: [
-				{
-					name: "Frozen Yogurt",
-					calories: 159,
-					fat: 6.0,
-					carbs: 24,
-					protein: 4.0
-				},
-				{
-					name: "Ice cream sandwich",
-					calories: 237,
-					fat: 9.0,
-					carbs: 37,
-					protein: 4.3
-				},
-				{
-					name: "Eclair",
-					calories: 262,
-					fat: 16.0,
-					carbs: 23,
-					protein: 6.0
-				},
-				{
-					name: "Cupcake",
-					calories: 305,
-					fat: 3.7,
-					carbs: 67,
-					protein: 4.3
-				},
-				{
-					name: "Gingerbread",
-					calories: 356,
-					fat: 16.0,
-					carbs: 49,
-					protein: 3.9
-				},
-				{
-					name: "Jelly bean",
-					calories: 375,
-					fat: 0.0,
-					carbs: 94,
-					protein: 0.0
-				},
-				{
-					name: "Lollipop",
-					calories: 392,
-					fat: 0.2,
-					carbs: 98,
-					protein: 0
-				},
-				{
-					name: "Honeycomb",
-					calories: 408,
-					fat: 3.2,
-					carbs: 87,
-					protein: 6.5
-				},
-				{
-					name: "Donut",
-					calories: 452,
-					fat: 25.0,
-					carbs: 51,
-					protein: 4.9
-				},
-				{
-					name: "KitKat",
-					calories: 518,
-					fat: 26.0,
-					carbs: 65,
-					protein: 7
-				}
-			],
-			editedIndex: -1,
-			editedItem: {
-				name: "",
-				calories: 0,
-				fat: 0,
-				carbs: 0,
-				protein: 0
-			},
-			defaultItem: {
-				name: "",
-				calories: 0,
-				fat: 0,
-				carbs: 0,
-				protein: 0
-			}
+
+			movies: [],
 		};
-	}
+	},
+	computed: {
+		allClients() {
+			const getAllClients = store.getters["Admin/getAllClients"];
+			return getAllClients.docs;
+		},
+	},
+	methods: {
+		randomColor() {
+			const r = () => Math.floor(256 * Math.random());
+
+			return `rgb(${r()}, ${r()}, ${r()})`;
+		},
+		getClientAvatar(poster) {
+			let url = process.env.NODE_ENV !== "development" ? process.env.VUE_APP_PROD_URL : process.env.VUE_APP_API_URL;
+			let image = !poster.length
+				? "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAMFBMVEXFxcX////CwsLGxsb7+/vT09PJycn19fXq6urb29ve3t7w8PDOzs7n5+f5+fnt7e30nlkBAAAFHUlEQVR4nO2dC5qqMAyFMTwUBdz/bq+VYYrKKJCkOfXmXwHna5uTpA+KwnEcx3Ecx3Ecx3Ecx3Ecx3Ecx3Ecx3Ecx3EcA2iO9cdIc5PUdO257y+BU39u66b4HplE3fk6VIcnqmNfl1+gksr6+iIucjl3WYukor7+re6Hoe1y1UhNO3zUd+fUFRmKpOa0Tt6dY5ubRCrOG/QFLk1WGmnt/JxzykcjdZ/jyxJDLlOV2l36AtcsJJb9boG3YcR3DuqODIE3ztYKPkDdmwRmpUToUaSaq++AvRgZMWbOpbQW8hdCAm8ZDugoikzREdCJ2okJPBx6azFLNOwoOgcxojJ98JkaTSJxMpklKrCAKhZGI0drTY/wU5lXoJYibannV9NYy4oozNEAkPHTjop+DTDxVGkIgYJNoyQQJtiIW+EMjGAjm649AjGIaqswcEFQKJ2QPlJbqytki6ZXAAZRJ52J2McaUowzAfs+uFzrYhnzaapphiPWdaJWShqxjqa6kTTQ205TVbsfMa6htL0iYOsXpJrQjHSmCkv1QGPtiHqlYcQ21Gj7fcDU8xOEUuNgSltPzexh+HqFlanCBHZ4OLhCV+gK/3OF6vWvucLv98MUOY2pwu/PS/+D2qJU7pYGbOvDFDW+bbON9p3o3oRxn0bfLgZTgSn6pSfrtr56qLHemtHPTK2319SzGvtjQ9qeb39WgS66Cm073nd0U1PzDdJCO3Gzn6TKpl9Zq7ujGWsQhlA3NwWIMwG9zM08Y/tBrR9VWeczv5CSQuuUNKIUTk23ZJ5RKfVhjnkXotfWIlgX2BSCDYbZR+QTcLhb3dKZDUY2M0d4KWItwhHRah/zsrOgKw4wycwjcgEVcgQDQo23CqSiWEJkFAfod2oE1uIFdA1OsCPqFXYNTjCfb8Ez+iX2x5sKLlVbhtqdDcar9ZevhnbZxoBUD35k23t0d304LYs1ELVbnfFaZ/REJJX9niP8Q19moZGo3m8XR/yBvOnjFfsXcI2c8ZuNo7WMP5HQh6yRGrlmFOJTnyTcT+zRlqPUBI2gTVWNUzUna1ERgecgF4GpNBQ38jGqxVLzQA1A31Rrhk6Yz9QEh/WND0GnuG9huhiTXJkxfAizTHLr6cbJKN6UCU6x/2DTRE1xEeEXi3O0ZUqBN4nJRzHhFB1JPlFTBZlI2kQ8zc3KJ1Le8DIRmFJiknuVS6RK4Ej/JtBfJErDSzOBiY4wJHX6Z1I4v1GUmdCPNirnLLeg3oJLcbX5PcpHNbRvOa1A956QmRPOUXVF+zkaUJynpkYR0bOMJH2nNej1pqyV/aKkz9jr5yj5vrXXz1F5SQLACiMapmierj2ikLyleKdlA/I/2oFxiglxx9B+mHwz0lf34IZQfhDRhlD6bhvgEAoPYooHkTczSIZTLC+cEExsoNKZiGBiY9cCfo/Y/SjIOBMQizWWTe73CMUasJx7jlD+DdKdWUKoY4PRYFtGpO0G1Lx4RaadgTtJhf4fiGqGIwKWCGuGIwKWqP+7IxYCzygjR9IAO5pC7Da9g70TBVpWRNgFBlgT8RV2WxHbKwJMv4BOaEaYaU2K16yZMN/qgV+G7IWIvwyZCxHeDQMsR8wg0DBDDXB5H2EV+hkEGmaoySHQsEJNFoGGFWrAq98JRhUMX1iMMMqLLEIpK5jCbd4vw9nSt/72lewXiN6jmdjfq8Hdknlk92ZwJnbIMMRM7JBhiFlUFoHd1UWaP1QKsPsHA5mkNB+Smn9JqV3wskatnQAAAABJRU5ErkJggg=="
+				: `${url}/uploads/${image}`;
+			return image;
+		},
+		async getAllClients() {
+			const params = {
+				limit: 500,
+				page: 1,
+				sort: { firstname: 1 },
+			};
+			const clients = await store.dispatch("Admin/gettingAllClient", params);
+		},
+	},
+	created() {
+		this.getAllClients();
+	},
+	filters: {
+		formatNumber(val) {
+			if (!val) return "";
+			return numeral(val).format("0.00");
+		},
+	},
 };
 </script>
 
@@ -210,15 +208,15 @@ export default {
 	border: 1px solid rgba(0, 0, 0, 0.12) !important;
 }
 
-.theme--light.v-text-field--solo-inverted.v-input--is-focused
-	> .v-input__control
-	> .v-input__slot
-	input {
+.theme--light.v-text-field--solo-inverted.v-input--is-focused > .v-input__control > .v-input__slot input {
 	color: #000 !important;
 }
 .card-icon {
 	margin-top: -30px;
 	padding-top: 35px;
 	padding-bottom: 35px;
+}
+.v-btn:not(.v-btn--round).v-size--small {
+	min-width: unset;
 }
 </style>
