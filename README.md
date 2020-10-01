@@ -12,6 +12,7 @@ Link to the site, <a target="_blank" href="https://competent-shockley-45b27e.net
 
 Sample user accounts:
 <br/>
+<br/>
 Clients:
   <br/>
   email:john_travolta@gmail.com
@@ -24,8 +25,9 @@ Admin:
   email: email@email.com
   <br/>
   pass: password
-  <br/>
   
+  <br/>
+  <br/>
   
 To start using the application
 
