@@ -1,6 +1,6 @@
-# A Movie Store Management
+# A Vuejs application that utilizes Vuex
 
-A Vuejs application for movie rentals, a movie listing with different Genres. Customers can select listed movies and can be added to their cart. Before adding movies to a cart, customers should signup for account as credentials or can logged in to current accounts. 
+An application for movies, a movie listing with different Genres. Customers can choose a bunch of listed movies, if they the the movie they can add to their cart. Before adding movies to a cart, customers should signup for account as credentials or can logged in to current accounts. 
 
 An admin will create or update the movies availability, also it manages and track its records on movies and its customers records.
 
