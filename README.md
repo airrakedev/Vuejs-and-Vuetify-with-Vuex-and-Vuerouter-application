@@ -1,12 +1,10 @@
-# A Vuejs application that utilizes Vuex
+# A Vuejs application that leverages Vuex, VueRouter, Axios, and Vuetify.
 
-An application for movies, a movie listing with different Genres. Customers can choose a bunch of listed movies, if they the the movie they can add to their cart. Before adding movies to a cart, customers should signup for account as credentials or can logged in to current accounts. 
+An application for movies, a movie listing with different Genres. Customers can choose a bunch of movie listings and add to their cart. Before adding movies to a cart, customers are required to signup an account, if they already logged in, they can start choosing movies. 
 
-An admin will create or update the movies availability, also it manages and track its records on movies and its customers records.
+The application has an Administrator dashboard. The admin is responsible for managing the movie inventories, like adding movie inventory or updating movie details. The admin can also track or monitor client records.
 
-Once the customers checkout it will automatically popup to Admin dashboard that customers have check out and wanted to pay for its rentals. Once customers return all movies rented it will be managed by Admin to update the customers rentals records and the movie listing.
-
-This application designed to utilize the power of Vuetify combined with Routing setup and Vuex Management and other packages such as Axios.
+The application also implements the routing security of each user accounts. It can track which users can access a specific page.
 
 Link to the site, <a target="_blank" href="https://competent-shockley-45b27e.netlify.app">Click here</a>
 
