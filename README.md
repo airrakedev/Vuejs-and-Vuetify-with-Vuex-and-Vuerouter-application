@@ -12,9 +12,9 @@ Link to the site, <a target="_blank" href="https://competent-shockley-45b27e.net
 
 User accounts:
 
-Clients:
-  email:john_travolta@gmail.com
-  pass: password
+Clients:<b/>
+  email:john_travolta@gmail.com<br/>
+  pass: password</br>
   
 Admin:
   email: email@email.com
