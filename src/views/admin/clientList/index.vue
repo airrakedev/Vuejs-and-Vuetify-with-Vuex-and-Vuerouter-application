@@ -58,7 +58,7 @@
 															</v-list-item-title>
 															<v-list-item-subtitle class="mt-1">
 																<!-- <v-chip class="ma-2 font-weight-bold" color="blue-grey" label text-color="white"> -->
-																<span class="font-weight-bold blue-grey--text">
+																<span class="font-weight-regular blue-grey--text">
 																	<v-icon color="blue-grey">mdi-map-marker</v-icon>
 																	{{item.address}}
 																</span>
@@ -90,10 +90,10 @@
 													>{{(item.status)? 'Active' : 'Inactive'}}</v-chip>
 												</td>
 												<td>
-													<v-btn class="mr-1" height="35" width="40" dark small color="green">
+													<v-btn class="mr-1" height="30" width="35" dark small color="green">
 														<v-icon dark>mdi-square-edit-outline</v-icon>
 													</v-btn>
-													<v-btn class="ml-1" height="35" width="40" dark small color="error">
+													<v-btn class="ml-1" height="30" width="35" dark small color="error">
 														<v-icon dark>mdi-close</v-icon>
 													</v-btn>
 												</td>
@@ -125,7 +125,7 @@ export default {
 			headers: [
 				{
 					text: "Client",
-					class: "font-weight-regular subtitle-1 grey lighten-4 pt-5 pb-5 primary--text pt-5 pb-5",
+					class: "font-weight-bold grey lighten-4 pt-5 pb-5 blue-grey--text pt-5 pb-5",
 					align: "",
 					sortable: false,
 					value: "firstname",
@@ -134,26 +134,26 @@ export default {
 				{
 					text: "Phone",
 					value: "phone",
-					class: "font-weight-regular subtitle-1 grey lighten-4 pt-5 pb-5 primary--text",
+					class: "font-weight-bold grey lighten-4 pt-5 pb-5 blue-grey--text",
 					width: "200",
 				},
 				{
 					text: "Email",
 					value: "lastname",
-					class: "font-weight-regular subtitle-1 grey lighten-4 pt-5 pb-5 primary--text",
+					class: "font-weight-bold grey lighten-4 pt-5 pb-5 blue-grey--text",
 					width: "180",
 				},
 				{
 					text: "Status",
 					value: "actor",
-					class: "font-weight-regular subtitle-1 grey lighten-4 pt-5 pb-5 primary--text",
+					class: "font-weight-bold grey lighten-4 pt-5 pb-5 blue-grey--text",
 					width: "100",
 				},
 				{
 					text: "Actions",
 					value: "",
 					sortable: false,
-					class: "font-weight-regular subtitle-1 grey lighten-4 pt-5 pb-5 primary--text",
+					class: "font-weight-bold grey lighten-4 pt-5 pb-5 blue-grey--text",
 					width: "130",
 				},
 			],

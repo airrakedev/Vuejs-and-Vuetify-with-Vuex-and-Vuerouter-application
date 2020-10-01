@@ -8,8 +8,8 @@
 					color="primary"
 					rounded
 					elevation="1"
-					class="font-weight-medium mr-4 pl-8 pr-8"
-					height="40"
+					class="font-weight-medium mr-4 pl-6 pr-6"
+					height="35"
 					@click="registerUser"
 				>Signup</v-btn>
 				<v-btn
@@ -17,8 +17,8 @@
 					rounded
 					elevation="1"
 					@click="showLoginForm"
-					height="40"
-					class="font-weight-medium pl-8 pr-8"
+					height="35"
+					class="font-weight-medium pl-6 pr-6"
 				>Login</v-btn>
 			</div>
 

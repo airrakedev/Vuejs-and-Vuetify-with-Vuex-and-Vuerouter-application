@@ -71,6 +71,7 @@
 <script>
 import { validationMixin } from "vuelidate";
 const { required, email } = require("vuelidate/lib/validators");
+import route from "Router";
 
 import { eventEmitter } from "Event";
 
@@ -117,6 +118,14 @@ export default {
 
 			delete this.newUser.confirmPassword;
 
+			console.log(this.$store.getters["Admin/getAdminSessionStatus"], "yati ka");
+			if (this.$store.getters["Admin/getAdminSessionStatus"]) {
+				this.$store.commit("Customer/NO_DOUBLE_LOGIN");
+				this.closeLogin();
+				route.push({ name: "AdminDashboard" });
+				console.log("boom");
+				return;
+			}
 			this.$store
 				.dispatch("Customer/loginUser", this.newUser)
 				.then((res) => {

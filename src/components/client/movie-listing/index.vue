@@ -55,7 +55,7 @@
 			<!-- Total -->
 			<v-list-item v-if="allMyMovieList.length">
 				<v-list-item-content class="mr-4 pr-3">
-					<v-btn color="warning" width="60" class="ma-2 white--text">Checkout</v-btn>
+					<v-btn color="warning" width="60" class="ma-2 white--text" @click="checkout()">Checkout</v-btn>
 				</v-list-item-content>
 				<v-list-item-content>
 					<v-list-item-title>Grand Total</v-list-item-title>
@@ -66,6 +66,20 @@
 				</v-list-item-action>
 			</v-list-item>
 		</v-list>
+		<v-snackbar
+			:multi-line="snackbarOtherStatus"
+			v-model="snackbar"
+			:top="snackbarOtherStatus"
+			:centered="snackbarOtherStatus"
+			color="primary"
+			dark
+			elevation="24"
+		>
+			{{ snackbarText }}
+			<template v-slot:action="{ attrs }">
+				<v-btn color="red" text v-bind="attrs" @click="snackbar = false">Close</v-btn>
+			</template>
+		</v-snackbar>
 	</v-card>
 </template>
 
@@ -75,11 +89,30 @@ import numeral from "numeral";
 export default {
 	name: "client-movie-listing",
 	data() {
-		return {};
+		return {
+			snackbar: false,
+			snackbarOtherStatus: true,
+			snackbarText: "You already exceed the movie inventory",
+		};
 	},
 	methods: {
+		checkQuantity(id) {
+			let myListing = store.getters["Customer/getClientList"];
+			let addedMovie = myListing.filter((item) => item._id == id);
+			let selectedMovieQty = addedMovie[0].qty;
+
+			let allMovies = store.getters["Admin/getAllMovies"].docs;
+			let selectedMovie = allMovies.filter((item) => item._id == id);
+			let movieInStock = selectedMovie[0].inStock;
+
+			return selectedMovieQty == movieInStock || selectedMovieQty > movieInStock;
+		},
 		async updateMyMovieList(id, action) {
-			console.log(action, "action");
+			if (action === "add") {
+				if (this.checkQuantity(id)) {
+					return (this.snackbar = true);
+				}
+			}
 			await store.commit("Customer/ADJUST_MY_MOVIE_LIST", { id, action });
 		},
 		closeMe() {
@@ -87,6 +120,9 @@ export default {
 		},
 		getTotalRentPrice(qty, price) {
 			return parseFloat(qty * price);
+		},
+		checkout() {
+			this.$router.push({ name: "ClientCheckout" });
 		},
 	},
 	computed: {

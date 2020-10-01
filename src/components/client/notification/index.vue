@@ -11,7 +11,7 @@
 						overlap
 						:content="countMyMovieList.length"
 					>
-						<v-icon>mdi-movie-outline</v-icon>
+						<v-icon color="blue-grey">mdi-cart-outline</v-icon>
 					</v-badge>
 				</v-btn>
 			</template>
@@ -23,7 +23,7 @@
 		<v-menu v-model="menu" :close-on-content-click="false" :nudge-width="200" offset-y>
 			<template v-slot:activator="{ on }">
 				<v-btn color="gray" icon>
-					<v-icon v-on="on">mdi-account-circle</v-icon>
+					<v-icon v-on="on" color="blue-grey">mdi-account-circle</v-icon>
 				</v-btn>
 			</template>
 
@@ -36,7 +36,7 @@
 
 						<v-list-item-content>
 							<v-list-item-title>{{customer.firstname}} {{customer.lastname}}</v-list-item-title>
-							<v-list-item-subtitle>{{customer.email}}</v-list-item-subtitle>
+							<v-list-item-subtitle class="font-weight-light">{{customer.email}}</v-list-item-subtitle>
 						</v-list-item-content>
 					</v-list-item>
 				</v-list>
@@ -45,18 +45,20 @@
 
 				<v-list>
 					<v-list-item-group color="primary">
-						<v-list-item>
-							<v-list-item-icon>
-								<v-icon>mdi-account-box-outline</v-icon>
-							</v-list-item-icon>
-							<v-list-item-content>
-								<v-list-item-title>My Profile</v-list-item-title>
-							</v-list-item-content>
-						</v-list-item>
+						<router-link :to="{name: 'ClientProfile'}">
+							<v-list-item>
+								<v-list-item-icon>
+									<v-icon color="blue-grey">mdi-account-box-outline</v-icon>
+								</v-list-item-icon>
+								<v-list-item-content>
+									<v-list-item-title>My Profile</v-list-item-title>
+								</v-list-item-content>
+							</v-list-item>
+						</router-link>
 						<router-link :to="{name:'MovieRecord'}">
 							<v-list-item>
 								<v-list-item-icon>
-									<v-icon>mdi-filmstrip</v-icon>
+									<v-icon color="blue-grey">mdi-filmstrip</v-icon>
 								</v-list-item-icon>
 								<v-list-item-content>
 									<v-list-item-title>My Records</v-list-item-title>

@@ -59,9 +59,8 @@
 															<v-list-item-subtitle>
 																<span v-for="(actor, index) in item.actor" :key="index">
 																	<v-chip
-																		class="ma-2 font-weight-bold"
+																		class="ma-1 font-weight-medium"
 																		:color="randomColor()"
-																		label
 																		text-color="white"
 																	>{{actor}}</v-chip>
 																</span>
@@ -80,16 +79,16 @@
 													</span>
 												</td>
 												<td>
-													<h3 class="grey--text">{{ item.inStock }}</h3>
+													<h4 class="grey--text">{{ item.inStock }}</h4>
 												</td>
 												<td>
-													<h3 class="grey--text">₱ {{ item.rentPrice | formatNumber}}</h3>
+													<h4 class="grey--text">₱ {{ item.rentPrice | formatNumber}}</h4>
 												</td>
 												<td>
-													<v-btn class="mr-1" height="35" width="40" dark small color="green">
+													<v-btn class="mr-1" height="30" width="35" dark small color="green">
 														<v-icon dark>mdi-square-edit-outline</v-icon>
 													</v-btn>
-													<v-btn class="ml-1" height="35" width="40" dark small color="error">
+													<v-btn class="ml-1" height="30" width="35" dark small color="error">
 														<v-icon dark>mdi-close</v-icon>
 													</v-btn>
 												</td>
@@ -120,8 +119,8 @@ export default {
 			search: "",
 			headers: [
 				{
-					text: "Movie",
-					class: "font-weight-regular subtitle-1 grey lighten-4 pt-5 pb-5 primary--text pt-5 pb-5",
+					text: "Movie Title",
+					class: "font-weight-bold grey lighten-4 pt-5 pb-5 blue-grey--text pt-5 pb-5",
 					align: "",
 					sortable: false,
 					value: "title",
@@ -130,27 +129,27 @@ export default {
 				{
 					text: "Genres",
 					value: "genre",
-					class: "font-weight-regular subtitle-1 grey lighten-4 pt-5 pb-5 primary--text",
+					class: "font-weight-bold grey lighten-4 pt-5 pb-5 blue-grey--text",
 					width: "200",
 				},
 				{
 					text: "Quantity",
 					value: "inStock",
-					class: "font-weight-regular subtitle-1 grey lighten-4 pt-5 pb-5 primary--text",
+					class: "font-weight-bold grey lighten-4 pt-5 pb-5 blue-grey--text",
 					width: "50",
 				},
 				{
 					text: "Rent",
 					value: "actor",
-					class: "font-weight-regular subtitle-1 grey lighten-4 pt-5 pb-5 primary--text",
+					class: "font-weight-bold grey lighten-4 pt-5 pb-5 blue-grey--text",
 					width: "80",
 				},
 				{
 					text: "Actions",
 					value: "",
 					sortable: false,
-					class: "font-weight-regular subtitle-1 grey lighten-4 pt-5 pb-5 primary--text",
-					width: "100",
+					class: "font-weight-bold grey lighten-4 pt-5 pb-5 blue-grey--text",
+					width: "110",
 				},
 			],
 

@@ -14,7 +14,7 @@
 
 				<v-list-item-content>
 					<v-list-item-title>{{clientData.firstname}} {{clientData.lastname}}</v-list-item-title>
-					<v-list-item-subtitle class="font-weight-medium">{{clientData.email}}</v-list-item-subtitle>
+					<v-list-item-subtitle class="font-weight-light">{{clientData.email}}</v-list-item-subtitle>
 				</v-list-item-content>
 			</v-list-item>
 
@@ -34,10 +34,10 @@
 			<router-link :to="{name:'main-dashboard'}">
 				<v-list-item link class="pl-2">
 					<v-list-item-avatar>
-						<v-icon>mdi-arrow-left</v-icon>
+						<v-icon color="cyan">mdi-arrow-left</v-icon>
 					</v-list-item-avatar>
 					<v-list-item-content>
-						<v-list-item-title class="font-weight-medium">Back to Dashboard</v-list-item-title>
+						<v-list-item-title class="font-weight-medium cyan--text">Back to Dashboard</v-list-item-title>
 					</v-list-item-content>
 				</v-list-item>
 			</router-link>
