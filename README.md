@@ -1,6 +1,6 @@
 # A Vuejs application that leverages Vuex, VueRouter, Axios, and Vuetify.
 
-An application for movies, a movie listing with different Genres. Customers can choose a bunch of movie listings and add to their cart. Before adding movies to a cart, customers are required to signup an account, if they already logged in, they can start choosing movies. 
+An application for movies, a movie listing with different Genres. Customers can choose a bunch of movies from the listings and add to their cart. Before adding movies to a cart, customers are required to signup an account, if they already logged in, they can start choosing movies. 
 
 The application has an Administrator dashboard. The admin is responsible for managing the movie inventories, like adding movie inventory or updating movie details. The admin can also track or monitor client records.
 
