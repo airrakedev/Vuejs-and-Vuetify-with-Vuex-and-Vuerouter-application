@@ -1,9 +1,9 @@
 <template>
 	<v-row justify="center">
-		<v-dialog v-model="movieDialogStatus" persistent max-width="900px">
+		<v-dialog v-model="movieDialogStatus" persistent max-width="950px">
 			<v-card>
-				<v-app-bar height="80" dark color="teal" elevation="0">
-					<v-toolbar-title class="pl-5">{{title}}</v-toolbar-title>
+				<v-app-bar height="60" dark color="teal" elevation="0">
+					<v-toolbar-title class="pl-5 font-weight-bold">{{title}}</v-toolbar-title>
 
 					<v-spacer></v-spacer>
 				</v-app-bar>
@@ -11,9 +11,9 @@
 				<v-card-text class="pb-1">
 					<v-container>
 						<v-row>
-							<v-col md="8">
+							<v-col md="8" class="pb-0 pt-0">
 								<v-row>
-									<v-col cols="12" md="12" class="pt-1">
+									<v-col cols="12" md="12" class="pt-1 pb-1">
 										<label for class="font-weight-bold">Movie Title</label>
 										<v-text-field
 											v-model="movieData.title"
@@ -26,7 +26,7 @@
 										></v-text-field>
 									</v-col>
 
-									<v-col cols="12" md="12" class="pt-1">
+									<v-col cols="12" md="12" class="pt-1 pb-1">
 										<label for class="font-weight-bold">Actor/s</label>
 										<v-chip-group column v-if="actors.length">
 											<v-chip
@@ -50,11 +50,29 @@
 											</v-col>
 										</v-row>
 									</v-col>
+									<v-col cols="12" md="12" class="pt-1 pb-0">
+										<label for class="font-weight-bold">Genre</label>
+										<v-select
+											v-model="movieData.genre"
+											:error-messages="movieGenreErrors"
+											@input="$v.movieData.genre.$touch()"
+											@blur="$v.movieData.genre.$touch()"
+											class="mt-1"
+											:items="allGenres"
+											item-text="title"
+											item-value="_id"
+											chips
+											placeholder="Select movie genres"
+											:deletable-chips="deletableChips"
+											multiple
+											solo
+										></v-select>
+									</v-col>
 								</v-row>
 							</v-col>
 
 							<!-- IMAGE -->
-							<v-col md="4" class="pt-1">
+							<v-col md="4" class="pt-0 pb-1">
 								<label for class="font-weight-bold">Movie Poster</label>
 								<v-file-input
 									class="mt-1"
@@ -81,25 +99,8 @@
 									</v-col>
 								</v-row>
 							</v-col>
+
 							<v-col cols="6" md="6" class="pt-1 pb-0">
-								<label for class="font-weight-bold">Genre</label>
-								<v-select
-									v-model="movieData.genre"
-									:error-messages="movieGenreErrors"
-									@input="$v.movieData.genre.$touch()"
-									@blur="$v.movieData.genre.$touch()"
-									class="mt-1"
-									:items="allGenres"
-									item-text="title"
-									item-value="_id"
-									chips
-									placeholder="Select movie genres"
-									:deletable-chips="deletableChips"
-									multiple
-									solo
-								></v-select>
-							</v-col>
-							<v-col cols="3" md="3" class="pt-1 pb-0">
 								<label for class="font-weight-bold">Quantity</label>
 								<v-text-field
 									v-model="movieData.inStock"
@@ -112,22 +113,22 @@
 									type="number"
 								></v-text-field>
 							</v-col>
-							<v-col cols="3" md="3" class="pt-1 pb-0">
+							<v-col cols="6" md="6" class="pt-1 pb-0">
 								<label for class="font-weight-bold">Rent</label>
 								<v-text-field
 									v-model="movieData.rentPrice"
 									:error-messages="movieRentPriceErrors"
 									@input="$v.movieData.rentPrice.$touch()"
 									@blur="$v.movieData.rentPrice.$touch()"
-									class="mt-2"
-									label="0.00"
+									class="mt-1"
+									placeholder="0.00"
 									solo
 								></v-text-field>
 							</v-col>
-							<v-col cols="12" md="12" class="pt-1 pb-0">
+							<v-col cols="6" md="6" class="pt-1 pb-0">
 								<label for class="font-weight-bold">Description</label>
 								<v-textarea
-									class="mt-2"
+									class="mt-1"
 									v-model="movieData.description"
 									auto-grow
 									solo
@@ -136,7 +137,7 @@
 									rows="4"
 								></v-textarea>
 							</v-col>
-							<v-col cols="12" md="12" class="pt-1 pb-0">
+							<v-col cols="6" md="6" class="pt-1 pb-0">
 								<label for class="font-weight-bold">Plot</label>
 								<v-textarea
 									v-model="movieData.plot"
@@ -144,19 +145,19 @@
 									auto-grow
 									solo
 									color="deep-purple"
-									label="Movie plot"
-									rows="1"
+									placeholder="Movie plot"
+									rows="4"
 								></v-textarea>
 							</v-col>
 						</v-row>
 					</v-container>
 				</v-card-text>
 				<v-divider></v-divider>
-				<v-footer padless color="grey lighten-4" class="pr-5" align="end" justify="end">
+				<v-footer padless class="pr-5" align="end" justify="end">
 					<v-row align="end" justify="end">
 						<v-col>
-							<v-btn color="error" @click="closeMovieForm" height="40" width="120">Close</v-btn>
-							<v-btn class="ml-3 mr-5" color="teal" @click="submit()" dark height="40" width="120">Submit</v-btn>
+							<v-btn color="error" @click="closeMovieForm" height="35" width="100">Close</v-btn>
+							<v-btn class="ml-3 mr-5" color="teal" @click="submit()" dark height="35" width="100">Submit</v-btn>
 						</v-col>
 					</v-row>
 				</v-footer>
@@ -167,7 +168,7 @@
 
 <script>
 import { validationMixin } from "vuelidate";
-const { required } = require("vuelidate/lib/validators");
+const { required, decimal } = require("vuelidate/lib/validators");
 
 import { eventEmitter } from "Event";
 import _ from "lodash";
@@ -185,7 +186,7 @@ export default {
 			title: { required },
 			genre: { required },
 			inStock: { required },
-			rentPrice: { required },
+			rentPrice: { required, decimal },
 		},
 	},
 	data() {
@@ -240,6 +241,7 @@ export default {
 			const errors = [];
 			if (!this.$v.movieData.rentPrice.$dirty) return errors;
 			!this.$v.movieData.rentPrice.required && errors.push("Movie rent price is required.");
+			!this.$v.movieData.rentPrice.decimal && errors.push("Movie rent price should be an integer.");
 			return errors;
 		},
 	},
@@ -339,6 +341,9 @@ export default {
 <style scoped>
 .theme--dark.v-system-bar {
 	background-color: unset !important;
+}
+.v-text-field.v-text-field--enclosed .v-text-field__details {
+	margin-bottom: 0px !important;
 }
 .v-system-bar .v-icon {
 	margin-right: 0px !important;

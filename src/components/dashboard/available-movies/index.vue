@@ -1,7 +1,7 @@
 <template>
 	<v-col>
 		<v-row>
-			<v-col md="3" v-for="(movie, i) in allMovies" :key="i">
+			<v-col cols="12" lg="3" md="4" sm="6" xs="12" v-for="(movie, i) in allMovies" :key="i">
 				<v-card dark>
 					<v-img position="top center" aspect-ratio="1" :src="getThumbnail(movie.image)"></v-img>
 					<v-card-title class="pb-2">{{movie.title}}</v-card-title>

@@ -35,11 +35,22 @@ export default {
 </script>
 <style >
 body {
+	/* zoom: 0.95; */
 	font-family: "Quicksand", sans-serif;
+	font-size: 12px !important;
+}
+.v-chip.v-size--default {
+	font-size: 11px !important;
+}
+.v-input {
+	font-size: 13px !important;
+}
+.v-list-item__title {
+	font-size: 0.85rem !important;
 }
 .v-application {
 	font-family: "Quicksand", sans-serif !important;
-	font-weight: 700 !important;
+	/* font-weight: 700 !important; */
 }
 .blend-color {
 	background-color: #121212 !important;

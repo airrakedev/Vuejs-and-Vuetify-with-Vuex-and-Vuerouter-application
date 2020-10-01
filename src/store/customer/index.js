@@ -129,12 +129,20 @@ const mutations = {
    },
 
    LOGIN_ERROR(state, res) {
-      console.log('ni error ko?')
       Vue.notify({
          group: 'movie',
          type: 'error',
          title: 'Unable to login.',
          text: res.message,
+         duration: 4500
+      })
+   },
+   NO_DOUBLE_LOGIN(state) {
+      Vue.notify({
+         group: 'movie',
+         type: 'error',
+         title: 'Please logout the Admin account.',
+         text: 'Admin account is currently logged in',
          duration: 4500
       })
    }

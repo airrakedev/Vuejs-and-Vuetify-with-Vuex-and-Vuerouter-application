@@ -106,6 +106,14 @@ const routes = [
                requireAuth: true
             }
          },
+         {
+            path: 'client-checkout',
+            name: 'ClientCheckout',
+            component: () => import('Views/client/checkOut'),
+            meta: {
+               requireAuth: true
+            }
+         }
       ],
       beforeEnter: (to, from, next) => {
          if (store.getters['Admin/getAdminSessionStatus']) {
