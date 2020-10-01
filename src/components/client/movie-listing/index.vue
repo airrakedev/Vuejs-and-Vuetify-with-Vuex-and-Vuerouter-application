@@ -17,17 +17,15 @@
 				</v-list-item-action>
 
 				<v-list-item-content class="ml-4 mr-4">
-					<v-list-item-title color="primary">{{item.title}}</v-list-item-title>
+					<v-list-item-title color="primary">{{ item.title }}</v-list-item-title>
 				</v-list-item-content>
 
 				<v-list-item-action class="ml-4 mr-4">
-					<v-list-item-action-text>₱&nbsp;{{item.rentPrice | formatNumber}}</v-list-item-action-text>
+					<v-list-item-action-text>₱&nbsp;{{ item.rentPrice | formatNumber }}</v-list-item-action-text>
 				</v-list-item-action>
 
 				<v-list-item-action class="ml-4 mr-4">
-					<v-list-item-action-text
-						color="primary"
-					>₱&nbsp;{{getTotalRentPrice(item.qty,item.rentPrice) | formatNumber}}</v-list-item-action-text>
+					<v-list-item-action-text color="primary">₱&nbsp;{{ getTotalRentPrice(item.qty, item.rentPrice) | formatNumber }}</v-list-item-action-text>
 				</v-list-item-action>
 
 				<v-list-item-action class="ml-0">
@@ -54,27 +52,20 @@
 			<v-divider></v-divider>
 			<!-- Total -->
 			<v-list-item v-if="allMyMovieList.length">
-				<v-list-item-content class="mr-4 pr-3">
-					<v-btn color="warning" width="60" class="ma-2 white--text" @click="checkout()">Checkout</v-btn>
-				</v-list-item-content>
+				<!-- <v-list-item-content class="mr-4 pr-3"> -->
+				<v-btn color="warning" class="ma-2 white--text" @click="checkout()">Checkout</v-btn>
+				<!-- </v-list-item-content> -->
+
+				<v-spacer></v-spacer>
 				<v-list-item-content>
 					<v-list-item-title>Grand Total</v-list-item-title>
 				</v-list-item-content>
-				<v-spacer></v-spacer>
 				<v-list-item-action>
-					<v-list-item-title color="primary">₱&nbsp;{{grandTotalPrice | formatNumber}}</v-list-item-title>
+					<v-list-item-title color="primary">₱&nbsp;{{ grandTotalPrice | formatNumber }}</v-list-item-title>
 				</v-list-item-action>
 			</v-list-item>
 		</v-list>
-		<v-snackbar
-			:multi-line="snackbarOtherStatus"
-			v-model="snackbar"
-			:top="snackbarOtherStatus"
-			:centered="snackbarOtherStatus"
-			color="primary"
-			dark
-			elevation="24"
-		>
+		<v-snackbar :multi-line="snackbarOtherStatus" v-model="snackbar" :top="snackbarOtherStatus" :centered="snackbarOtherStatus" color="primary" dark elevation="24">
 			{{ snackbarText }}
 			<template v-slot:action="{ attrs }">
 				<v-btn color="red" text v-bind="attrs" @click="snackbar = false">Close</v-btn>
