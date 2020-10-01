@@ -1,22 +1,22 @@
 <template>
-	<v-container background-color="grey" class="mt-5 ml-5" fluid>
+	<v-container background-color="grey" class="ma-#">
 		<v-row align="center" justify="center">
 			<v-col>
-				<v-card class="mx-auto pa-4 pt-0" elevation="1">
+				<v-card elevation="1">
 					<v-row>
-						<v-col cols="1" md="2" justify="center" align="center">
-							<v-card color="pink lighten-1" class="card-icon" dark elevation="5">
+						<v-col cols="1" md="2" sm="2" justify="center" align="center">
+							<v-card color="pink lighten-1" class="ml-3 card-icon" dark elevation="1">
 								<v-icon large>mdi-movie-roll</v-icon>
 							</v-card>
 						</v-col>
 						<v-col>
-							<h2 class="pt-5 grey--text">List of Rented Movies</h2>
+							<h2 class="pt-5 blue-grey--text">List of Rented Movies</h2>
 						</v-col>
 					</v-row>
-					<v-card-title class="mr-5 pr-5">
+					<v-card-title class="">
 						<v-spacer></v-spacer>
-						<v-row>
-							<v-col class="pr-5">
+						<v-row no-gutters>
+							<v-col class="">
 								<v-text-field
 									v-model="search"
 									append-icon="mdi-magnify"
@@ -33,16 +33,10 @@
 							</v-col>
 						</v-row>
 					</v-card-title>
-					<v-card-text class="pa-5">
-						<v-row class="pa-5 pt-0">
+					<v-card-text class="mt-5 pa-1">
+						<v-row class="pa-0 pt-0">
 							<v-col class="pa-5 pt-0">
-								<v-data-table
-									:headers="headers"
-									:items="movies"
-									sort-by="calories"
-									class="font-weight-light"
-									id="customBorder"
-								></v-data-table>
+								<v-data-table :headers="headers" :items="movies" sort-by="calories" class="font-weight-light" id="customBorder"></v-data-table>
 							</v-col>
 						</v-row>
 					</v-card-text>
@@ -63,7 +57,7 @@ export default {
 			headers: [
 				{
 					text: "Movie",
-					class: "font-weight-regular subtitle-1 grey lighten-4 pt-5 pb-5 primary--text pt-5 pb-5",
+					class: "font-weight-bold grey lighten-4 pt-5 pb-5 blue-grey--text pt-5 pb-5",
 					align: "start",
 					sortable: false,
 					value: "name",
@@ -71,12 +65,12 @@ export default {
 				{
 					text: "Genre",
 					value: "calories",
-					class: "font-weight-regular subtitle-1 grey lighten-4 pt-5 pb-5 primary--text",
+					class: "font-weight-bold grey lighten-4 pt-5 pb-5 blue-grey--text",
 				},
 				{
 					text: "Rent",
 					value: "fat",
-					class: "font-weight-regular subtitle-1 grey lighten-4 pt-5 pb-5 primary--text",
+					class: "font-weight-bold grey lighten-4 pt-5 pb-5 blue-grey--text",
 				},
 			],
 
@@ -111,7 +105,6 @@ export default {
 				page: 1,
 			};
 			const movies = await store.dispatch("Admin/gettingAllMovies", params);
-			console.log("FE Lapos");
 		},
 	},
 	created() {

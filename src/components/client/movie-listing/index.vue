@@ -52,9 +52,7 @@
 			<v-divider></v-divider>
 			<!-- Total -->
 			<v-list-item v-if="allMyMovieList.length">
-				<!-- <v-list-item-content class="mr-4 pr-3"> -->
-				<v-btn color="warning" class="ma-2 white--text" @click="checkout()">Checkout</v-btn>
-				<!-- </v-list-item-content> -->
+				<v-btn color="warning" class="ma-2 white--text caption font-weight-bold" @click="checkout()">Checkout</v-btn>
 
 				<v-spacer></v-spacer>
 				<v-list-item-content>
@@ -134,4 +132,8 @@ export default {
 </script>
 
 <style scoped>
+.v-menu__content {
+	overflow-y: unset !important;
+	overflow-x: unset !important;
+}
 </style>

@@ -1,26 +1,26 @@
 <template>
-	<v-container background-color="grey" class="mt-5 ml-5">
+	<v-container background-color="grey" class="ma-#">
 		<v-row align="center" justify="center">
 			<v-col cols="12">
 				<v-card class="mx-auto pa-4 pt-0" elevation="1">
 					<v-row>
-						<v-col cols="1" md="2" justify="center" align="center">
-							<v-card color="pink lighten-1" class="card-icon" dark elevation="5">
+						<v-col cols="1" md="2" sm="2" justify="center" align="center">
+							<v-card color="pink lighten-1" class="card-icon" dark elevation="1">
 								<v-icon large>mdi-playlist-check</v-icon>
 							</v-card>
 						</v-col>
 						<v-col>
-							<h2 class="pt-5 green--text">All Movies</h2>
+							<h2 class="pt-5 blue-grey--text">All Movies</h2>
 						</v-col>
 					</v-row>
-					<v-card-title class="mr-5 pr-5">
+					<v-card-title class="pr-0">
 						<v-spacer></v-spacer>
-						<v-row>
-							<v-col class="pr-5">
+						<v-row no-gutters>
+							<v-col>
 								<v-text-field
 									v-model="search"
 									append-icon="mdi-magnify"
-									label="Search"
+									placeholder="Search"
 									class="font-weight-medium"
 									background-color="grey lighten-4"
 									light
@@ -33,15 +33,15 @@
 							</v-col>
 						</v-row>
 					</v-card-title>
-					<v-card-text class="pa-5">
-						<v-row class="pa-5 pt-0">
-							<v-col class="pa-5 pt-0">
+					<v-card-text class="mt-5 pa-0">
+						<v-row no-gutters>
+							<v-col>
 								<v-data-table :headers="headers" :items="allMovies" class="font-weight-light" id="customBorder" :search="search">
 									<template v-slot:body="{ items }">
 										<tbody>
 											<tr v-for="(item, i) in items" :key="i">
 												<td>
-													<v-list-item>
+													<v-list-item class="pa-0">
 														<v-list-item-avatar>
 															<v-img :src="getMoviePoster(item.image)"></v-img>
 														</v-list-item-avatar>
@@ -52,29 +52,31 @@
 															</v-list-item-title>
 															<v-list-item-subtitle>
 																<span v-for="(actor, index) in item.actor" :key="index">
-																	<v-chip class="ma-1 font-weight-medium" :color="randomColor()" text-color="white">{{ actor }}</v-chip>
+																	<v-chip small label class="ma-1 font-weight-medium" :color="randomColor()" text-color="white">{{
+																		actor
+																	}}</v-chip>
 																</span>
 															</v-list-item-subtitle>
 														</v-list-item-content>
 													</v-list-item>
 												</td>
-												<td>
+												<td class="pr-1 pl-1">
 													<span v-for="(genre, ind) in item.genre" :key="ind">
-														<v-chip class="ma-2 font-weight-bold" color="blue" label text-color="white">{{ genre.title }}</v-chip>
+														<v-chip small class="ma-2 font-weight-bold" color="blue" label text-color="white">{{ genre.title }}</v-chip>
 													</span>
 												</td>
-												<td>
-													<h4 class="grey--text">{{ item.inStock }}</h4>
+												<td class="pr-1 pl-1">
+													<h5 class="blue-grey--text">{{ item.inStock }}</h5>
 												</td>
-												<td>
-													<h4 class="grey--text">₱ {{ item.rentPrice | formatNumber }}</h4>
+												<td class="pr-1 pl-1">
+													<h5 class="blue-grey--text">₱ {{ item.rentPrice | formatNumber }}</h5>
 												</td>
-												<td>
+												<td class="pr-1 pl-1">
 													<v-btn class="mr-1" height="30" width="35" dark small color="green">
-														<v-icon dark>mdi-square-edit-outline</v-icon>
+														<v-icon small dark>mdi-square-edit-outline</v-icon>
 													</v-btn>
 													<v-btn class="ml-1" height="30" width="35" dark small color="error">
-														<v-icon dark>mdi-close</v-icon>
+														<v-icon dark small>mdi-close</v-icon>
 													</v-btn>
 												</td>
 											</tr>
@@ -115,26 +117,26 @@ export default {
 					text: "Genres",
 					value: "genre",
 					class: "font-weight-bold grey lighten-4 pt-5 pb-5 blue-grey--text",
-					width: "200",
+					width: "160",
 				},
 				{
-					text: "Quantity",
+					text: "Qty",
 					value: "inStock",
 					class: "font-weight-bold grey lighten-4 pt-5 pb-5 blue-grey--text",
-					width: "50",
+					width: "70",
 				},
 				{
 					text: "Rent",
 					value: "actor",
 					class: "font-weight-bold grey lighten-4 pt-5 pb-5 blue-grey--text",
-					width: "80",
+					width: "70",
 				},
 				{
 					text: "Actions",
 					value: "",
 					sortable: false,
 					class: "font-weight-bold grey lighten-4 pt-5 pb-5 blue-grey--text",
-					width: "110",
+					width: "90",
 				},
 			],
 
@@ -149,7 +151,7 @@ export default {
 	},
 	methods: {
 		randomColor() {
-			const r = () => Math.floor(256 * Math.random());
+			const r = () => Math.floor(Math.random() * (150 - 50) + 50);
 
 			return `rgb(${r()}, ${r()}, ${r()})`;
 		},
