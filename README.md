@@ -24,7 +24,7 @@ Admin:
   pass: password
   
   <br/>
-  <br/>
+ 
   
 ## To start using the application
 
