@@ -5,7 +5,7 @@
 				<v-card class="mx-auto pb-5" elevation="2">
 					<v-container fluid class="pb-0">
 						<v-row>
-							<v-col cols="2" md="2" justify="center" align="center">
+							<v-col cols="2" md="3" sm="3" justify="center" align="center">
 								<v-card color="cyan lighten-1" class="card-icon" dark>
 									<v-icon large>mdi-account-outline</v-icon>
 								</v-card>
@@ -27,7 +27,7 @@
 								<v-form ref="form" class="pl-5 pr-5">
 									<v-row>
 										<v-col class="ml-1 pb-0">
-											<label for class="grey--text font-weight-light">Firstname</label>
+											<label for class="blue-grey--text font-weight-bold">Firstname</label>
 											<v-text-field
 												class="mt-1 body-2"
 												placeholder="Firstname"
@@ -39,7 +39,7 @@
 											></v-text-field>
 										</v-col>
 										<v-col class="mr-1 pb-0">
-											<label for class="grey--text font-weight-light">Lastname</label>
+											<label for class="blue-grey--text font-weight-bold">Lastname</label>
 											<v-text-field
 												class="body-2 mt-1"
 												placeholder="Lastname"
@@ -54,7 +54,7 @@
 									</v-row>
 									<v-row>
 										<v-col class="ml-1 pb-0">
-											<label for class="grey--text font-weight-light">Email</label>
+											<label for class="blue-grey--text font-weight-bold">Email</label>
 											<v-text-field
 												class="mt-1 body-2"
 												placeholder="Email"
@@ -67,19 +67,13 @@
 											></v-text-field>
 										</v-col>
 										<v-col class="mr-1 pb-0">
-											<label for class="grey--text font-weight-light">Phone</label>
-											<v-text-field
-												class="mt-1 body-2"
-												placeholder="Phone Number"
-												v-model="userData.profile.phone"
-												solo
-												required
-											></v-text-field>
+											<label for class="blue-grey--text font-weight-bold">Phone</label>
+											<v-text-field class="mt-1 body-2" placeholder="Phone Number" v-model="userData.profile.phone" solo required></v-text-field>
 										</v-col>
 									</v-row>
 									<v-row>
 										<v-col class="pb-0">
-											<label for class="grey--text font-weight-light">Company Name</label>
+											<label for class="blue-grey--text font-weight-bold">Company Name</label>
 											<v-text-field
 												class="mt-1 body-2"
 												placeholder="Company name"
@@ -92,11 +86,11 @@
 										</v-col>
 									</v-row>
 
-									<h2 class="font-weight-light mt-5 mb-5 primary--text">Update your complete address</h2>
+									<h2 class="mt-5 mb-5 blue-grey--text">Update your complete address</h2>
 									<!-- USERS ADDRESS -->
 									<v-row>
 										<v-col cols="5" class="pb-0">
-											<label for class="grey--text font-weight-light">Country</label>
+											<label for class="blue-grey--text font-weight-bold">Country</label>
 
 											<v-select
 												v-model="countryValue"
@@ -112,7 +106,7 @@
 											></v-select>
 										</v-col>
 										<v-col cols="7" class="pb-0">
-											<label for class="grey--text font-weight-light">State</label>
+											<label for class="blue-grey--text font-weight-bold">State</label>
 
 											<v-select
 												v-model="stateValue"
@@ -130,7 +124,7 @@
 									</v-row>
 									<v-row>
 										<v-col cols="3" class="pb-0">
-											<label for class="grey--text font-weight-light">City</label>
+											<label for class="blue-grey--text font-weight-bold">City</label>
 
 											<v-select
 												no-data-text="Please select state address first."
@@ -145,7 +139,7 @@
 											></v-select>
 										</v-col>
 										<v-col cols="6" class="pb-0">
-											<label for class="grey--text font-weight-light">Street Address</label>
+											<label for class="blue-grey--text font-weight-bold">Street Address</label>
 											<v-text-field
 												class="mt-1 body-2"
 												placeholder="Street address"
@@ -158,7 +152,7 @@
 											></v-text-field>
 										</v-col>
 										<v-col cols="3" class="pb-0">
-											<label for class="grey--text font-weight-light">Zipcode</label>
+											<label for class="blue-grey--text font-weight-bold">Zipcode</label>
 											<v-text-field
 												placeholder="Zipcode"
 												class="mt-1 body-2"
@@ -178,14 +172,7 @@
 					<v-toolbar class="pr-5" flat>
 						<v-spacer></v-spacer>
 
-						<v-btn
-							color="cyan lighten-1"
-							class="font-weight-bold"
-							height="50"
-							width="180"
-							dark
-							@click="updateProfile"
-						>Update Profile</v-btn>
+						<v-btn color="cyan" height="40" width="160" dark @click="updateProfile">Update Profile</v-btn>
 					</v-toolbar>
 				</v-card>
 			</v-col>
@@ -200,14 +187,7 @@
 						<v-col cols="12" class="pt-0">
 							<h3 class="font-weight-light grey--text">Administrator</h3>
 							<h2 class="mt-0 mb-5 font-weight-light indigo--text">Jose Aldo</h2>
-							<v-btn
-								class="mt-0 font-weight-bold"
-								height="50"
-								width="170"
-								rounded
-								color="cyan lighten-1"
-								dark
-							>Upload Profile</v-btn>
+							<v-btn class="mt-0 font-weight-bold" height="40" width="160" rounded color="cyan lighten-1" dark>Upload Profile</v-btn>
 						</v-col>
 					</v-row>
 				</v-card>
@@ -215,24 +195,17 @@
 					<v-col>
 						<v-card class="pb-5 mt-5">
 							<v-row justify="center" class="pl-2 pb-2">
-								<v-col cols="3" md="5" align="center" class="pl-5">
+								<v-col cols="3" md="6" sm="6" align="center" class="pl-5">
 									<v-card color="pink lighten-1" class="card-icon" dark>
 										<v-icon large>mdi-pencil-lock-outline</v-icon>
 									</v-card>
 								</v-col>
-								<v-col cols="9" md="7" class="pr-5" align="center">
-									<span class="grey--text body-2">Need to change your password? No problem.</span>
+								<v-col cols="9" md="6" sm="6" class="pr-5" align="center">
+									<span class="blue-grey--text body-2">Need to change your password? No problem.</span>
 								</v-col>
-								<h3 class="font-weight-medium grey--text mb-5">Just click the link below to get started.</h3>
-								<router-link :to="{name: 'userChangePassword'}">
-									<v-btn
-										class="font-weight-bold"
-										height="50"
-										width="190"
-										rounded
-										color="cyan lighten-1"
-										dark
-									>Change Password</v-btn>
+								<h3 class="font-weight-medium blue-grey--text mt-4 mb-5">Just click the link below to get started.</h3>
+								<router-link :to="{ name: 'userChangePassword' }">
+									<v-btn class="font-weight-bold" height="40" width="180" rounded color="cyan lighten-1" dark>Change Password</v-btn>
 								</router-link>
 							</v-row>
 						</v-card>

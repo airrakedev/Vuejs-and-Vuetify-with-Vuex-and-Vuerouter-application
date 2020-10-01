@@ -3,7 +3,7 @@
 		<!-- <v-btn class="mx-2" small fab flat dark color="grey"> -->
 		<!-- <v-app-bar-nav-icon @click="toggleDrawer" color="cyan lighten-1" /> -->
 		<v-btn class="pa-2" fab dark @click="toggleDrawer" small color="grey lighten-2" elevation="0">
-			<v-icon>{{drawerStatus? 'mdi-view-dashboard-outline' : 'mdi-dots-vertical'}}</v-icon>
+			<v-icon>{{ drawerStatus ? "mdi-arrow-collapse-right" : "mdi-arrow-collapse-left" }}</v-icon>
 		</v-btn>
 		<!-- </v-btn> -->
 
@@ -33,10 +33,8 @@
 							</v-list-item-avatar>
 
 							<v-list-item-content>
-								<v-list-item-title
-									class="teal--text font-weight-bold"
-								>{{clientData.firstname}} {{clientData.lastname}}</v-list-item-title>
-								<v-list-item-subtitle class="font-weight-medium">{{clientData.email}}</v-list-item-subtitle>
+								<v-list-item-title class="teal--text font-weight-bold">{{ clientData.firstname }} {{ clientData.lastname }}</v-list-item-title>
+								<v-list-item-subtitle class="font-weight-medium">{{ clientData.email }}</v-list-item-subtitle>
 							</v-list-item-content>
 						</v-list-item>
 					</v-list>
@@ -44,7 +42,7 @@
 					<v-divider></v-divider>
 
 					<v-list>
-						<router-link :to="{name:'ClientProfile'}">
+						<router-link :to="{ name: 'ClientProfile' }">
 							<v-list-item link>
 								<v-list-item-action>
 									<v-icon>mdi-account-box</v-icon>

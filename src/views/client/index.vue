@@ -8,10 +8,10 @@
 
 		<v-content>
 			<v-container class="fill-height" fluid>
-				<v-row>
-					<!-- ADMIN DASHBOARD ROUTER -->
-					<router-view></router-view>
-				</v-row>
+				<!-- <v-row> -->
+				<!-- ADMIN DASHBOARD ROUTER -->
+				<router-view></router-view>
+				<!-- </v-row> -->
 			</v-container>
 		</v-content>
 	</div>

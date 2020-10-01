@@ -1,26 +1,26 @@
 <template>
-	<v-container background-color="grey" class="mt-5 ml-5">
+	<v-container background-color="grey" class="ma-#">
 		<v-row align="center" justify="center">
 			<v-col cols="12">
 				<v-card class="mx-auto pa-4 pt-0" elevation="1">
 					<v-row>
-						<v-col cols="1" md="2" justify="center" align="center">
-							<v-card color="pink lighten-1" class="card-icon" dark elevation="5">
+						<v-col cols="1" md="2" sm="2" justify="center" align="center">
+							<v-card color="pink lighten-1" class="card-icon" dark elevation="1">
 								<v-icon large>mdi-account-group-outline</v-icon>
 							</v-card>
 						</v-col>
 						<v-col>
-							<h2 class="pt-5 green--text">All Clients</h2>
+							<h2 class="pt-5 blue-grey--text">All Clients</h2>
 						</v-col>
 					</v-row>
-					<v-card-title class="mr-5 pr-5">
+					<v-card-title class="pr-0">
 						<v-spacer></v-spacer>
-						<v-row>
-							<v-col class="pr-5">
+						<v-row no-gutters>
+							<v-col>
 								<v-text-field
 									v-model="search"
 									append-icon="mdi-magnify"
-									label="Search"
+									placeholder="Search"
 									class="font-weight-medium"
 									background-color="grey lighten-4"
 									light
@@ -33,26 +33,26 @@
 							</v-col>
 						</v-row>
 					</v-card-title>
-					<v-card-text class="pa-5">
-						<v-row class="pa-5 pt-0">
-							<v-col class="pa-5 pt-0">
+					<v-card-text class="pl-0 pr-0">
+						<v-row class="mt-5" no-gutters>
+							<v-col cols="12">
 								<v-data-table :headers="headers" :items="allClients" class="font-weight-light" id="customBorder" :search="search">
 									<template v-slot:body="{ items }">
 										<tbody>
 											<tr v-for="(item, i) in items" :key="i">
-												<td>
-													<v-list-item class="pt-1 pb-2">
+												<td class="pl-2 pr-1">
+													<v-list-item class="pl-1 pr-1 pt-1 pb-2">
 														<v-list-item-avatar>
 															<v-img :src="getClientAvatar('')"></v-img>
 														</v-list-item-avatar>
 
-														<v-list-item-content>
+														<v-list-item-content class="pt-1 pb-1">
 															<v-list-item-title>
 																<h4 class="teal--text pl-2">{{ item.firstname }} {{ item.lastname }}</h4>
 															</v-list-item-title>
 															<v-list-item-subtitle class="mt-1">
 																<!-- <v-chip class="ma-2 font-weight-bold" color="blue-grey" label text-color="white"> -->
-																<span class="font-weight-regular blue-grey--text">
+																<span class="blue-grey--text">
 																	<v-icon color="blue-grey">mdi-map-marker</v-icon>
 																	{{ item.address }}
 																</span>
@@ -61,30 +61,31 @@
 														</v-list-item-content>
 													</v-list-item>
 												</td>
-												<td>
-													<v-chip class="ma-2 font-weight-bold" color="green" label text-color="white">
-														<v-icon>mdi-cellphone-iphone</v-icon>
+												<td class="pl-1 pr-1">
+													<v-chip small class="ma-2 font-weight-bold" color="green" label text-color="white">
+														<v-icon small>mdi-cellphone-iphone</v-icon>
 														+{{ item.phone }}
 													</v-chip>
 												</td>
 
-												<td>
-													<v-chip class="ma-2 font-weight-bold" color="warning" label text-color="white">
-														<v-avatar class="pl-1">
-															<v-icon class="mr-1">mdi-email</v-icon>
-														</v-avatar>
+												<td class="pl-1 pr-1">
+													<v-chip small class="ma-2 font-weight-bold" color="warning" label text-color="white">
+														<v-icon small class="mr-1">mdi-email</v-icon>
+
 														{{ item.email }}
 													</v-chip>
 												</td>
-												<td>
-													<v-chip class="ma-2 font-weight-bold" color="indigo" text-color="white">{{ item.status ? "Active" : "Inactive" }}</v-chip>
+												<td class="pl-1 pr-1">
+													<v-chip small class="ma-2 font-weight-medium" color="indigo" text-color="white">{{
+														item.status ? "Active" : "Inactive"
+													}}</v-chip>
 												</td>
-												<td>
+												<td class="pl-1 pr-1">
 													<v-btn class="mr-1" height="30" width="35" dark small color="green">
-														<v-icon dark>mdi-square-edit-outline</v-icon>
+														<v-icon small dark>mdi-square-edit-outline</v-icon>
 													</v-btn>
 													<v-btn class="ml-1" height="30" width="35" dark small color="error">
-														<v-icon dark>mdi-close</v-icon>
+														<v-icon small dark>mdi-close</v-icon>
 													</v-btn>
 												</td>
 											</tr>
@@ -119,32 +120,32 @@ export default {
 					align: "",
 					sortable: false,
 					value: "firstname",
-					width: "200",
+					width: "100",
 				},
 				{
 					text: "Phone",
 					value: "phone",
 					class: "font-weight-bold grey lighten-4 pt-5 pb-5 blue-grey--text",
-					width: "200",
+					width: "90",
 				},
 				{
 					text: "Email",
 					value: "lastname",
 					class: "font-weight-bold grey lighten-4 pt-5 pb-5 blue-grey--text",
-					width: "180",
+					width: "90",
 				},
 				{
 					text: "Status",
 					value: "actor",
 					class: "font-weight-bold grey lighten-4 pt-5 pb-5 blue-grey--text",
-					width: "100",
+					width: "70",
 				},
 				{
 					text: "Actions",
 					value: "",
 					sortable: false,
 					class: "font-weight-bold grey lighten-4 pt-5 pb-5 blue-grey--text",
-					width: "130",
+					width: "90",
 				},
 			],
 
