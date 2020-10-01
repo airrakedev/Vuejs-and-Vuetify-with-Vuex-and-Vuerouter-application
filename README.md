@@ -10,15 +10,21 @@ This application designed to utilize the power of Vuetify combined with Routing 
 
 Link to the site, <a target="_blank" href="https://competent-shockley-45b27e.netlify.app">Click here</a>
 
-User accounts:
-
-Clients:<b/>
-  email:john_travolta@gmail.com<br/>
-  pass: password</br>
+Sample user accounts:
+<br/>
+Clients:
+  <br/>
+  email:john_travolta@gmail.com
+  <br/>
+  pass: password
+  </br>
   
 Admin:
+  <br/>
   email: email@email.com
+  <br/>
   pass: password
+  <br/>
   
   
 To start using the application
