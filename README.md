@@ -9,6 +9,18 @@ Once the customers checkout it will automatically popup to Admin dashboard that 
 This application designed to utilize the power of Vuetify combined with Routing setup and Vuex Management and other packages such as Axios.
 
 Link to the site, <a target="_blank" href="https://competent-shockley-45b27e.netlify.app">Click here</a>
+
+User accounts:
+
+Clients:
+  email:john_travolta@gmail.com
+  pass: password
+  
+Admin:
+  email: email@email.com
+  pass: password
+  
+  
 To start using the application
 
 1. npm install - on the root folder
