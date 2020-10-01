@@ -16,13 +16,9 @@ The application also implements the routing security of each user accounts. It c
   pass: password
  
 #### Admin:
-  <br/>
   email: email@email.com
   <br/>
   pass: password
-  
-  <br/>
- 
   
 ## To start using the application
 
