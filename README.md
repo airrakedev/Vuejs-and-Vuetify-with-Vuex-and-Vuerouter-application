@@ -15,7 +15,7 @@ The application also implements the routing security of each user accounts. It c
   <br/>
   pass: password
  
-#### Admin:
+#### Admin: <a href="https://competent-shockley-45b27e.netlify.app/admin/login">Link here</a>
   email: email@email.com
   <br/>
   pass: password
