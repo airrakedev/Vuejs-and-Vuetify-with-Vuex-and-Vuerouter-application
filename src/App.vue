@@ -1,5 +1,5 @@
 <template>
-	<v-app style="background-color:#eee">
+	<v-app style="background-color: #eee">
 		<!-- ROUTER VIEW -->
 		<router-view></router-view>
 
@@ -44,6 +44,9 @@ body {
 }
 .v-input {
 	font-size: 13px !important;
+}
+.v-btn {
+	letter-spacing: unset !important;
 }
 .v-list-item__title {
 	font-size: 0.85rem !important;

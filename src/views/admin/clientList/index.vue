@@ -1,7 +1,7 @@
 <template>
-	<v-container background-color="grey" class="mt-5 ml-5" fluid>
+	<v-container background-color="grey" class="mt-5 ml-5">
 		<v-row align="center" justify="center">
-			<v-col>
+			<v-col cols="12">
 				<v-card class="mx-auto pa-4 pt-0" elevation="1">
 					<v-row>
 						<v-col cols="1" md="2" justify="center" align="center">
@@ -36,14 +36,8 @@
 					<v-card-text class="pa-5">
 						<v-row class="pa-5 pt-0">
 							<v-col class="pa-5 pt-0">
-								<v-data-table
-									:headers="headers"
-									:items="allClients"
-									class="font-weight-light"
-									id="customBorder"
-									:search="search"
-								>
-									<template v-slot:body="{items}">
+								<v-data-table :headers="headers" :items="allClients" class="font-weight-light" id="customBorder" :search="search">
+									<template v-slot:body="{ items }">
 										<tbody>
 											<tr v-for="(item, i) in items" :key="i">
 												<td>
@@ -54,13 +48,13 @@
 
 														<v-list-item-content>
 															<v-list-item-title>
-																<h4 class="teal--text pl-2">{{item.firstname}} {{item.lastname}}</h4>
+																<h4 class="teal--text pl-2">{{ item.firstname }} {{ item.lastname }}</h4>
 															</v-list-item-title>
 															<v-list-item-subtitle class="mt-1">
 																<!-- <v-chip class="ma-2 font-weight-bold" color="blue-grey" label text-color="white"> -->
 																<span class="font-weight-regular blue-grey--text">
 																	<v-icon color="blue-grey">mdi-map-marker</v-icon>
-																	{{item.address}}
+																	{{ item.address }}
 																</span>
 																<!-- </v-chip> -->
 															</v-list-item-subtitle>
@@ -70,7 +64,7 @@
 												<td>
 													<v-chip class="ma-2 font-weight-bold" color="green" label text-color="white">
 														<v-icon>mdi-cellphone-iphone</v-icon>
-														+{{item.phone}}
+														+{{ item.phone }}
 													</v-chip>
 												</td>
 
@@ -79,15 +73,11 @@
 														<v-avatar class="pl-1">
 															<v-icon class="mr-1">mdi-email</v-icon>
 														</v-avatar>
-														{{item.email}}
+														{{ item.email }}
 													</v-chip>
 												</td>
 												<td>
-													<v-chip
-														class="ma-2 font-weight-bold"
-														color="indigo"
-														text-color="white"
-													>{{(item.status)? 'Active' : 'Inactive'}}</v-chip>
+													<v-chip class="ma-2 font-weight-bold" color="indigo" text-color="white">{{ item.status ? "Active" : "Inactive" }}</v-chip>
 												</td>
 												<td>
 													<v-btn class="mr-1" height="30" width="35" dark small color="green">
