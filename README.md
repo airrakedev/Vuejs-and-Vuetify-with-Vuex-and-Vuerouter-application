@@ -6,7 +6,7 @@ The application has an Administrator dashboard. The admin is responsible for man
 
 The application also implements the routing security of each user accounts. It can track which users can access a specific page.
 
-### Link to the site, <a target="_blank" href="https://competent-shockley-45b27e.netlify.app">Click here</a>
+### Link to the site, <a target="_blank" href="https://custom-vueflix.netlify.app/">Click here</a>
 
 ## Sample user accounts:
 
@@ -15,7 +15,7 @@ The application also implements the routing security of each user accounts. It c
   <br/>
   pass: password
  
-#### Admin: <a href="https://competent-shockley-45b27e.netlify.app/admin/login">Link here</a>
+#### Admin: <a href="https://custom-vueflix.netlify.app/admin/login">Link here</a>
   email: email@email.com
   <br/>
   pass: password
