@@ -8,11 +8,11 @@
 					<v-col>
 						<v-card flat color="#eee">
 							<v-card-actions>
-								<v-btn text color="primary">Home</v-btn>
-								<v-btn text color="primary">Trending</v-btn>
+								<v-btn text color="primary" @click="fetchAllMovies()">Home</v-btn>
+								<v-btn text color="primary" @click="movies('trending')">Trending</v-btn>
 
-								<v-btn text color="primary">Featured</v-btn>
-								<v-btn text color="primary">New Release</v-btn>
+								<v-btn text color="primary" @click="movies('featured')">Featured</v-btn>
+								<v-btn text color="primary" @click="movies('new')">New Release</v-btn>
 
 								<v-spacer></v-spacer>
 							</v-card-actions>
@@ -39,7 +39,7 @@ import userRegistrationForm from "Components/client/registration";
 import userLoginForm from "Components/client/login";
 
 import AppHeader from "Components/header";
-
+import store from "Store";
 import { eventEmitter } from "Event";
 
 export default {
@@ -68,6 +68,18 @@ export default {
 		},
 	},
 	methods: {
+		async fetchAllMovies() {
+			const params = {
+				limit: 50,
+				page: 1,
+				sort: { title: 1 },
+			};
+			await store.dispatch("Admin/gettingAllMovies", params);
+		},
+		async movies(action) {
+			await this.fetchAllMovies();
+			store.commit("Admin/FILTER_MOVIE_ON_DISPLAY", action);
+		},
 		showLoginForm() {
 			eventEmitter.$emit("display-login-form", {});
 		},

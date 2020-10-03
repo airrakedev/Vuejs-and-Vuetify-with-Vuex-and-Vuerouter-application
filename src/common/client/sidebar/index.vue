@@ -1,11 +1,5 @@
 <template>
-	<v-navigation-drawer
-		color="primary"
-		:mini-variant="drawerStatus"
-		:clipped="$vuetify.breakpoint.lgAndUp"
-		app
-		dark
-	>
+	<v-navigation-drawer color="primary" :mini-variant="drawerStatus" :clipped="$vuetify.breakpoint.lgAndUp" app dark>
 		<v-list>
 			<v-list-item two-line :class="drawerStatus && 'px-0'" class="pl-2">
 				<v-list-item-avatar>
@@ -13,14 +7,14 @@
 				</v-list-item-avatar>
 
 				<v-list-item-content>
-					<v-list-item-title>{{clientData.firstname}} {{clientData.lastname}}</v-list-item-title>
-					<v-list-item-subtitle class="font-weight-light">{{clientData.email}}</v-list-item-subtitle>
+					<v-list-item-title class="font-weight-bold">{{ clientData.firstname }} {{ clientData.lastname }}</v-list-item-title>
+					<v-list-item-subtitle class="font-weight-light">{{ clientData.email }}</v-list-item-subtitle>
 				</v-list-item-content>
 			</v-list-item>
 
 			<v-divider></v-divider>
 			<!-- DASHBOARD -->
-			<router-link :to="{name:'MovieRecord'}">
+			<router-link :to="{ name: 'MovieRecord' }">
 				<v-list-item link class="mt-5 pl-2">
 					<v-list-item-avatar>
 						<v-icon>mdi-view-dashboard-outline</v-icon>
@@ -31,7 +25,7 @@
 				</v-list-item>
 			</router-link>
 
-			<router-link :to="{name:'main-dashboard'}">
+			<router-link :to="{ name: 'main-dashboard' }">
 				<v-list-item link class="pl-2">
 					<v-list-item-avatar>
 						<v-icon color="cyan">mdi-arrow-left</v-icon>
@@ -44,12 +38,7 @@
 		</v-list>
 
 		<!-- FROM MOVIE -->
-		<formMovie
-			:movieData="movieData"
-			:title="title"
-			:movieDialog="movieDialogStatus"
-			@close-movie-form="movieDialog = false"
-		></formMovie>
+		<formMovie :movieData="movieData" :title="title" :movieDialog="movieDialogStatus" @close-movie-form="movieDialog = false"></formMovie>
 	</v-navigation-drawer>
 </template>
 

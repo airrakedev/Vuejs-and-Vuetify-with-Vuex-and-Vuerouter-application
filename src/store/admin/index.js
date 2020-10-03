@@ -19,7 +19,8 @@ const getters = {
    getAdminId: state => state.adminId,
    getAdminProfile: state => state.adminProfile,
    getAllMovies: state => state.allMovies,
-   getAllClients: state => state.allClients
+   getAllClients: state => state.allClients,
+   isMovieAvailable: state => state.allMovies.length != 0
 }
 
 
@@ -87,6 +88,39 @@ const mutations = {
    },
    GETTING_ALL_MOVIES(state, data) {
       state.allMovies = data.data
+
+   },
+   FILTER_MOVIE_ON_DISPLAY(state, action) {
+      let current = state.allMovies
+
+      let day = new Date("2019-09-13T14:58:20.133Z");
+      let now = new Date();
+      let todayYear = now.getFullYear()
+      let todayMonth = now.getMonth()
+      let today = now.getDate()
+
+      switch (action) {
+
+         case 'trending':
+            state.allMovies = { docs: current.docs.filter(item => item.inStock <= 2) }
+            break;
+
+         case 'featured':
+            state.allMovies = { docs: current.docs.filter(item => item.inStock > 2) }
+            break;
+
+         case 'new':
+            var lastTwodays = current.docs.filter((item) => {
+               let created = new Date(item.created)
+               created.setDate(created.getDate() + 2)
+               if (todayYear == created.getFullYear() && todayMonth == created.getMonth()) {
+                  return today >= created.getDate() || created.getDate() > created.getDate() - 1
+               }
+            })
+            state.allMovies = { docs: lastTwodays }
+            break;
+      }
+
    },
    GETTING_ALL_CLIENTS(state, data) {
       state.allClients = data.data
@@ -156,7 +190,6 @@ const actions = {
    gettingAllMovies({ commit }, params) {
       return Api.get('/movie/v1', { params })
          .then(res => {
-            console.log(res, "ljnjk")
             if (!res.data.success) {
                return commit('FAILED_GETTING_ALL_MOVIES')
             }

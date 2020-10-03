@@ -36,7 +36,7 @@ export default {
 <style >
 body {
 	/* zoom: 0.95; */
-	font-family: "Quicksand", sans-serif;
+	font-family: "Quicksand", sans-serif !important;
 	font-size: 12px !important;
 }
 .v-chip.v-size--default {
@@ -57,5 +57,32 @@ body {
 }
 .blend-color {
 	background-color: #121212 !important;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.v-application,
+.v-application .subtitle-1,
+.v-application .subtitle-2,
+.v-application .v-content .body-1,
+.v-list-item .v-list-item__title,
+.v-list-item__content .font-weight-bold,
+.v-application .body-2,
+.v-application .button,
+body .caption,
+.v-application .caption,
+.v-btn__content,
+.v-application .overline,
+.v-application .title,
+.v-application .body-1 {
+	font-family: "Quicksand", sans-serif !important;
+}
+
+.v-menu__content {
+	overflow-y: unset !important;
+	overflow-x: unset !important;
 }
 </style>

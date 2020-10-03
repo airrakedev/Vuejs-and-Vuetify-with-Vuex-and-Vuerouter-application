@@ -4,22 +4,8 @@
 			<v-toolbar-title class="font-weight-bold primary--text">Prime Movies</v-toolbar-title>
 			<v-spacer></v-spacer>
 			<div v-if="!userSession">
-				<v-btn
-					color="primary"
-					rounded
-					elevation="1"
-					class="font-weight-medium mr-4 pl-6 pr-6"
-					height="35"
-					@click="registerUser"
-				>Signup</v-btn>
-				<v-btn
-					color="primary"
-					rounded
-					elevation="1"
-					@click="showLoginForm"
-					height="35"
-					class="font-weight-medium pl-6 pr-6"
-				>Login</v-btn>
+				<v-btn color="primary" rounded elevation="1" class="font-weight-medium mr-4 pl-6 pr-6" height="35" @click="registerUser">Signup</v-btn>
+				<v-btn color="primary" rounded elevation="1" @click="showLoginForm" height="35" class="font-weight-medium pl-6 pr-6">Login</v-btn>
 			</div>
 
 			<div v-else>
@@ -33,6 +19,7 @@
 <script>
 import { eventEmitter } from "Event";
 import store from "Store";
+import session from "Session";
 import ClientNotifications from "Components/client/notification";
 export default {
 	name: "AppHeader",

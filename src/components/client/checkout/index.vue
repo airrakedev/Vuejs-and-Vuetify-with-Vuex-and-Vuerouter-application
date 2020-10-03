@@ -1,74 +1,190 @@
 <template>
-	<v-container background-color="grey" class="mt-5 ml-5" fluid>
-		<v-row align="center" justify="center">
-			<v-col cols="7">
-				<v-card class="mx-auto pa-10" elevation="1">
+	<v-container background-color="grey" class="">
+		<v-row align="start" justify="center">
+			<v-col lg="8" md="7" sm="12">
+				<v-card class="mx-auto pa-5" elevation="1">
 					<h2 class="blue--text mb-5">Billing Details</h2>
 					<v-row>
 						<v-col cols="6" md="6" class="pt-0 pb-0">
-							<label for class="blue-grey--text">Firstname</label>
-							<v-text-field class="mt-1" placeholder="Firstname" solo></v-text-field>
+							<label for class="blue-grey--text font-weight-bold">Firstname</label>
+							<v-text-field class="mt-1 font-weight-bold" placeholder="Firstname" v-model="profile.firstname" solo-inverted flat></v-text-field>
 						</v-col>
 
 						<v-col cols="6" md="6" class="pt-0 pb-0">
-							<label for class="blue-grey--text">Lastname</label>
+							<label for class="blue-grey--text font-weight-bold">Lastname</label>
 
-							<v-text-field class="mt-1" placeholder="Lastname" solo></v-text-field>
+							<v-text-field class="mt-1 font-weight-bold" placeholder="Lastname" v-model="profile.lastname" solo-inverted flat></v-text-field>
 						</v-col>
-					</v-row>
-					<v-row>
+
 						<v-col cols="12" md="12" class="pt-0 pb-0">
-							<label for class="blue-grey--text">Email address</label>
+							<label for class="blue-grey--text font-weight-bold">Email address</label>
 
-							<v-text-field class="mt-1" placeholder="email" solo></v-text-field>
+							<v-text-field class="mt-1 font-weight-bold" placeholder="email" v-model="profile.email" solo-inverted flat></v-text-field>
 						</v-col>
-					</v-row>
-					<v-row>
+
 						<v-col cols="12" md="12" class="pt-0 pb-0">
-							<label for class="blue-grey--text">Street</label>
-							<v-text-field class="mt-1" placeholder="street" solo></v-text-field>
+							<label for class="blue-grey--text font-weight-bold">Address</label>
+							<v-text-field class="mt-1 font-weight-bold" placeholder="address" v-model="profile.address" solo-inverted flat></v-text-field>
 						</v-col>
 					</v-row>
+
 					<v-row>
 						<v-col cols="6" md="6" class="pt-0 pb-0">
-							<label for class="blue-grey--text">City</label>
-							<v-text-field class="mt-1" placeholder="City" solo></v-text-field>
+							<label for class="blue-grey--text font-weight-bold">Country</label>
+							<v-text-field class="mt-1 font-weight-bold" placeholder="Country" solo-inverted flat></v-text-field>
 						</v-col>
 						<v-col cols="6" md="6" class="pt-0 pb-0">
-							<label for class="blue-grey--text">State</label>
-							<v-text-field class="mt-1" placeholder="State" solo></v-text-field>
+							<label for class="blue-grey--text font-weight-bold">Zipcode</label>
+							<v-text-field class="mt-1 font-weight-bold" placeholder="Zipcode" solo-inverted flat></v-text-field>
 						</v-col>
 					</v-row>
-					<v-row>
-						<v-col cols="6" md="6" class="pt-0 pb-0">
-							<label for class="blue-grey--text">Country</label>
-							<v-text-field class="mt-1" placeholder="Country" solo></v-text-field>
-						</v-col>
-						<v-col cols="6" md="6" class="pt-0 pb-0">
-							<label for class="blue-grey--text">Zipcode</label>
-							<v-text-field class="mt-1" placeholder="Zipcode" solo></v-text-field>
-						</v-col>
-					</v-row>
-					<h2 class="blue--text mb-5">Payment Method</h2>
+					<h2 class="blue--text mt-5 mb-5">Payment Method</h2>
 					<v-row justify="center">
-						<v-col cols="12" md="12" class="pt-0 pb-0">
-							<v-expansion-panels accordion>
+						<v-col cols="12" md="12" class="pt-0 pb-5">
+							<v-expansion-panels v-model="panel" multiple tile accordion>
 								<v-expansion-panel>
-									<v-expansion-panel-header>Credit Card</v-expansion-panel-header>
-									<v-expansion-panel-content>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</v-expansion-panel-content>
+									<v-expansion-panel-header hide-actions @click="panel = []">
+										<h3 class="blue--text">
+											<span class="mr-2"> <v-icon color="blue darken-1"> mdi-credit-card-outline </v-icon> </span>Credit Card
+										</h3>
+									</v-expansion-panel-header>
+									<v-expansion-panel-content>
+										<v-row>
+											<v-col cols="12" md="12" class="pt-0 pb-0">
+												<label for class="blue-grey--text font-weight-bold">Card Number</label>
+												<v-text-field
+													append-icon="mdi-credit-card-outline"
+													class="mt-1 font-weight-bold"
+													placeholder="0000 0000 0000 0000"
+													solo-inverted
+													flat
+												></v-text-field>
+											</v-col>
+										</v-row>
+										<v-row>
+											<v-col cols="6" md="6" class="pt-0 pb-0">
+												<label for class="blue-grey--text font-weight-bold">Month</label>
+												<v-menu
+													ref="menu"
+													v-model="menu"
+													:close-on-content-click="false"
+													:return-value.sync="date"
+													transition="scale-transition"
+													offset-y
+													max-width="290px"
+													min-width="290px"
+												>
+													<template v-slot:activator="{ on, attrs }">
+														<v-text-field
+															v-model="date"
+															label="Picker in menu"
+															append-icon="mdi-calendar-month-outline"
+															readonly
+															v-bind="attrs"
+															v-on="on"
+															solo-inverted
+															class="font-weight-bold"
+															flat
+														></v-text-field>
+													</template>
+													<v-date-picker v-model="date" type="month" no-title scrollable>
+														<v-spacer></v-spacer>
+														<v-btn text color="primary" @click="menu = false"> Cancel </v-btn>
+														<v-btn text color="primary" @click="$refs.menu.save(date)"> OK </v-btn>
+													</v-date-picker>
+												</v-menu>
+											</v-col>
+
+											<v-col cols="6" md="6" class="pt-0 pb-0">
+												<label for class="blue-grey--text font-weight-bold">Security Code</label>
+												<v-text-field class="mt-1 font-weight-bold" placeholder="Three Digits" solo-inverted flat></v-text-field>
+											</v-col>
+										</v-row>
+									</v-expansion-panel-content>
 								</v-expansion-panel>
 								<v-expansion-panel>
-									<v-expansion-panel-header>Paypal</v-expansion-panel-header>
-									<v-expansion-panel-content>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</v-expansion-panel-content>
+									<v-expansion-panel-header hide-actions @click="panel = []">
+										<h3 class="blue--text">
+											<span class="mr-2">
+												<v-icon color="blue darken-1"> mdi-pandora </v-icon>
+											</span>
+											Paypal
+										</h3>
+									</v-expansion-panel-header>
+									<v-expansion-panel-content>
+										<v-row>
+											<v-col>
+												<p class="font-weight-bold blue-grey--text">
+													You'll pop off to PayPal quickly and payment will be token. We will then confirm your order.
+												</p>
+												<v-btn height="50" width="200" color="warning" class="font-weight-bold"><v-icon> mdi-pandora </v-icon> Pay with Paypal </v-btn>
+											</v-col>
+										</v-row>
+									</v-expansion-panel-content>
 								</v-expansion-panel>
 							</v-expansion-panels>
 						</v-col>
 					</v-row>
 				</v-card>
 			</v-col>
-			<v-col cols="5">
+			<v-col lg="4" md="5" sm="12">
 				<v-card class="mx-auto pa-4" elevation="1">
-					<h1>Boom</h1>
+					<h2 class="blue--text mb-5">Order Summary</h2>
+					<v-row no-gutters>
+						<v-col cols="12">
+							<v-list>
+								<v-list-item v-for="(movie, i) in selectedMovies" :key="i">
+									<v-list-item-action class="mr-2 font-weight-bold blue-grey--text">
+										{{ movie.qty }}
+									</v-list-item-action>
+
+									<v-list-item-content>
+										<v-list-item-title class="blue-grey--text font-weight-bold">
+											{{ movie.title }}
+										</v-list-item-title>
+									</v-list-item-content>
+									<v-list-item-action class="mt-0 mb-0 ml-0">
+										<v-list-item>
+											<!-- <v-list-item-action></v-list-item-action> -->
+											<v-spacer></v-spacer>
+
+											<v-list-item-action
+												><v-btn icon>
+													<v-icon dark> mdi-minus </v-icon>
+												</v-btn>
+											</v-list-item-action>
+											<v-list-item-action>
+												<v-btn icon>
+													<v-icon small dark>mdi-plus</v-icon>
+												</v-btn>
+											</v-list-item-action>
+
+											<v-list-item-action class="ml-0">
+												<!-- <v-list-item-action-text>P 23</v-list-item-action-text> -->
+												<span class="font-weight-bold teal--text">
+													{{ movie.rentPrice }}
+												</span>
+											</v-list-item-action>
+										</v-list-item>
+									</v-list-item-action>
+								</v-list-item>
+								<!-- <v-divider></v-divider> -->
+							</v-list>
+							<v-list>
+								<v-list-item>
+									<v-list-item-content class="font-weight-bold teal--text pt-0 pb-0"> <h3>Grand Total</h3> </v-list-item-content>
+									<v-spacer></v-spacer>
+									<v-list-item-action class="font-weight-bold warning--text pt-0 pb-0"> <h3>P 500.00</h3> </v-list-item-action>
+								</v-list-item>
+							</v-list>
+							<v-divider></v-divider>
+						</v-col>
+
+						<v-col cols="12 pl-5 pr-5">
+							<p class="mt-3 font-weight-bold blue-grey--text">By clicking the button, you agree to the Terms and Conditions</p>
+							<v-btn class="purchase-btn mt-3 mb-3 font-weight-bold" block outlined tile color="cyan darken-1"> Purchase Now </v-btn>
+						</v-col>
+					</v-row>
 				</v-card>
 			</v-col>
 		</v-row>
@@ -78,16 +194,37 @@
 <script>
 import store from "Store";
 import numeral from "numeral";
+import { mapGetters } from "vuex";
 export default {
 	name: "clientCheckOutPage",
 	data() {
-		return {};
+		return {
+			panel: [0],
+			date: new Date().toISOString().substr(0, 7),
+			menu: false,
+			modal: false,
+		};
+	},
+	computed: {
+		...mapGetters({
+			profile: "Customer/getClientProfile",
+			selectedMovies: "Customer/getClientList",
+		}),
 	},
 };
 </script>
 
 <style scoped>
-.v-expansion-panel .v-expansion-panel-header__icon {
+.theme--light.v-text-field > .v-input__control > .v-input__slot:before {
+	border: unset !important;
+}
+.purchase-btn {
+	border-width: 2px;
+}
+.v-application--is-ltr .v-expansion-panel-header__icon {
 	display: none !important;
+}
+.v-text-field .v-input__slot {
+	margin-bottom: 0px !important;
 }
 </style>

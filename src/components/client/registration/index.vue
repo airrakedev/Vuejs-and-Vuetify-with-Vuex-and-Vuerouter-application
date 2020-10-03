@@ -2,30 +2,22 @@
 	<v-dialog v-model="registrationDialog" persistent max-width="800px">
 		<v-card>
 			<v-toolbar dark elevation="0">
-				<v-toolbar-title lass="headline">Registration Form</v-toolbar-title>
+				<v-toolbar-title class="font-weight-bold">Create your account</v-toolbar-title>
 
 				<v-spacer></v-spacer>
 			</v-toolbar>
 
-			<v-card-text>
-				<v-container>
+			<v-card-text class="pb-0">
+				<v-container class="pb-0">
 					<form>
 						<v-row>
 							<v-col md="6">
-								<label for>Firstname</label>
+								<label for class="blue-grey--text font-weight-bold">Firstname</label>
 								<v-text-field
-									v-model="
-										newUser.firstname
-									"
-									@input="
-										$v.newUser.firstname.$touch()
-									"
-									@blur="
-										$v.newUser.firstname.$touch()
-									"
-									:error-messages="
-										firstnameErrors
-									"
+									v-model="newUser.firstname"
+									@input="$v.newUser.firstname.$touch()"
+									@blur="$v.newUser.firstname.$touch()"
+									:error-messages="firstnameErrors"
 									placeholder="Firstname"
 									append-icon="mdi-account-circle"
 									solo
@@ -33,114 +25,77 @@
 								></v-text-field>
 							</v-col>
 							<v-col md="6">
-								<label for>Lastname</label>
+								<label for class="blue-grey--text font-weight-bold">Lastname</label>
 								<v-text-field
 									v-model="newUser.lastname"
-									@input="
-										$v.newUser.lastname.$touch()
-									"
-									@blur="
-										$v.newUser.lastname.$touch()
-									"
-									:error-messages="
-										lastnameErrors
-									"
+									@input="$v.newUser.lastname.$touch()"
+									@blur="$v.newUser.lastname.$touch()"
+									:error-messages="lastnameErrors"
 									solo
 									placeholder="Firstname"
 									append-icon="mdi-account-circle"
 								></v-text-field>
 							</v-col>
 							<v-col md="6">
-								<label for>Password</label>
+								<label for class="blue-grey--text font-weight-bold">Password</label>
 								<v-text-field
 									type="password"
 									v-model="newUser.password"
-									@input="
-										$v.newUser.password.$touch()
-									"
-									@blur="
-										$v.newUser.password.$touch()
-									"
-									:error-messages="
-										passwordErrors
-									"
+									@input="$v.newUser.password.$touch()"
+									@blur="$v.newUser.password.$touch()"
+									:error-messages="passwordErrors"
 									solo
 									placeholder="password"
 									append-icon="mdi-lock-open"
 								></v-text-field>
 							</v-col>
 							<v-col md="6">
-								<label for>Confirm Password</label>
+								<label for class="blue-grey--text font-weight-bold">Confirm Password</label>
 								<v-text-field
 									type="password"
-									v-model="
-										newUser.confirmPassword
-									"
-									@input="
-										$v.newUser.confirmPassword.$touch()
-									"
-									@blur="
-										$v.newUser.confirmPassword.$touch()
-									"
-									:error-messages="
-										confirmPasswordErrors
-									"
+									v-model="newUser.confirmPassword"
+									@input="$v.newUser.confirmPassword.$touch()"
+									@blur="$v.newUser.confirmPassword.$touch()"
+									:error-messages="confirmPasswordErrors"
 									solo
 									placeholder="Confirm Password"
 									append-icon="mdi-lock"
 								></v-text-field>
 							</v-col>
 							<v-col md="6">
-								<label for>Email</label>
+								<label for class="blue-grey--text font-weight-bold">Email</label>
 								<v-text-field
 									v-model="newUser.email"
-									@input="
-										$v.newUser.email.$touch()
-									"
-									@blur="
-										$v.newUser.email.$touch()
-									"
-									:error-messages="
-										emailErrors
-									"
+									@input="$v.newUser.email.$touch()"
+									@blur="$v.newUser.email.$touch()"
+									:error-messages="emailErrors"
 									placeholder="Email Address"
 									append-icon="mdi-email"
 									solo
 								></v-text-field>
 							</v-col>
 							<v-col md="6">
-								<label for>Phone</label>
+								<label for class="blue-grey--text font-weight-bold">Phone</label>
 								<v-text-field
 									v-model="newUser.phone"
-									@input="
-										$v.newUser.phone.$touch()
-									"
-									@blur="
-										$v.newUser.phone.$touch()
-									"
-									:error-messages="
-										phoneErrors
-									"
+									@input="$v.newUser.phone.$touch()"
+									@blur="$v.newUser.phone.$touch()"
+									:error-messages="phoneErrors"
 									solo
 									placeholder="Phone"
 									append-icon="mdi-phone"
 								></v-text-field>
 							</v-col>
-							<v-col cols="12">
-								<label for>Address</label>
-								<v-text-field
-									v-model="newUser.address"
-									placeholder="Complete Address"
-									solo
-									append-icon="mdi-map-marker"
-								></v-text-field>
+							<v-col cols="12" class="pb-0">
+								<label for class="blue-grey--text font-weight-bold">Address</label>
+								<v-text-field v-model="newUser.address" placeholder="Complete Address" solo append-icon="mdi-map-marker"></v-text-field>
 							</v-col>
 						</v-row>
 					</form>
 				</v-container>
 			</v-card-text>
 			<v-divider></v-divider>
-			<v-card-actions class="pa-5">
+			<v-card-actions class="pa-3">
 				<v-spacer></v-spacer>
 				<v-btn class="pl-5 pr-5" dark @click="closeRegistrationDialog">Close</v-btn>
 				<v-btn class="pl-5 pr-5" dark @click="submit">Submit</v-btn>
