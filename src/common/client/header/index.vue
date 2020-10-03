@@ -33,8 +33,8 @@
 							</v-list-item-avatar>
 
 							<v-list-item-content>
-								<v-list-item-title class="teal--text font-weight-bold">{{ clientData.firstname }} {{ clientData.lastname }}</v-list-item-title>
-								<v-list-item-subtitle class="font-weight-medium">{{ clientData.email }}</v-list-item-subtitle>
+								<v-list-item-title class="blue-grey--text font-weight-bold">{{ clientData.firstname }} {{ clientData.lastname }}</v-list-item-title>
+								<v-list-item-subtitle class="">{{ clientData.email }}</v-list-item-subtitle>
 							</v-list-item-content>
 						</v-list-item>
 					</v-list>
@@ -45,9 +45,9 @@
 						<router-link :to="{ name: 'ClientProfile' }">
 							<v-list-item link>
 								<v-list-item-action>
-									<v-icon>mdi-account-box</v-icon>
+									<v-icon color="blue-grey">mdi-account-box</v-icon>
 								</v-list-item-action>
-								<v-list-item-title class="font-weight-bold">My Profile</v-list-item-title>
+								<v-list-item-title class="font-weight-bold blue-grey--text">My Profile</v-list-item-title>
 							</v-list-item>
 						</router-link>
 
@@ -55,7 +55,7 @@
 							<v-list-item-action>
 								<v-icon color="pink">mdi-power-standby</v-icon>
 							</v-list-item-action>
-							<v-list-item-title class="font-weight-bold">Logout</v-list-item-title>
+							<v-list-item-title class="font-weight-bold blue-grey--text">Logout</v-list-item-title>
 						</v-list-item>
 					</v-list>
 				</v-card>

@@ -56,10 +56,10 @@
 
 				<v-spacer></v-spacer>
 				<v-list-item-content>
-					<v-list-item-title>Grand Total</v-list-item-title>
+					<v-list-item-title class="font-weight-bold body-1">Grand Total</v-list-item-title>
 				</v-list-item-content>
 				<v-list-item-action>
-					<v-list-item-title color="primary">₱&nbsp;{{ grandTotalPrice | formatNumber }}</v-list-item-title>
+					<v-list-item-title color="primary" class="font-weight-bold">₱&nbsp;{{ grandTotalPrice | formatNumber }}</v-list-item-title>
 				</v-list-item-action>
 			</v-list-item>
 		</v-list>
@@ -132,8 +132,7 @@ export default {
 </script>
 
 <style scoped>
-.v-menu__content {
-	overflow-y: unset !important;
-	overflow-x: unset !important;
+.v-application .body-1 {
+	font-family: "Quicksand", sans-serif !important;
 }
 </style>
