@@ -5,12 +5,18 @@ import route from 'Router'
 
 const state = {
    drawerStatus: false,
-   genreList: []
+   genreList: [],
+   snackBarNotice: {
+      status: false,
+      color: '',
+      text: ''
+   }
 }
 
 const getters = {
    getDrawerStatus: state => state.drawerStatus,
-   getGenreList: state => state.genreList
+   getGenreList: state => state.genreList,
+   getSnackBarNotice: state => state.snackBarNotice
 }
 
 const mutations = {
@@ -19,6 +25,13 @@ const mutations = {
    },
    ALL_GENRE(state, payload) {
       state.genreList = payload
+   },
+   UPDATE_SNACKBAR(state, { status, color, text }) {
+      state.snackBarNotice = {
+         status,
+         color,
+         text
+      }
    }
 }
 

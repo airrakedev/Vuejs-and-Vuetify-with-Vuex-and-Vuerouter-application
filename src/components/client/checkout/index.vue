@@ -132,8 +132,8 @@
 					<h2 class="blue--text mb-5">Order Summary</h2>
 					<v-row no-gutters>
 						<v-col cols="12">
-							<v-list>
-								<v-list-item v-for="(movie, i) in selectedMovies" :key="i">
+							<v-list v-if="isMovieAvailable">
+								<v-list-item class="pl-1 pr-1" v-for="(movie, i) in selectedMovies" :key="i">
 									<v-list-item-action class="mr-2 font-weight-bold blue-grey--text">
 										{{ movie.qty }}
 									</v-list-item-action>
@@ -144,17 +144,17 @@
 										</v-list-item-title>
 									</v-list-item-content>
 									<v-list-item-action class="mt-0 mb-0 ml-0">
-										<v-list-item>
+										<v-list-item class="pl-2 pr-1">
 											<!-- <v-list-item-action></v-list-item-action> -->
 											<v-spacer></v-spacer>
 
-											<v-list-item-action
-												><v-btn icon>
+											<v-list-item-action>
+												<v-btn icon @click="updateMyMovieList(movie._id, 'minus')">
 													<v-icon dark> mdi-minus </v-icon>
 												</v-btn>
 											</v-list-item-action>
 											<v-list-item-action>
-												<v-btn icon>
+												<v-btn icon @click="updateMyMovieList(movie._id, 'add')">
 													<v-icon small dark>mdi-plus</v-icon>
 												</v-btn>
 											</v-list-item-action>
@@ -170,11 +170,25 @@
 								</v-list-item>
 								<!-- <v-divider></v-divider> -->
 							</v-list>
-							<v-list>
-								<v-list-item>
-									<v-list-item-content class="font-weight-bold teal--text pt-0 pb-0"> <h3>Grand Total</h3> </v-list-item-content>
+
+							<v-list v-if="!isMovieAvailable">
+								<v-list-item class="text-center">
+									<v-list-item-content>
+										<v-list-item-title class="blue-grey--text font-weight-bold">
+											No selected movies. <router-link :to="{ name: 'main-dashboard' }">Select here</router-link>
+										</v-list-item-title>
+									</v-list-item-content>
+								</v-list-item>
+							</v-list>
+							<v-list v-if="isMovieAvailable">
+								<v-list-item class="pl-1 pr-1">
+									<v-list-item-content class="font-weight-bold teal--text pt-0 pb-0">
+										<h3>Grand Total</h3>
+									</v-list-item-content>
 									<v-spacer></v-spacer>
-									<v-list-item-action class="font-weight-bold warning--text pt-0 pb-0"> <h3>P 500.00</h3> </v-list-item-action>
+									<v-list-item-action class="font-weight-bold warning--text pt-0 pb-0">
+										<h3>P 500.00</h3>
+									</v-list-item-action>
 								</v-list-item>
 							</v-list>
 							<v-divider></v-divider>
@@ -182,7 +196,7 @@
 
 						<v-col cols="12 pl-5 pr-5">
 							<p class="mt-3 font-weight-bold blue-grey--text">By clicking the button, you agree to the Terms and Conditions</p>
-							<v-btn class="purchase-btn mt-3 mb-3 font-weight-bold" block outlined tile color="cyan darken-1"> Purchase Now </v-btn>
+							<v-btn :disabled="!isMovieAvailable" class="purchase-btn mt-3 mb-3 font-weight-bold" block outlined tile color="cyan darken-1"> Purchase Now </v-btn>
 						</v-col>
 					</v-row>
 				</v-card>
@@ -205,10 +219,32 @@ export default {
 			modal: false,
 		};
 	},
+	methods: {
+		checkQuantity(id) {
+			let myListing = store.getters["Customer/getClientList"];
+			let addedMovie = myListing.filter((item) => item._id == id);
+			let selectedMovieQty = addedMovie[0].qty;
+
+			let allMovies = store.getters["Admin/getAllMovies"].docs;
+			let selectedMovie = allMovies.filter((item) => item._id == id);
+			let movieInStock = selectedMovie[0].inStock;
+
+			return selectedMovieQty == movieInStock || selectedMovieQty > movieInStock;
+		},
+		async updateMyMovieList(id, action) {
+			if (action === "add") {
+				if (this.checkQuantity(id)) {
+					return (this.snackbar = true);
+				}
+			}
+			await store.commit("Customer/ADJUST_MY_MOVIE_LIST", { id, action });
+		},
+	},
 	computed: {
 		...mapGetters({
 			profile: "Customer/getClientProfile",
 			selectedMovies: "Customer/getClientList",
+			isMovieAvailable: "Customer/getIfIHaveMovies",
 		}),
 	},
 };

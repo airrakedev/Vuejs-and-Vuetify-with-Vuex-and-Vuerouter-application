@@ -3,7 +3,7 @@
 		<v-dialog v-model="movieDialogStatus" persistent max-width="950px">
 			<v-card>
 				<v-app-bar height="60" dark color="teal" elevation="0">
-					<v-toolbar-title class="pl-5 font-weight-bold">{{title}}</v-toolbar-title>
+					<v-toolbar-title class="pl-5 font-weight-bold">{{ title }}</v-toolbar-title>
 
 					<v-spacer></v-spacer>
 				</v-app-bar>
@@ -29,15 +29,9 @@
 									<v-col cols="12" md="12" class="pt-1 pb-1">
 										<label for class="font-weight-bold">Actor/s</label>
 										<v-chip-group column v-if="actors.length">
-											<v-chip
-												v-for="(actor, i) in actors"
-												:key="i"
-												color="teal"
-												elevation="2"
-												close
-												dark
-												@click:close="removeChip(actor)"
-											>{{actor}}</v-chip>
+											<v-chip v-for="(actor, i) in actors" :key="i" color="teal" elevation="2" close dark @click:close="removeChip(actor)">{{
+												actor
+											}}</v-chip>
 										</v-chip-group>
 										<v-row no-gutters align="center">
 											<v-col cols="11">
@@ -89,12 +83,7 @@
 								<v-row justify="end">
 									<v-col cols="8" class="pl-0 pt-0 pb-0">
 										<v-card class="pa-2">
-											<v-img
-												:src="movieProfileImage"
-												:lazy-src="movieProfileImage"
-												aspect-ratio="1"
-												class="grey lighten-2"
-											></v-img>
+											<v-img :src="movieProfileImage" :lazy-src="movieProfileImage" aspect-ratio="1" class="grey lighten-2"></v-img>
 										</v-card>
 									</v-col>
 								</v-row>
@@ -127,33 +116,17 @@
 							</v-col>
 							<v-col cols="6" md="6" class="pt-1 pb-0">
 								<label for class="font-weight-bold">Description</label>
-								<v-textarea
-									class="mt-1"
-									v-model="movieData.description"
-									auto-grow
-									solo
-									color="deep-purple"
-									placeholder="Movie description"
-									rows="4"
-								></v-textarea>
+								<v-textarea class="mt-1" v-model="movieData.description" auto-grow solo color="deep-purple" placeholder="Movie description" rows="4"></v-textarea>
 							</v-col>
 							<v-col cols="6" md="6" class="pt-1 pb-0">
 								<label for class="font-weight-bold">Plot</label>
-								<v-textarea
-									v-model="movieData.plot"
-									class="mt-1"
-									auto-grow
-									solo
-									color="deep-purple"
-									placeholder="Movie plot"
-									rows="4"
-								></v-textarea>
+								<v-textarea v-model="movieData.plot" class="mt-1" auto-grow solo color="deep-purple" placeholder="Movie plot" rows="4"></v-textarea>
 							</v-col>
 						</v-row>
 					</v-container>
 				</v-card-text>
 				<v-divider></v-divider>
-				<v-footer padless class="pr-5" align="end" justify="end">
+				<v-footer padless color="white" class="pr-5" align="end" justify="end">
 					<v-row align="end" justify="end">
 						<v-col>
 							<v-btn color="error" @click="closeMovieForm" height="35" width="100">Close</v-btn>

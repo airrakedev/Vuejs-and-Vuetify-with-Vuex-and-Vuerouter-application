@@ -63,12 +63,6 @@
 				</v-list-item-action>
 			</v-list-item>
 		</v-list>
-		<v-snackbar :multi-line="snackbarOtherStatus" v-model="snackbar" :top="snackbarOtherStatus" :centered="snackbarOtherStatus" color="primary" dark elevation="24">
-			{{ snackbarText }}
-			<template v-slot:action="{ attrs }">
-				<v-btn color="red" text v-bind="attrs" @click="snackbar = false">Close</v-btn>
-			</template>
-		</v-snackbar>
 	</v-card>
 </template>
 
@@ -78,11 +72,7 @@ import numeral from "numeral";
 export default {
 	name: "client-movie-listing",
 	data() {
-		return {
-			snackbar: false,
-			snackbarOtherStatus: true,
-			snackbarText: "You already exceed the movie inventory",
-		};
+		return {};
 	},
 	methods: {
 		checkQuantity(id) {
@@ -99,7 +89,7 @@ export default {
 		async updateMyMovieList(id, action) {
 			if (action === "add") {
 				if (this.checkQuantity(id)) {
-					return (this.snackbar = true);
+					return this.showSnackbar();
 				}
 			}
 			await store.commit("Customer/ADJUST_MY_MOVIE_LIST", { id, action });
@@ -112,6 +102,15 @@ export default {
 		},
 		checkout() {
 			this.$router.push({ name: "ClientCheckout" });
+		},
+		showSnackbar() {
+			let stateStatus = {
+				status: true,
+				color: "warning",
+				text: "Quantity exceeded to it's stock limit.",
+			};
+
+			store.commit("Global/UPDATE_SNACKBAR", stateStatus);
 		},
 	},
 	computed: {

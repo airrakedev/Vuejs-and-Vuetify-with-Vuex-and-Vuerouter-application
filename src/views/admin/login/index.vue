@@ -1,40 +1,25 @@
 <template>
 	<v-content>
-		<v-container class="fill-height" fluid>
+		<v-container class="fill-height">
 			<v-row align="center" justify="center">
-				<v-col cols="12" sm="8" md="5">
-					<v-card class="elevation-2 pa-5">
-						<v-row class="admin-login-header pl-1 pr-1 pb-3 pt-0">
-							<v-col class="pl-5 pr-5 pb-5 pt-0">
-								<v-card class="teal pa-5 text-center" elevation="2">
-									<h2 class="text-center white--text pt-5 pb-2">Administrator Login</h2>
-									<v-icon class="admin-login-header-icon" color="white">mdi-briefcase-outline</v-icon>
-								</v-card>
+				<v-col lg="5" sm="8" md="5">
+					<v-card class="elevation-1 pa-5 pl-7 pr-7">
+						<v-row no-gutters>
+							<v-col>
+								<h2 class="pt-1 pb-2 text-center font-weight-bold teal--text">Welcome</h2>
+								<p class="text-center font-weight-bold blue-grey--text">Sign in to your account</p>
 							</v-col>
 						</v-row>
-						<!-- <v-toolbar flat color="teal" dark height="80" class="mb-5">
-							<v-row>
-								<v-col>
-									<h2 class="text-center">Administrator Login</h2>
-								</v-col>
-							</v-row>
-						</v-toolbar>-->
-						<!-- <v-card-text class="pb-2">
-							<v-row align="center">
-								<v-flex class="text-center">
-									<v-icon class="icon-title" color="pink">mdi-hexagon-slice-6</v-icon>
-								</v-flex>
-							</v-row>
-						</v-card-text>-->
-						<v-card-text class="pb-0 pt-0">
-							<v-form class="pl-5 pr-5 pt-0">
+
+						<v-card-text class="pa-0 mt-5">
+							<v-form class="pa-0">
 								<label class="font-weight-bold grey--text">Email</label>
 								<v-text-field
 									placeholder="email@email.com"
 									append-icon="mdi-email-outline"
 									solo
 									type="text"
-									class="mt-1 mb-5"
+									class="mt-1 mb-0"
 									v-model="newUser.email"
 									@input="$v.newUser.email.$touch()"
 									@blur="$v.newUser.email.$touch()"
@@ -54,16 +39,10 @@
 								/>
 							</v-form>
 						</v-card-text>
-						<div class="pb-5 pr-5 pl-5 pb-5" align="center" justify="center">
-							<v-btn
-								rounded
-								height="50"
-								width="150"
-								dark
-								color="teal"
-								class="font-weight-bold pl-5 pr-5 mb-0 mt-5"
-								@click="submit()"
-							>Login</v-btn>
+						<div class="pb-5 pr-0 pl-0 mt-3" align="center" justify="center">
+							<v-btn outlined tile block height="50" width="150" dark color="teal" class="login-button font-weight-bold pl-0 pr-0 mb-0 mt-0" @click="submit()"
+								>Login</v-btn
+							>
 						</div>
 					</v-card>
 				</v-col>
@@ -124,13 +103,10 @@ export default {
 </script>
 
 <style scoped>
-.admin-login-header-icon {
-	font-size: 60px !important;
+.login-button {
+	border-width: 2px;
 }
-.admin-login-header {
-	margin-top: -60px;
-}
-.icon-title {
-	font-size: 90px !important;
+.v-text-field__details {
+	margin-bottom: 0px !important;
 }
 </style>

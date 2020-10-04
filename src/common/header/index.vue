@@ -21,7 +21,7 @@
 			<v-menu v-model="menu" :close-on-content-click="false" :nudge-width="200" offset-y>
 				<template v-slot:activator="{ on }">
 					<v-btn icon v-on="on">
-						<v-icon color="teal" large>mdi-account-circle-outline</v-icon>
+						<v-icon color="teal">mdi-account-circle-outline</v-icon>
 					</v-btn>
 				</template>
 
@@ -47,7 +47,7 @@
 								<v-list-item-action>
 									<v-icon>mdi-account-box</v-icon>
 								</v-list-item-action>
-								<v-list-item-title class="font-weight-bold">My Profile</v-list-item-title>
+								<v-list-item-title class="font-weight-bold blue-grey--text">My Profile</v-list-item-title>
 							</v-list-item>
 						</router-link>
 
@@ -55,7 +55,7 @@
 							<v-list-item-action>
 								<v-icon color="pink">mdi-power-standby</v-icon>
 							</v-list-item-action>
-							<v-list-item-title class="font-weight-bold">Logout</v-list-item-title>
+							<v-list-item-title class="font-weight-bold blue-grey--text">Logout</v-list-item-title>
 						</v-list-item>
 					</v-list>
 				</v-card>

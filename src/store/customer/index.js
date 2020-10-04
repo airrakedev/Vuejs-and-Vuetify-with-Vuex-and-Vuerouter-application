@@ -18,7 +18,8 @@ const getters = {
    getClientSession: state => state.clientSession,
    getClientProfile: state => state.clientProfile,
    getClientStatus: state => state.clientStatus,
-   getClientList: state => state.myMovieList
+   getClientList: state => state.myMovieList,
+   getIfIHaveMovies: state => (state.myMovieList != 0)
 }
 
 const mutations = {

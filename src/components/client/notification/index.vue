@@ -54,7 +54,7 @@
 									<v-icon color="blue-grey">mdi-filmstrip</v-icon>
 								</v-list-item-icon>
 								<v-list-item-content>
-									<v-list-item-title class="font-weight-bold">My Records</v-list-item-title>
+									<v-list-item-title class="font-weight-bold">My Dashboard</v-list-item-title>
 								</v-list-item-content>
 							</v-list-item>
 						</router-link>
