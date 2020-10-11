@@ -22,10 +22,10 @@
 						<v-tooltip top>
 							<template v-slot:activator="{ on, attrs }">
 								<v-btn fab dark @click="addMovie(movie._id)" small color="primary" v-bind="attrs" v-on="on">
-									<v-icon dark>mdi-plus</v-icon>
+									<v-icon dark>mdi-cart-arrow-down</v-icon>
 								</v-btn>
 							</template>
-							<span>Rent Movie</span>
+							<span>Shop Movie</span>
 						</v-tooltip>
 					</v-card-actions>
 				</v-card>
@@ -126,10 +126,10 @@ export default {
 			if (this.isClientLogin) {
 				if (this.getAMovie(id).length) {
 					let { _id, title, rentPrice } = this.getAMovie(id)[0];
-					await store.commit("Customer/ADD_MOVIE_ITEM", { _id, title, rentPrice, qty: 1 });
+					// await store.commit("Customer/ADD_MOVIE_ITEM", { _id, title, rentPrice, qty: 1 });
+					await store.dispatch("Customer/addMyMovieToCart", { _id, title, rentPrice, qty: 1 });
 					this.snackbar = true;
 				}
-
 				return;
 			}
 			eventEmitter.$emit("display-login-form", {});

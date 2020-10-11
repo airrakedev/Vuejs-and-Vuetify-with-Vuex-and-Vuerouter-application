@@ -7,35 +7,89 @@
 					<v-row>
 						<v-col cols="6" md="6" class="pt-0 pb-0">
 							<label for class="blue-grey--text font-weight-bold">Firstname</label>
-							<v-text-field class="mt-1 font-weight-bold" placeholder="Firstname" v-model="profile.firstname" solo-inverted flat></v-text-field>
+							<v-text-field
+								class="mt-1 font-weight-bold"
+								placeholder="Firstname"
+								@input="$v.profile.firstname.$touch()"
+								@blur="$v.profile.firstname.$touch()"
+								:error-messages="firstnameErrors"
+								v-model="profile.firstname"
+								solo-inverted
+								flat
+							></v-text-field>
 						</v-col>
 
 						<v-col cols="6" md="6" class="pt-0 pb-0">
 							<label for class="blue-grey--text font-weight-bold">Lastname</label>
 
-							<v-text-field class="mt-1 font-weight-bold" placeholder="Lastname" v-model="profile.lastname" solo-inverted flat></v-text-field>
+							<v-text-field
+								class="mt-1 font-weight-bold"
+								placeholder="Lastname"
+								@input="$v.profile.lastname.$touch()"
+								@blur="$v.profile.lastname.$touch()"
+								:error-messages="lastnameErrors"
+								v-model="profile.lastname"
+								solo-inverted
+								flat
+							></v-text-field>
 						</v-col>
 
 						<v-col cols="12" md="12" class="pt-0 pb-0">
 							<label for class="blue-grey--text font-weight-bold">Email address</label>
 
-							<v-text-field class="mt-1 font-weight-bold" placeholder="email" v-model="profile.email" solo-inverted flat></v-text-field>
+							<v-text-field
+								class="mt-1 font-weight-bold"
+								placeholder="email"
+								@input="$v.profile.email.$touch()"
+								@blur="$v.profile.email.$touch()"
+								:error-messages="emailErrors"
+								v-model="profile.email"
+								solo-inverted
+								flat
+							></v-text-field>
 						</v-col>
 
 						<v-col cols="12" md="12" class="pt-0 pb-0">
 							<label for class="blue-grey--text font-weight-bold">Address</label>
-							<v-text-field class="mt-1 font-weight-bold" placeholder="address" v-model="profile.address" solo-inverted flat></v-text-field>
+							<v-text-field
+								class="mt-1 font-weight-bold"
+								@input="$v.profile.address.$touch()"
+								@blur="$v.profile.address.$touch()"
+								:error-messages="addressErrors"
+								placeholder="address"
+								v-model="profile.address"
+								solo-inverted
+								flat
+							></v-text-field>
 						</v-col>
 					</v-row>
 
 					<v-row>
 						<v-col cols="6" md="6" class="pt-0 pb-0">
 							<label for class="blue-grey--text font-weight-bold">Country</label>
-							<v-text-field class="mt-1 font-weight-bold" placeholder="Country" solo-inverted flat></v-text-field>
+							<v-text-field
+								class="mt-1 font-weight-bold"
+								@input="$v.profile.country.$touch()"
+								@blur="$v.profile.country.$touch()"
+								:error-messages="countryErrors"
+								v-model="profile.country"
+								placeholder="Country"
+								solo-inverted
+								flat
+							></v-text-field>
 						</v-col>
 						<v-col cols="6" md="6" class="pt-0 pb-0">
 							<label for class="blue-grey--text font-weight-bold">Zipcode</label>
-							<v-text-field class="mt-1 font-weight-bold" placeholder="Zipcode" solo-inverted flat></v-text-field>
+							<v-text-field
+								class="mt-1 font-weight-bold"
+								@input="$v.profile.zipcode.$touch()"
+								@blur="$v.profile.zipcode.$touch()"
+								:error-messages="zipcodeErrors"
+								v-model="profile.zipcode"
+								placeholder="Zipcode"
+								solo-inverted
+								flat
+							></v-text-field>
 						</v-col>
 					</v-row>
 					<h2 class="blue--text mt-5 mb-5">Payment Method</h2>
@@ -43,7 +97,7 @@
 						<v-col cols="12" md="12" class="pt-0 pb-5">
 							<v-expansion-panels v-model="panel" multiple tile accordion>
 								<v-expansion-panel>
-									<v-expansion-panel-header hide-actions @click="panel = []">
+									<v-expansion-panel-header hide-actions @click="closePanel(false)">
 										<h3 class="blue--text">
 											<span class="mr-2"> <v-icon color="blue darken-1"> mdi-credit-card-outline </v-icon> </span>Credit Card
 										</h3>
@@ -56,6 +110,10 @@
 													append-icon="mdi-credit-card-outline"
 													class="mt-1 font-weight-bold"
 													placeholder="0000 0000 0000 0000"
+													@input="$v.paymentCC.cardNumber.$touch()"
+													@blur="$v.paymentCC.cardNumber.$touch()"
+													:error-messages="!paymentPaypal ? cardNumberErrors : ''"
+													v-model="paymentCC.cardNumber"
 													solo-inverted
 													flat
 												></v-text-field>
@@ -63,7 +121,7 @@
 										</v-row>
 										<v-row>
 											<v-col cols="6" md="6" class="pt-0 pb-0">
-												<label for class="blue-grey--text font-weight-bold">Month</label>
+												<label for class="blue-grey--text font-weight-bold">Month/Year</label>
 												<v-menu
 													ref="menu"
 													v-model="menu"
@@ -76,7 +134,10 @@
 												>
 													<template v-slot:activator="{ on, attrs }">
 														<v-text-field
-															v-model="date"
+															v-model="paymentCC.month"
+															@input="$v.paymentCC.month.$touch()"
+															@blur="$v.paymentCC.month.$touch()"
+															:error-messages="!paymentPaypal ? monthErrors : ''"
 															label="Picker in menu"
 															append-icon="mdi-calendar-month-outline"
 															readonly
@@ -87,7 +148,7 @@
 															flat
 														></v-text-field>
 													</template>
-													<v-date-picker v-model="date" type="month" no-title scrollable>
+													<v-date-picker v-model="paymentCC.month" type="month" no-title scrollable>
 														<v-spacer></v-spacer>
 														<v-btn text color="primary" @click="menu = false"> Cancel </v-btn>
 														<v-btn text color="primary" @click="$refs.menu.save(date)"> OK </v-btn>
@@ -97,13 +158,22 @@
 
 											<v-col cols="6" md="6" class="pt-0 pb-0">
 												<label for class="blue-grey--text font-weight-bold">Security Code</label>
-												<v-text-field class="mt-1 font-weight-bold" placeholder="Three Digits" solo-inverted flat></v-text-field>
+												<v-text-field
+													class="mt-1 font-weight-bold"
+													@input="$v.paymentCC.securityCode.$touch()"
+													@blur="$v.paymentCC.securityCode.$touch()"
+													v-model="paymentCC.securityCode"
+													:error-messages="!paymentPaypal ? securityCodeErrors : ''"
+													placeholder="Three Digits"
+													solo-inverted
+													flat
+												></v-text-field>
 											</v-col>
 										</v-row>
 									</v-expansion-panel-content>
 								</v-expansion-panel>
 								<v-expansion-panel>
-									<v-expansion-panel-header hide-actions @click="panel = []">
+									<v-expansion-panel-header hide-actions @click="closePanel(true)">
 										<h3 class="blue--text">
 											<span class="mr-2">
 												<v-icon color="blue darken-1"> mdi-pandora </v-icon>
@@ -161,9 +231,7 @@
 
 											<v-list-item-action class="ml-0">
 												<!-- <v-list-item-action-text>P 23</v-list-item-action-text> -->
-												<span class="font-weight-bold teal--text">
-													{{ movie.rentPrice }}
-												</span>
+												<span class="font-weight-bold teal--text"> ₱&nbsp;{{ parseFloat(movie.rentPrice * movie.qty) | formatNumber }} </span>
 											</v-list-item-action>
 										</v-list-item>
 									</v-list-item-action>
@@ -187,7 +255,7 @@
 									</v-list-item-content>
 									<v-spacer></v-spacer>
 									<v-list-item-action class="font-weight-bold warning--text pt-0 pb-0">
-										<h3>P 500.00</h3>
+										<h3>₱&nbsp;{{ grandTotalPrice | formatNumber }}</h3>
 									</v-list-item-action>
 								</v-list-item>
 							</v-list>
@@ -196,7 +264,9 @@
 
 						<v-col cols="12 pl-5 pr-5">
 							<p class="mt-3 font-weight-bold blue-grey--text">By clicking the button, you agree to the Terms and Conditions</p>
-							<v-btn :disabled="!isMovieAvailable" class="purchase-btn mt-3 mb-3 font-weight-bold" block outlined tile color="cyan darken-1"> Purchase Now </v-btn>
+							<v-btn :disabled="!isMovieAvailable" class="purchase-btn mt-3 mb-3 font-weight-bold" block outlined tile color="cyan darken-1" @click="submitOrder()">
+								Purchase Now
+							</v-btn>
 						</v-col>
 					</v-row>
 				</v-card>
@@ -206,20 +276,67 @@
 </template>
 
 <script>
+import { validationMixin } from "vuelidate";
+const { required, decimal, email } = require("vuelidate/lib/validators");
+
 import store from "Store";
 import numeral from "numeral";
 import { mapGetters } from "vuex";
+
 export default {
 	name: "clientCheckOutPage",
+	props: {
+		account: Object,
+	},
+	mixins: [validationMixin],
+	validations() {
+		let paymentType = !this.paymentPaypal ? required : "";
+
+		return {
+			profile: {
+				firstname: { required },
+				lastname: { required },
+				email: { required, email },
+				address: { required },
+				country: { required },
+				zipcode: { required },
+			},
+			paymentCC: {
+				cardNumber: { required: paymentType },
+				month: { required: paymentType },
+				securityCode: { required: paymentType },
+			},
+		};
+	},
 	data() {
 		return {
 			panel: [0],
 			date: new Date().toISOString().substr(0, 7),
 			menu: false,
 			modal: false,
+			profile: {
+				firstname: "",
+				lastname: "",
+				email: "",
+				address: "",
+				phone: "",
+				country: "",
+				zipcode: "",
+			},
+			paymentMethodType: "cc",
+			paymentCC: {
+				cardNumber: "",
+				month: "",
+				securityCode: "",
+			},
+			paymentPaypal: false,
 		};
 	},
 	methods: {
+		closePanel(status) {
+			this.panel = [];
+			this.paymentPaypal = status;
+		},
 		checkQuantity(id) {
 			let myListing = store.getters["Customer/getClientList"];
 			let addedMovie = myListing.filter((item) => item._id == id);
@@ -234,18 +351,132 @@ export default {
 		async updateMyMovieList(id, action) {
 			if (action === "add") {
 				if (this.checkQuantity(id)) {
-					return (this.snackbar = true);
+					let snackStatus = {
+						status: true,
+						color: "warning",
+						text: "Quantity exceeded, no inventory available.",
+					};
+					return store.commit("Global/UPDATE_SNACKBAR", snackStatus);
 				}
 			}
-			await store.commit("Customer/ADJUST_MY_MOVIE_LIST", { id, action });
+			// await store.commit("Customer/ADJUST_MY_MOVIE_LIST", { id, action });
+			await store.dispatch("Customer/updateMyMovieList", { id, action });
+		},
+		async submitOrder() {
+			this.$v.$touch();
+			console.log(this.$v, "oui wala");
+			if (this.$v.$pending || this.$v.$error) return;
+
+			let params = {};
+
+			this.profile._id = this.clientId;
+			params.client = this.profile;
+			params.movies = this.selectedMovies;
+			params.amountTotal = parseFloat(this.grandTotalPrice);
+			params.quantity = this.totalQty;
+			params.paymentMethod = this.paymentMethodType;
+			params.status = true;
+
+			params.paymentDetails = {
+				ccNumber: "",
+				month: "",
+				year: "",
+				securityCode: "",
+			};
+			console.log(typeof params.amountTotal, "Jodiofd");
+			if (!this.paymentPaypal) {
+				let month = this.paymentCC.month.split("-");
+				params.paymentDetails = {
+					ccNumber: this.paymentCC.cardNumber,
+					month: parseInt(month[1], 10),
+					year: parseInt(month[0], 10),
+					securityCode: this.paymentCC.securityCode,
+				};
+			}
+			console.log(params, "submitted");
+			await store.dispatch("Customer/clientCheckOut", params);
+			console.log("What now");
 		},
 	},
 	computed: {
-		...mapGetters({
-			profile: "Customer/getClientProfile",
-			selectedMovies: "Customer/getClientList",
-			isMovieAvailable: "Customer/getIfIHaveMovies",
+		...mapGetters("Customer", {
+			selectedMovies: "getClientList",
+			isMovieAvailable: "getIfIHaveMovies",
+			clientId: "getClientId",
+			grandTotalPrice: "getClientTotalMovie",
+			totalQty: "getAllQtyShopMovie",
 		}),
+		firstnameErrors() {
+			const errors = [];
+			if (!this.$v.profile.firstname.$dirty) return errors;
+			!this.$v.profile.firstname.required && errors.push("Firstname is required.");
+			return errors;
+		},
+		lastnameErrors() {
+			const errors = [];
+			if (!this.$v.profile.lastname.$dirty) return errors;
+			!this.$v.profile.lastname.required && errors.push("Lastname is required.");
+			return errors;
+		},
+		emailErrors() {
+			const errors = [];
+			if (!this.$v.profile.email.$dirty) return errors;
+			!this.$v.profile.email.required && errors.push("Email is required.");
+			!this.$v.profile.email.email && errors.push("Provide valid email.");
+			return errors;
+		},
+		addressErrors() {
+			const errors = [];
+			if (!this.$v.profile.address.$dirty) return errors;
+			!this.$v.profile.address.required && errors.push("Address is required.");
+			return errors;
+		},
+		countryErrors() {
+			const errors = [];
+			if (!this.$v.profile.country.$dirty) return errors;
+			!this.$v.profile.country.required && errors.push("Country is required.");
+			return errors;
+		},
+		zipcodeErrors() {
+			const errors = [];
+			if (!this.$v.profile.zipcode.$dirty) return errors;
+			!this.$v.profile.zipcode.required && errors.push("Zipcode is required.");
+			return errors;
+		},
+		cardNumberErrors() {
+			const errors = [];
+			if (!this.$v.paymentCC.cardNumber.$dirty) return errors;
+			!this.$v.paymentCC.cardNumber.required && errors.push("Card number is required.");
+			return errors;
+		},
+		monthErrors() {
+			const errors = [];
+			if (!this.$v.paymentCC.month.$dirty) return errors;
+			!this.$v.paymentCC.month.required && errors.push("Card month and year are required.");
+			return errors;
+		},
+		securityCodeErrors() {
+			const errors = [];
+			if (!this.$v.paymentCC.securityCode.$dirty) return errors;
+			!this.$v.paymentCC.securityCode.required && errors.push("Card scurity code required.");
+			return errors;
+		},
+	},
+	mounted() {
+		if (this.account) {
+			this.profile.firstname = this.account.firstname;
+			this.profile.lastname = this.account.lastname;
+			this.profile.email = this.account.email;
+			this.profile.address = this.account.address;
+			this.profile.country = this.account.country;
+			this.profile.zipcode = this.account.zipcode;
+		}
+	},
+	filters: {
+		formatNumber(val) {
+			if (!val) return "";
+			return numeral(val).format("0.00");
+		},
 	},
 };
 </script>

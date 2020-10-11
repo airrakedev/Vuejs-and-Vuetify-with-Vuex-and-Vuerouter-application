@@ -92,7 +92,8 @@ export default {
 					return this.showSnackbar();
 				}
 			}
-			await store.commit("Customer/ADJUST_MY_MOVIE_LIST", { id, action });
+			// await store.commit("Customer/ADJUST_MY_MOVIE_LIST", { id, action });
+			await store.dispatch("Customer/updateMyMovieList", { id, action });
 		},
 		closeMe() {
 			this.$emit("close-me", {});
@@ -118,7 +119,8 @@ export default {
 			return store.getters["Customer/getClientList"];
 		},
 		grandTotalPrice() {
-			return this.allMyMovieList.reduce((accumulator, currentValue) => parseFloat(currentValue.qty * currentValue.rentPrice) + accumulator, 0);
+			// return this.allMyMovieList.reduce((accumulator, currentValue) => parseFloat(currentValue.qty * currentValue.rentPrice) + accumulator, 0);
+			return store.getters["Customer/getClientTotalMovie"];
 		},
 	},
 	filters: {

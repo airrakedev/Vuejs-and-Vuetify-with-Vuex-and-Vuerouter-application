@@ -3,6 +3,7 @@ import Vue from 'vue'
 import Api from 'Api'
 import _ from 'lodash'
 import session from 'Session'
+import route from 'Router'
 
 const state = {
    clientId: null,
@@ -10,7 +11,9 @@ const state = {
    clientProfile: {},
    clientStatus: false,
 
-   myMovieList: []
+   myMovieList: [],
+   clientTotalMovie: null,
+   clientTotalQtyShopMovie: null
 }
 
 const getters = {
@@ -19,10 +22,19 @@ const getters = {
    getClientProfile: state => state.clientProfile,
    getClientStatus: state => state.clientStatus,
    getClientList: state => state.myMovieList,
-   getIfIHaveMovies: state => (state.myMovieList != 0)
+   getIfIHaveMovies: state => (state.myMovieList != 0),
+   getClientTotalMovie: state => state.clientTotalMovie,
+   getAllQtyShopMovie: state => state.myMovieList.reduce((accu, currentItem) => (currentItem.qty + accu), 0)
 }
 
 const mutations = {
+
+   GET_TOTAL_AMOUNT_SHOP_MOVIE(state) {
+      // Total shop movies
+      let total = state.myMovieList.reduce((accu, currentItem) => (currentItem.rentPrice * currentItem.qty) + accu, 0)
+      state.clientTotalMovie = Math.round((total + Number.EPSILON) * 100) / 100
+   },
+
    ADJUST_MY_MOVIE_LIST(state, { id, action }) {
       let allMovie = state.myMovieList
       let getMovie = allMovie.filter((item) => item._id == id);
@@ -53,6 +65,7 @@ const mutations = {
             });
             break;
       }
+
    },
    ADD_MOVIE_ITEM(state, movie) {
       let myMovieList = state.myMovieList;
@@ -90,6 +103,28 @@ const mutations = {
          duration: 4500
       })
    },
+
+   SUCCESS_CHECKOUT(state) {
+      state.myMovieList = []
+      state.clientTotalMovie = null
+      state.clientTotalQtyShopMovie = null
+      Vue.notify({
+         group: 'movie',
+         type: 'success',
+         title: 'Checkout Success!',
+         text: 'You successfully checkout your movies.',
+         duration: 4500
+      })
+   },
+   FAILED_CHECKOUT(state, message) {
+      Vue.notify({
+         group: 'movie',
+         type: 'error',
+         title: 'Failed Checkout!',
+         text: message,
+         duration: 4500
+      })
+   },
    ADDING_MY_MOVIE_LIST(state, movie) {
       state.myMovieList.push(movie)
    },
@@ -97,7 +132,7 @@ const mutations = {
       session.start()
       state.clientSession = session.exists()
       state.clientId = res.data.message._id,
-         state.clientProfile = _.pick(res.data.message, ['firstname', 'lastname', 'phone', 'email', 'address'])
+         state.clientProfile = _.pick(res.data.message, ['firstname', 'lastname', 'phone', 'email', 'address', 'country', 'zipcode'])
       state.clientStatus = res.data.message.status
 
       Vue.notify({
@@ -119,6 +154,9 @@ const mutations = {
       state.clientProfile = {}
       state.clientStatus = false
       state.myMovieList = []
+      state.clientTotalMovie = null
+      state.clientTotalQtyShopMovie = null
+
 
       Vue.notify({
          group: 'movie',
@@ -153,17 +191,13 @@ const mutations = {
 
 const actions = {
    submitClientRegistration({ commit }, payload) {
-
       return Api.post('/customer/v1/register', payload)
          .then(response => {
-
             if (!response.data.success) return commit('FAILED_SUBMIT_CLIENT_REGISTRATION_NOTIFY', response)
-
             commit('SUCCESS_SUBMIT_CLIENT_REGISTRATION_NOTIFY', response.data)
             return
          })
          .catch((err) => {
-
             commit('FAILED_SUBMIT_CLIENT_REGISTRATION_NOTIFY', {})
          })
    },
@@ -171,13 +205,56 @@ const actions = {
    async loginUser({ commit }, payload) {
       return await Api.post('/customer/v1/login', payload)
          .then(res => {
-
             if (!res.data.success) return commit('LOGIN_ERROR', res.data)
-            console.log(res.data.success, "Login customer")
             commit('LOGIN_SUCCESS', res)
             return res
          })
          .catch(error => commit('LOGIN_ERROR', error))
+   },
+
+   clientCheckOut({ commit }, payload) {
+      return Api.post('/purchase/v1/create', payload)
+         .then(response => {
+            console.log(response, "Checkout")
+            if (!response.data.success) return commit('FAILED_CHECKOUT', response.data.message)
+            commit('SUCCESS_CHECKOUT')
+
+            route.push({ name: 'MovieRecord' })
+            return
+         })
+         .catch((err) => {
+            console.log(err, 'Error on checkout')
+            commit('FAILED_CHECKOUT', 'Error on checkout')
+         })
+   },
+
+   getMyCheckOut({ commit }, params) {
+      console.log(params, 'Hopjfe')
+      return Api.get('/purchase/v1', { params })
+         .then(response => {
+            console.log(response, "My Checkout")
+            // if (!response.data.success) return commit('FAILED_CHECKOUT', response.data.message)
+            // commit('SUCCESS_CHECKOUT')
+
+            // route.push({ name: 'MovieRecord' })
+            return
+         })
+         .catch((err) => {
+            console.log(err, 'Error on checkout')
+            commit('FAILED_CHECKOUT', 'Error on checkout')
+         })
+   },
+
+   updateMyMovieList({ commit }, payload) {
+      commit('ADJUST_MY_MOVIE_LIST', payload)
+      // Total movie
+      commit('GET_TOTAL_AMOUNT_SHOP_MOVIE')
+   },
+
+   addMyMovieToCart({ commit }, payload) {
+      commit('ADD_MOVIE_ITEM', payload)
+      // Total movie
+      commit('GET_TOTAL_AMOUNT_SHOP_MOVIE')
    }
 }
 

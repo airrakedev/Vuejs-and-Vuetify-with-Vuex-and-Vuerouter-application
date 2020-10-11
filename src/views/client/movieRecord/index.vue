@@ -48,6 +48,7 @@
 
 <script>
 import store from "Store";
+import { mapGetters } from "vuex";
 export default {
 	name: "MovieRecord",
 	data() {
@@ -76,23 +77,12 @@ export default {
 
 			movies: [],
 			editedIndex: -1,
-			editedItem: {
-				name: "",
-				calories: 0,
-				fat: 0,
-				carbs: 0,
-				protein: 0,
-			},
-			defaultItem: {
-				name: "",
-				calories: 0,
-				fat: 0,
-				carbs: 0,
-				protein: 0,
-			},
 		};
 	},
 	computed: {
+		...mapGetters("Customer", {
+			clientId: "getClientId",
+		}),
 		allMovies() {
 			const getAllMovies = store.getters["Admin/getAllMovies"];
 			return getAllMovies;
@@ -106,9 +96,19 @@ export default {
 			};
 			const movies = await store.dispatch("Admin/gettingAllMovies", params);
 		},
+		async getMyCheckout() {
+			const params = {
+				limit: 500,
+				page: 1,
+				clientId: this.clientId,
+				// id: "5f8325e35acc344bcb037aec",
+			};
+			store.dispatch("Customer/getMyCheckOut", params);
+		},
 	},
 	created() {
 		this.getAllMovies();
+		this.getMyCheckout();
 	},
 };
 </script>
