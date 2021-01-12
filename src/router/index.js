@@ -13,14 +13,10 @@ const routes = [
    {
       path: '/',
       name: 'main-dashboard',
-      component: () => import('Views/dashboard')
+      component: () => import(/*webpachChunkName: 'dashboard'*/'Views/dashboard')
 
    },
-   {
-      path: '*',
-      name: '403',
-      component: () => import('Views/403')
-   },
+
    {
       path: '/admin/login',
       name: 'AdminLogin',
@@ -126,7 +122,13 @@ const routes = [
             next({ name: 'main-dashboard' })
          }
       }
-   }
+   },
+   {
+      path: '/403',
+      alias: "*",
+      name: '403',
+      component: () => import('Views/403')
+   },
 ]
 
 const router = new VueRouter({

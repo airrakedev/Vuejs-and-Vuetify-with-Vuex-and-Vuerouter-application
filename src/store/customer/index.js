@@ -90,7 +90,7 @@ const mutations = {
          group: 'movie',
          type: 'success',
          title: 'Registration Success!',
-         text: this.$session.exists() ? 'You have successfully created customer account!' : 'Please login your account.',
+         text: session.exists() ? 'You have successfully created customer account!' : 'Please login your account.',
          duration: 4500
       })
    },
@@ -191,41 +191,47 @@ const mutations = {
 
 const actions = {
    submitClientRegistration({ commit }, payload) {
-      return Api.post('/customer/v1/register', payload)
-         .then(response => {
-            if (!response.data.success) return commit('FAILED_SUBMIT_CLIENT_REGISTRATION_NOTIFY', response)
-            commit('SUCCESS_SUBMIT_CLIENT_REGISTRATION_NOTIFY', response.data)
-            return
-         })
-         .catch((err) => {
-            commit('FAILED_SUBMIT_CLIENT_REGISTRATION_NOTIFY', {})
-         })
+      try {
+         return Api.post('/customer/v1/register', payload)
+            .then(response => {
+               if (response.data.success) return commit('SUCCESS_SUBMIT_CLIENT_REGISTRATION_NOTIFY', response.data)
+               return commit('FAILED_SUBMIT_CLIENT_REGISTRATION_NOTIFY', response)
+            })
+      } catch (error) {
+         console.log(err.message, "Hoy error")
+         commit('FAILED_SUBMIT_CLIENT_REGISTRATION_NOTIFY', {})
+      }
+
    },
 
    async loginUser({ commit }, payload) {
-      return await Api.post('/customer/v1/login', payload)
-         .then(res => {
-            if (!res.data.success) return commit('LOGIN_ERROR', res.data)
-            commit('LOGIN_SUCCESS', res)
-            return res
-         })
-         .catch(error => commit('LOGIN_ERROR', error))
+      try {
+         return await Api.post('/customer/v1/login', payload)
+            .then(res => {
+               if (!res.data.success) return commit('LOGIN_ERROR', res.data)
+               commit('LOGIN_SUCCESS', res)
+               return res
+            })
+      } catch (error) {
+         commit('LOGIN_ERROR', error)
+      }
    },
 
    clientCheckOut({ commit }, payload) {
-      return Api.post('/purchase/v1/create', payload)
-         .then(response => {
-            console.log(response, "Checkout")
-            if (!response.data.success) return commit('FAILED_CHECKOUT', response.data.message)
-            commit('SUCCESS_CHECKOUT')
+      try {
+         return Api.post('/purchase/v1/create', payload)
+            .then(response => {
+               console.log(response, "Checkout")
+               if (!response.data.success) return commit('FAILED_CHECKOUT', response.data.message)
+               commit('SUCCESS_CHECKOUT')
 
-            route.push({ name: 'MovieRecord' })
-            return
-         })
-         .catch((err) => {
-            console.log(err, 'Error on checkout')
-            commit('FAILED_CHECKOUT', 'Error on checkout')
-         })
+               route.push({ name: 'MovieRecord' })
+               return
+            })
+      } catch (err) {
+         console.log(err, 'Error on checkout')
+         commit('FAILED_CHECKOUT', 'Error on checkout')
+      }
    },
 
    getMyCheckOut({ commit }, params) {

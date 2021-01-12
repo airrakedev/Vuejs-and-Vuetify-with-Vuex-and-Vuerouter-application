@@ -1,44 +1,31 @@
 <template>
-	<div>
+	<v-container>
 		<!-- HEADER NAVIGATION -->
 		<AppHeader></AppHeader>
-		<v-content>
-			<v-container>
-				<v-row>
-					<v-col>
-						<v-card flat color="#eee">
-							<v-card-actions>
-								<v-btn text color="primary" @click="fetchAllMovies()">Home</v-btn>
-								<v-btn text color="primary" @click="movies('trending')">Trending</v-btn>
+		<!-- Category Navigation -->
+		<!-- <NavigationCategory v-for="navcat in categoryButtons" :key="navcat.name" :categoryNavigation="navcat"> </NavigationCategory> -->
+		<NavigationCategory :categoryNavigation="categoryButtons"> </NavigationCategory>
 
-								<v-btn text color="primary" @click="movies('featured')">Featured</v-btn>
-								<v-btn text color="primary" @click="movies('new')">New Release</v-btn>
+		<!-- AVAILABLE MOVIES -->
+		<availableMovies></availableMovies>
 
-								<v-spacer></v-spacer>
-							</v-card-actions>
-						</v-card>
-					</v-col>
-				</v-row>
-
-				<v-row>
-					<!-- AVAILABLE MOVIES -->
-					<availableMovies></availableMovies>
-				</v-row>
-				<!-- USER REGISTRATION -->
-				<userRegistrationForm :dialog="registrationDialogStatus"></userRegistrationForm>
-				<!-- USER LOGIN PAGE -->
-				<userLoginForm :loginDialog="loginDialogStatus"></userLoginForm>
-			</v-container>
-		</v-content>
-	</div>
+		<!-- USER REGISTRATION -->
+		<userRegistrationForm :dialog="registrationDialogStatus"></userRegistrationForm>
+		<!-- USER LOGIN PAGE -->
+		<userLoginForm :loginDialog="loginDialogStatus"></userLoginForm>
+	</v-container>
 </template>
 
 <script>
+// COMPONENTS
 import availableMovies from "Components/dashboard/available-movies";
 import userRegistrationForm from "Components/client/registration";
 import userLoginForm from "Components/client/login";
-
 import AppHeader from "Components/header";
+// LAZY LOADING COMPONENT
+const NavigationCategory = () => import(/*webpackChunkName: 'navigation-category'*/ "Components/AppUtilities/AppUtilitiesCategoryNavigation");
+
+// APP
 import store from "Store";
 import { eventEmitter } from "Event";
 
@@ -48,15 +35,37 @@ export default {
 		availableMovies,
 		userRegistrationForm,
 		userLoginForm,
-
 		AppHeader,
+		NavigationCategory
 	},
 	data() {
 		return {
+			categoryButtons: [
+				{
+					name: "Home",
+					event: this.fetchAllMovies,
+					params: ""
+				},
+				{
+					name: "Trending",
+					event: this.movies,
+					params: "trending"
+				},
+				{
+					name: "Featured",
+					event: this.movies,
+					params: "featured"
+				},
+				{
+					name: "New Release",
+					event: this.movies,
+					params: "new"
+				}
+			],
 			menu: false,
 			show: false,
 			dialog: false,
-			loginDialog: false,
+			loginDialog: false
 		};
 	},
 	computed: {
@@ -65,14 +74,14 @@ export default {
 		},
 		registrationDialogStatus() {
 			return this.dialog;
-		},
+		}
 	},
 	methods: {
 		async fetchAllMovies() {
 			const params = {
 				limit: 50,
 				page: 1,
-				sort: { title: 1 },
+				sort: { title: 1 }
 			};
 			await store.dispatch("Admin/gettingAllMovies", params);
 		},
@@ -102,7 +111,7 @@ export default {
 			eventEmitter.$on("close-dialog-registration", () => {
 				this.dialog = false;
 			});
-		},
+		}
 	},
 	created() {
 		this.eventEmitterOn();
@@ -110,7 +119,7 @@ export default {
 
 		this.displayRegistrationForm();
 		this.closeRegistrationForm();
-	},
+	}
 };
 </script>
 

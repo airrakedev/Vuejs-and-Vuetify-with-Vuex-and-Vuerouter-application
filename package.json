@@ -4,7 +4,7 @@
    "private": true,
    "scripts": {
       "start": "vue-cli-service serve --host https://competent-shockley-45b27e.netlify.app/",
-      "serve": "vue-cli-service serve --host localhost",
+      "serve": "vue-cli-service serve --host localhost --port 8080",
       "build": "vue-cli-service build"
    },
    "dependencies": {
@@ -21,23 +21,23 @@
       "vue-session": "^1.0.0",
       "vue-the-mask": "^0.11.1",
       "vuelidate": "^0.7.5",
-      "vuetify": "^2.2.11",
+      "vuetify": "^2.3.9",
       "vuex": "^3.1.2",
       "vuex-persistedstate": "^2.7.1",
       "vuex-shared-mutations": "^1.0.2"
    },
    "devDependencies": {
-      "@mdi/font": "^4.9.95",
       "@babel/cli": "^7.7.5",
       "@babel/core": "^7.7.5",
       "@babel/preset-env": "^7.7.6",
-      "eslint": "^5.16.0",
+      "@mdi/font": "^4.9.95",
+      "@vue/cli-plugin-babel": "^4.2.0",
       "@vue/cli-plugin-eslint": "^4.1.0",
+      "@vue/cli-service": "^4.2.0",
+      "babel-eslint": "^10.0.3",
+      "eslint": "^5.16.0",
       "eslint-plugin-es-beautifier": "^1.0.1",
       "eslint-plugin-vue": "^5.2.3",
-      "babel-eslint": "^10.0.3",
-      "@vue/cli-plugin-babel": "^4.2.0",
-      "@vue/cli-service": "^4.2.0",
       "sass": "^1.19.0",
       "sass-loader": "^8.0.0",
       "vue-cli-plugin-vuetify": "^2.0.5",

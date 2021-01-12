@@ -1,134 +1,71 @@
 <template>
-	<v-dialog v-model="registrationDialog" persistent max-width="800px">
-		<v-card>
+	<Modal :show="registrationDialog">
+		<template #title>
 			<v-toolbar dark elevation="0">
 				<v-toolbar-title class="font-weight-bold">Create your account</v-toolbar-title>
 
 				<v-spacer></v-spacer>
 			</v-toolbar>
+		</template>
 
-			<v-card-text class="pb-0">
-				<v-container class="pb-0">
-					<form>
-						<v-row>
-							<v-col md="6">
-								<label for class="blue-grey--text font-weight-bold">Firstname</label>
+		<!-- <v-card-text class="pb-0">
+			<v-container class="pb-0">
+				<form @submit.enter.prevent="submit">
+					<v-row>
+						<template v-for="field in registrationFields">
+							<v-col cols="12" md="6" :key="field.id">
+								<label for class="blue-grey--text font-weight-bold">{{ field.name }}</label>
 								<v-text-field
-									v-model="newUser.firstname"
-									@input="$v.newUser.firstname.$touch()"
-									@blur="$v.newUser.firstname.$touch()"
-									:error-messages="firstnameErrors"
-									placeholder="Firstname"
-									append-icon="mdi-account-circle"
+									v-model="newUser[field.id]"
+									@input="newUser[field.errorMessage] ? $v.newUser[field.id].$touch() : ''"
+									@blur="newUser[field.errorMessage] ? $v.newUser[field.id].$touch() : ''"
+									:rules="[formRulesValidation(field.id)]"
+									:placeholder="`${field.name} is required`"
+									:append-icon="field.icon"
 									solo
 									autofocus
 								></v-text-field>
 							</v-col>
-							<v-col md="6">
-								<label for class="blue-grey--text font-weight-bold">Lastname</label>
-								<v-text-field
-									v-model="newUser.lastname"
-									@input="$v.newUser.lastname.$touch()"
-									@blur="$v.newUser.lastname.$touch()"
-									:error-messages="lastnameErrors"
-									solo
-									placeholder="Firstname"
-									append-icon="mdi-account-circle"
-								></v-text-field>
-							</v-col>
-							<v-col md="6">
-								<label for class="blue-grey--text font-weight-bold">Password</label>
-								<v-text-field
-									type="password"
-									v-model="newUser.password"
-									@input="$v.newUser.password.$touch()"
-									@blur="$v.newUser.password.$touch()"
-									:error-messages="passwordErrors"
-									solo
-									placeholder="password"
-									append-icon="mdi-lock-open"
-								></v-text-field>
-							</v-col>
-							<v-col md="6">
-								<label for class="blue-grey--text font-weight-bold">Confirm Password</label>
-								<v-text-field
-									type="password"
-									v-model="newUser.confirmPassword"
-									@input="$v.newUser.confirmPassword.$touch()"
-									@blur="$v.newUser.confirmPassword.$touch()"
-									:error-messages="confirmPasswordErrors"
-									solo
-									placeholder="Confirm Password"
-									append-icon="mdi-lock"
-								></v-text-field>
-							</v-col>
-							<v-col md="6">
-								<label for class="blue-grey--text font-weight-bold">Email</label>
-								<v-text-field
-									v-model="newUser.email"
-									@input="$v.newUser.email.$touch()"
-									@blur="$v.newUser.email.$touch()"
-									:error-messages="emailErrors"
-									placeholder="Email Address"
-									append-icon="mdi-email"
-									solo
-								></v-text-field>
-							</v-col>
-							<v-col md="6">
-								<label for class="blue-grey--text font-weight-bold">Phone</label>
-								<v-text-field
-									v-model="newUser.phone"
-									@input="$v.newUser.phone.$touch()"
-									@blur="$v.newUser.phone.$touch()"
-									:error-messages="phoneErrors"
-									solo
-									placeholder="Phone"
-									append-icon="mdi-phone"
-								></v-text-field>
-							</v-col>
-							<v-col cols="12" class="pb-0">
-								<label for class="blue-grey--text font-weight-bold">Address</label>
-								<v-text-field v-model="newUser.address" placeholder="Complete Address" solo append-icon="mdi-map-marker"></v-text-field>
-							</v-col>
-						</v-row>
-					</form>
-				</v-container>
-			</v-card-text>
-			<v-divider></v-divider>
-			<v-card-actions class="pa-3">
-				<v-spacer></v-spacer>
-				<v-btn class="pl-5 pr-5" dark @click="closeRegistrationDialog">Close</v-btn>
-				<v-btn class="pl-5 pr-5" dark @click="submit">Submit</v-btn>
-			</v-card-actions>
-		</v-card>
-	</v-dialog>
+						</template>
+					</v-row>
+
+					<v-card-actions class="pa-3">
+						<v-spacer></v-spacer>
+						<v-btn class="pl-5 pr-5" dark @click="closeRegistrationDialog">Close</v-btn>
+						<v-btn type="submit" class="pl-5 pr-5" dark>Submit</v-btn>
+					</v-card-actions>
+				</form>
+			</v-container>
+		</v-card-text> -->
+
+		<FormsRegistration ref="registrationForm" :form="newUser" @submit.prevent :key="`Form_${formId}`">
+			<template #submitted>
+				<v-btn class="pl-5 pr-5" dark @click.prevent="submit">Submit</v-btn>
+			</template>
+		</FormsRegistration>
+	</Modal>
 </template>
 
 <script>
-import { validationMixin } from "vuelidate";
-const { required, email, sameAs } = require("vuelidate/lib/validators");
+// EXTERNAL
 
 import { eventEmitter } from "Event";
 
+// COMPONENT
+import Modal from "Components/Modal";
+import FormsRegistration from "Components/Forms/FormsRegistration";
+
 export default {
+	components: {
+		Modal,
+		FormsRegistration
+	},
 	name: "client-registration",
 	props: ["dialog"],
-	mixins: [validationMixin],
-	validations: {
-		newUser: {
-			firstname: { required },
-			lastname: { required },
-			password: { required },
-			confirmPassword: {
-				required,
-				sameAsPassword: sameAs("password"),
-			},
-			email: { required, email },
-			phone: { required },
-		},
-	},
+
 	data() {
 		return {
+			formId: 1,
 			newUser: {
 				firstname: "",
 				lastname: "",
@@ -136,91 +73,49 @@ export default {
 				confirmPassword: "",
 				email: "",
 				phone: "",
-				address: "",
-			},
+				address: ""
+			}
 		};
 	},
 	computed: {
 		registrationDialog() {
 			return this.dialog;
-		},
-		firstnameErrors() {
-			const errors = [];
-			if (!this.$v.newUser.firstname.$dirty) return errors;
-			!this.$v.newUser.firstname.required && errors.push("Firstname is required.");
-			return errors;
-		},
-		lastnameErrors() {
-			const errors = [];
-			if (!this.$v.newUser.lastname.$dirty) return errors;
-			!this.$v.newUser.lastname.required && errors.push("Lastname is required.");
-			return errors;
-		},
-		passwordErrors() {
-			const errors = [];
-			if (!this.$v.newUser.password.$dirty) return errors;
-			!this.$v.newUser.password.required && errors.push("Password is required.");
-
-			return errors;
-		},
-		confirmPasswordErrors() {
-			const errors = [];
-			if (!this.$v.newUser.confirmPassword.$dirty) return errors;
-
-			!this.$v.newUser.confirmPassword.required && errors.push("Confirm Password is required.");
-
-			!this.$v.newUser.confirmPassword.sameAsPassword && errors.push("Confirm password should be same as password above.");
-			return errors;
-		},
-		emailErrors() {
-			const errors = [];
-			if (!this.$v.newUser.email.$dirty) return errors;
-			!this.$v.newUser.email.required && errors.push("Email is required.");
-			!this.$v.newUser.email.email && errors.push("Provide valid email.");
-			return errors;
-		},
-		phoneErrors() {
-			const errors = [];
-			if (!this.$v.newUser.phone.$dirty) return errors;
-			!this.$v.newUser.phone.required && errors.push("Phone number is required.");
-			return errors;
-		},
+		}
 	},
 	methods: {
 		showLoginForm() {
 			eventEmitter.$emit("display-login-form", {});
 		},
 		submit() {
-			this.$v.$touch();
-			if (this.$v.$pending || this.$v.$error) return;
-
-			delete this.newUser.confirmPassword;
-
-			this.$store
-				.dispatch("Customer/submitClientRegistration", this.newUser)
-				.then((res) => {
-					this.closeRegistrationDialog();
-					this.showLoginForm();
-				})
-				.catch((err) => {
-					console.log(err, "Error client registration.");
-				});
+			// console.log(this.$refs.registrationForm, "booom");
+			try {
+				this.$refs.registrationForm
+					.submit()
+					.then(payload => {
+						console.log(payload, "payload");
+						this.$store
+							.dispatch("Customer/submitClientRegistration", payload)
+							.then(res => {
+								this.closeRegistrationDialog();
+								this.showLoginForm();
+							})
+							.catch(err => {
+								console.log(err, "Error client registration.");
+							});
+					})
+					.catch(error => console.log(error.message, "catch error"));
+			} catch (error) {
+				console.log(error.message, "totally error");
+			}
 		},
 
 		closeRegistrationDialog() {
 			eventEmitter.$emit("close-dialog-registration", {});
-		},
-		// displayRegistrationFrom() {
-
-		//   eventEmitter.$on("display-registration-form", () => {
-		//     this.dialog = true;
-		//     console.log(this.dialog, "KJJJKHKJKH");
-		//   });
-		// },
+		}
 	},
 	created() {
 		// this.displayRegistrationFrom();
-	},
+	}
 };
 </script>
 
