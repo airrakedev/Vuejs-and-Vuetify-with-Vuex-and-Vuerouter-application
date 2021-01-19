@@ -1,20 +1,10 @@
 <template>
-	<div>
-		<!-- NAVIGATION DRAWER -->
+	<v-container>
 		<clientNavigationDrawer></clientNavigationDrawer>
-
 		<!-- ADMIN HEADER -->
 		<clientHeader></clientHeader>
-
-		<v-content>
-			<v-container class="fill-height" fluid>
-				<!-- <v-row> -->
-				<!-- ADMIN DASHBOARD ROUTER -->
-				<router-view></router-view>
-				<!-- </v-row> -->
-			</v-container>
-		</v-content>
-	</div>
+		<router-view :key="$route.path"></router-view>
+	</v-container>
 </template>
 
 <script>
@@ -24,23 +14,20 @@ export default {
 	name: "ClientDashboard",
 	components: {
 		clientHeader,
-		clientNavigationDrawer,
+		clientNavigationDrawer
 	},
 	props: {
-		source: String,
+		source: String
 	},
 	computed: {
 		drawerStatus() {
 			return this.drawer;
-		},
-	},
-	created() {
-		console.log("Client Boom");
+		}
 	},
 	data: () => ({
 		dialog: false,
-		drawer: true,
-	}),
+		drawer: true
+	})
 };
 </script>
 

@@ -13,14 +13,19 @@ const routes = [
    {
       path: '/',
       name: 'main-dashboard',
-      component: () => import(/*webpachChunkName: 'dashboard'*/'Views/dashboard')
-
+      component: () => import(/*webpachChunkName: 'dashboard'*/'Views/dashboard'),
+      meta: {
+         layout: "LayoutDefault"
+      }
    },
 
    {
       path: '/admin/login',
       name: 'AdminLogin',
       component: () => import('Views/admin/login'),
+      meta: {
+         layout: "LayoutBlank"
+      },
       beforeEnter: (to, from, next) => {
 
          if (store.getters['Customer/getClientSession']) {
@@ -44,7 +49,8 @@ const routes = [
             name: 'AdminDashboard',
             component: () => import('Views/admin/dashboard'),
             meta: {
-               requireAuth: true
+               requireAuth: true,
+               layout: "LayoutCustom"
             }
 
          },
@@ -53,7 +59,8 @@ const routes = [
             name: 'AdminMovieList',
             component: () => import('Views/admin/movieList'),
             meta: {
-               requireAuth: true
+               requireAuth: true,
+               layout: "LayoutCustom"
             }
          },
          {
@@ -61,7 +68,8 @@ const routes = [
             name: 'AllClientList',
             component: () => import('Views/admin/clientList'),
             meta: {
-               requireAuth: true
+               requireAuth: true,
+               layout: "LayoutCustom"
             }
          },
          {
@@ -69,7 +77,8 @@ const routes = [
             name: 'AdminProfile',
             component: () => import('Views/admin/adminProfile'),
             meta: {
-               requireAuth: true
+               requireAuth: true,
+               layout: "LayoutCustom"
             }
          }
       ],
@@ -91,7 +100,8 @@ const routes = [
             name: 'MovieRecord',
             component: () => import('Views/client/movieRecord'),
             meta: {
-               requireAuth: true
+               requireAuth: true,
+               layout: "LayoutCustom"
             }
          },
          {
@@ -99,7 +109,8 @@ const routes = [
             name: 'ClientProfile',
             component: () => import('Views/client/profile'),
             meta: {
-               requireAuth: true
+               requireAuth: true,
+               layout: "LayoutCustom"
             }
          },
          {
@@ -107,7 +118,8 @@ const routes = [
             name: 'ClientCheckout',
             component: () => import('Views/client/checkOut'),
             meta: {
-               requireAuth: true
+               requireAuth: true,
+               layout: "LayoutCustom"
             }
          }
       ],

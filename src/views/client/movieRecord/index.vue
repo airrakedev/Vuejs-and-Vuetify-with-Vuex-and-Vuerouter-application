@@ -1,6 +1,6 @@
 <template>
-	<v-container background-color="grey" class="ma-#">
-		<v-row align="center" justify="center">
+	<v-container fill-height>
+		<v-row class="mt-5" justify="center">
 			<v-col>
 				<v-card elevation="1">
 					<v-row>
@@ -61,38 +61,38 @@ export default {
 					class: "font-weight-bold grey lighten-4 pt-5 pb-5 blue-grey--text pt-5 pb-5",
 					align: "start",
 					sortable: false,
-					value: "name",
+					value: "name"
 				},
 				{
 					text: "Genre",
 					value: "calories",
-					class: "font-weight-bold grey lighten-4 pt-5 pb-5 blue-grey--text",
+					class: "font-weight-bold grey lighten-4 pt-5 pb-5 blue-grey--text"
 				},
 				{
 					text: "Rent",
 					value: "fat",
-					class: "font-weight-bold grey lighten-4 pt-5 pb-5 blue-grey--text",
-				},
+					class: "font-weight-bold grey lighten-4 pt-5 pb-5 blue-grey--text"
+				}
 			],
 
 			movies: [],
-			editedIndex: -1,
+			editedIndex: -1
 		};
 	},
 	computed: {
 		...mapGetters("Customer", {
-			clientId: "getClientId",
+			clientId: "getClientId"
 		}),
 		allMovies() {
 			const getAllMovies = store.getters["Admin/getAllMovies"];
 			return getAllMovies;
-		},
+		}
 	},
 	methods: {
 		async getAllMovies() {
 			const params = {
 				limit: 5,
-				page: 1,
+				page: 1
 			};
 			const movies = await store.dispatch("Admin/gettingAllMovies", params);
 		},
@@ -100,16 +100,16 @@ export default {
 			const params = {
 				limit: 500,
 				page: 1,
-				clientId: this.clientId,
+				clientId: this.clientId
 				// id: "5f8325e35acc344bcb037aec",
 			};
 			store.dispatch("Customer/getMyCheckOut", params);
-		},
+		}
 	},
 	created() {
 		this.getAllMovies();
 		this.getMyCheckout();
-	},
+	}
 };
 </script>
 

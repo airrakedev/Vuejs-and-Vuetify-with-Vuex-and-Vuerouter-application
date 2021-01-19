@@ -7,8 +7,8 @@ import myProfilePage from "Components/profilePage";
 export default {
 	name: "ClientProfile",
 	components: {
-		myProfilePage,
-	},
+		myProfilePage
+	}
 };
 </script>
 

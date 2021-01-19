@@ -1,7 +1,7 @@
 <template>
 	<v-card-text class="pb-0">
 		<v-container class="pb-0">
-			<form>
+			<form class="pb-4">
 				<v-row>
 					<template v-for="field in registrationFields">
 						<v-col :cols="field.width.cols" :md="field.width.md" :sm="field.width.sm" :key="field.id">
@@ -16,12 +16,17 @@
 								:append-icon="field.icon"
 								solo
 								autofocus
+								class="mt-1"
 							></v-text-field>
 						</v-col>
 					</template>
 				</v-row>
 
-				<v-card-actions class="pa-3">
+				<v-card-actions class="pa-3 pt-1">
+					<span class="font-weight-medium grey--text">
+						Have account already?
+						<a href="#" @click.prevent="alreadyHasAccount">Login Here</a>
+					</span>
 					<v-spacer></v-spacer>
 					<v-btn class="pl-5 pr-5" dark @click="closeRegistrationDialog">Close</v-btn>
 					<slot name="submitted"></slot>
@@ -149,7 +154,7 @@ export default {
 					subType: "text",
 					icon: "mdi-map-marker",
 					width: {
-						md: "6",
+						md: "12",
 						sm: "12",
 						cols: "12"
 					}
@@ -217,7 +222,6 @@ export default {
 
 		submit() {
 			this.$v.$touch();
-			console.log(this.$v, "Invalid");
 			if (this.$v.$pending || this.$v.$error) return;
 
 			delete this.newUser.confirmPassword;
@@ -226,12 +230,20 @@ export default {
 				if (this.$v.$invalid) {
 					return reject("There are required fields.");
 				}
+				console.log("Submit");
 				return resolve({ ...this.newUser });
 			});
+		},
+		alreadyHasAccount() {
+			this.closeRegistrationDialog();
+			this.showLoginForm();
 		},
 
 		closeRegistrationDialog() {
 			eventEmitter.$emit("close-dialog-registration", {});
+		},
+		showLoginForm() {
+			eventEmitter.$emit("display-login-form", {});
 		}
 	},
 	created() {

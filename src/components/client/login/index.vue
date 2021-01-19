@@ -7,11 +7,11 @@
 			</v-toolbar>
 		</template>
 		<template>
-			<FormsLogin :newUser="newUser" :key="`Form_${formId}`" ref="loginForm">
+			<forms-login :newUser="newUser" :key="`Form_${formId}`" :signin="submit" ref="loginForm">
 				<template #submitButton>
-					<v-btn class="pl-5 pr-5" dark @click.prevent="submit">Login</v-btn>
+					<v-btn class="pl-5 pr-5" dark type="submit" :disabled="formSubmitStatus">Login</v-btn>
 				</template>
-			</FormsLogin>
+			</forms-login>
 		</template>
 	</Modal>
 </template>
@@ -40,7 +40,8 @@ export default {
 			newUser: {
 				password: "",
 				email: ""
-			}
+			},
+			formSubmitStatus: false
 		};
 	},
 	computed: {
@@ -51,7 +52,7 @@ export default {
 	methods: {
 		submit() {
 			if (this.$refs.loginForm.$v.$invalid) return;
-
+			this.formSubmitStatus = true;
 			this.$refs.loginForm
 				.submit()
 				.then(payload => {
@@ -73,16 +74,20 @@ export default {
 				.then(res => {
 					if (this.$store.getters["Customer/getClientSession"]) {
 						this.closeLogin();
+						this.clearForm();
 					}
+					this.formSubmitStatus = false;
 				})
-				.catch(err => console.log(err, "From login page error control"));
-		},
-		registerUser() {
-			eventEmitter.$emit("open-registration", {});
-			this.closeLogin();
+				.catch(err => {
+					console.log(err, "From login page error control");
+				});
 		},
 		closeLogin() {
 			eventEmitter.$emit("hide-login-form", {});
+		},
+		clearForm() {
+			this.newUser.email = "";
+			this.newUser.password = "";
 		}
 	}
 };

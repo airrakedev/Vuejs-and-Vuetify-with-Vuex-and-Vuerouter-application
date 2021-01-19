@@ -1,6 +1,6 @@
 <template>
-	<v-col class="pa-5">
-		<v-row class="pa-5">
+	<v-container fill-height>
+		<v-row justify="center" class="mt-5">
 			<v-col cols="8">
 				<v-card class="mx-auto pb-5" elevation="2">
 					<v-container fluid class="pb-0">
@@ -204,16 +204,16 @@
 									<span class="blue-grey--text body-2">Need to change your password? No problem.</span>
 								</v-col>
 								<h3 class="font-weight-medium blue-grey--text mt-4 mb-5">Just click the link below to get started.</h3>
-								<router-link :to="{ name: 'userChangePassword' }">
-									<v-btn class="font-weight-bold" height="40" width="180" rounded color="cyan lighten-1" dark>Change Password</v-btn>
-								</router-link>
+								<!-- <router-link :to="{ name: 'userChangePassword' }"> -->
+								<v-btn class="font-weight-bold" height="40" width="180" rounded color="cyan lighten-1" dark>Change Password</v-btn>
+								<!-- </router-link> -->
 							</v-row>
 						</v-card>
 					</v-col>
 				</v-row>
 			</v-col>
 		</v-row>
-	</v-col>
+	</v-container>
 </template>
 
 <script>
@@ -237,13 +237,13 @@ export default {
 					phone: { required },
 					address: {
 						street: { required },
-						zipcode: { required, numeric },
-					},
-				},
+						zipcode: { required, numeric }
+					}
+				}
 			},
 			cityValue: { required },
 			stateValue: { required },
-			countryValue: { required },
+			countryValue: { required }
 		};
 	},
 	data() {
@@ -263,10 +263,10 @@ export default {
 						city: "",
 						state: "",
 						zipcode: "",
-						country: "",
-					},
-				},
-			},
+						country: ""
+					}
+				}
+			}
 		};
 	},
 	mounted() {
@@ -287,44 +287,44 @@ export default {
 		},
 
 		countryValue: {
-			get: function () {
+			get: function() {
 				return {
-					id: this.defaultCountryId,
+					id: this.defaultCountryId
 				};
 			},
-			set: function (id) {
+			set: function(id) {
 				this.userData.profile.address.country = id;
-			},
+			}
 		},
 		stateValue: {
-			get: function () {
+			get: function() {
 				let state = {};
 
 				if (this.userData.profile.address.state) {
 					state = {
-						id: this.userData.profile.address.state.toString(),
+						id: this.userData.profile.address.state.toString()
 					};
 				}
 
 				return state;
 			},
-			set: function (id) {
+			set: function(id) {
 				this.userData.profile.address.state = id;
-			},
+			}
 		},
 		cityValue: {
-			get: function () {
+			get: function() {
 				let state = {};
 				if (this.userAddress.address) {
 					state = {
-						id: this.userAddress.address.city.toString(),
+						id: this.userAddress.address.city.toString()
 					};
 				}
 				return state;
 			},
-			set: function (id) {
+			set: function(id) {
 				this.userData.profile.address.city = id;
-			},
+			}
 		},
 		defaultCountry() {
 			let count = csc.getCountryById(this.defaultCountryId);
@@ -412,7 +412,7 @@ export default {
 			if (!this.$v.countryValue.$dirty) return errors;
 			!this.$v.countryValue.required && errors.push("User's country is required");
 			return errors;
-		},
+		}
 	},
 	methods: {
 		completeUserData() {
@@ -428,9 +428,9 @@ export default {
 						city: this.userAddress.address ? this.userAddress.address.city : "",
 						state: this.userAddress.address ? this.userAddress.address.state : "",
 						zipcode: this.userAddress.address ? this.userAddress.address.zipcode : "",
-						country: this.userAddress.address ? this.userAddress.address.country : "",
-					},
-				},
+						country: this.userAddress.address ? this.userAddress.address.country : ""
+					}
+				}
 			};
 
 			this.userData = userData;
@@ -448,19 +448,17 @@ export default {
 			parseInt(this.userData.profile.address.city, 10);
 			parseInt(this.userData.profile.address.zipcode, 10);
 
-			console.log(this.userData, "nisolod");
 			// SUBMIT UPDATED PROFILE
 			store
 				.dispatch("AuthUser/updateProfile", this.userData)
-				.then((res) => {
+				.then(res => {
 					if (!res.data.errors) {
-						console.log(res, "Update Success");
 						this.completeUserData();
 					}
 				})
-				.catch((err) => console.log(err, "Unable to update your profile from profile page"));
-		},
-	},
+				.catch(err => console.log(err, "Unable to update your profile from profile page"));
+		}
+	}
 };
 </script>
 

@@ -87,12 +87,13 @@ export default {
 			eventEmitter.$emit("display-login-form", {});
 		},
 		submit() {
-			// console.log(this.$refs.registrationForm, "booom");
+			// if not validated
+			if (this.$refs.registrationForm.$v.$invalid) return;
+
 			try {
 				this.$refs.registrationForm
 					.submit()
 					.then(payload => {
-						console.log(payload, "payload");
 						this.$store
 							.dispatch("Customer/submitClientRegistration", payload)
 							.then(res => {

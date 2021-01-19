@@ -2,18 +2,9 @@
 	<div>
 		<!-- NAVIGATION DRAWER -->
 		<navigationDrawer></navigationDrawer>
-
 		<!-- ADMIN HEADER -->
 		<adminHeader></adminHeader>
-
-		<v-content>
-			<v-container class="fill-height">
-				<!-- <v-row> -->
-				<!-- ADMIN DASHBOARD ROUTER -->
-				<router-view></router-view>
-				<!-- </v-row> -->
-			</v-container>
-		</v-content>
+		<router-view :key="$route.path"></router-view>
 	</div>
 </template>
 
@@ -24,23 +15,23 @@ export default {
 	name: "AdminDashboard",
 	components: {
 		adminHeader,
-		navigationDrawer,
+		navigationDrawer
 	},
 	props: {
-		source: String,
+		source: String
 	},
 	computed: {
 		drawerStatus() {
 			return this.drawer;
-		},
+		}
 	},
 	created() {
 		// console.log(this.drawerStatus, "Boom");
 	},
 	data: () => ({
 		dialog: false,
-		drawer: true,
-	}),
+		drawer: true
+	})
 };
 </script>
 

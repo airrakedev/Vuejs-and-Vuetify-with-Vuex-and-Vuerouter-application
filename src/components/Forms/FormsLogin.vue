@@ -1,7 +1,7 @@
 <template>
 	<v-card-text class="mt-5">
-		<v-container>
-			<form>
+		<form @submit.prevent="signin" :disabled="clientSession">
+			<v-container>
 				<v-row>
 					<v-col cols="12" sm="12">
 						<label for>Email</label>
@@ -30,19 +30,19 @@
 						></v-text-field>
 					</v-col>
 				</v-row>
-			</form>
-		</v-container>
-		<v-card-actions>
-			<span class="font-weight-medium grey--text">
-				Dont have account?
-				<a href="#" @click.prevent="registerUser">Signup Here</a>
-			</span>
+			</v-container>
+			<v-card-actions>
+				<span class="font-weight-medium grey--text">
+					Dont have account?
+					<a href="#" @click.prevent="registerUser">Signup Here</a>
+				</span>
 
-			<v-spacer></v-spacer>
-			<v-btn class="pl-5 pr-5" dark @click="closeLogin">Close</v-btn>
-			<!-- <v-btn class="pl-5 pr-5" dark @click="submit">Login</v-btn> -->
-			<slot name="submitButton"></slot>
-		</v-card-actions>
+				<v-spacer></v-spacer>
+				<v-btn class="pl-5 pr-5" dark @click="closeLogin">Close</v-btn>
+				<!-- <v-btn class="pl-5 pr-5" dark @click="submit">Login</v-btn> -->
+				<slot name="submitButton"></slot>
+			</v-card-actions>
+		</form>
 	</v-card-text>
 </template>
 
@@ -59,6 +59,10 @@ export default {
 		newUser: {
 			type: Object,
 			required: true
+		},
+		signin: {
+			type: Function,
+			required: true
 		}
 	},
 	mixins: [validationMixin],
@@ -72,6 +76,9 @@ export default {
 		return {};
 	},
 	computed: {
+		clientSession() {
+			return this.$store.getters["Customer/getClientSession"];
+		},
 		closeLoginForm() {
 			return this.loginDialog;
 		},
@@ -88,6 +95,9 @@ export default {
 			!this.$v.newUser.email.email && errors.push("Provide valid email.");
 			return errors;
 		}
+	},
+	watch: {
+		data(newValue, oldValue) {}
 	},
 	methods: {
 		submit() {

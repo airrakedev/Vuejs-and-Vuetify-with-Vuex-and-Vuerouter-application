@@ -187,8 +187,8 @@ const actions = {
    },
 
    // GET ALL MOVIES
-   gettingAllMovies({ commit }, params) {
-      return Api.get('/movie/v1', { params })
+   async gettingAllMovies({ commit }, params) {
+      return await Api.get('/movie/v1', { params })
          .then(res => {
             if (!res.data.success) {
                return commit('FAILED_GETTING_ALL_MOVIES')

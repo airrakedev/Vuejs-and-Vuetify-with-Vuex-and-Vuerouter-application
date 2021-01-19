@@ -9,20 +9,17 @@
 						<v-card-text class="pb-1">
 							<div class="font-weight-bold">₱&nbsp;{{ movie.rentPrice | formatNumber }}</div>
 						</v-card-text>
-						<v-card-text class="pt-2">
-							<v-row align="center" class="mx-0">
+						<v-card-text class="pt-2 pb-1">
+							<v-row align="center" class="mx-0 mb-2">
 								<v-rating :value="4.5" color="amber" dense half-increments readonly size="14"></v-rating>
-
-								<div class="grey--text ml-4">4.5 (413)</div>
 							</v-row>
-
 							<div class="font-weight-bold">{{ movie.description.slice(0, 50) }}</div>
 						</v-card-text>
 						<v-card-actions dark>
 							<v-spacer></v-spacer>
 							<v-tooltip top>
 								<template v-slot:activator="{ on, attrs }">
-									<v-btn fab dark @click="addMovie(movie._id)" small color="primary" v-bind="attrs" v-on="on">
+									<v-btn icon @click="addMovie(movie._id)" small color="info" v-bind="attrs" v-on="on">
 										<v-icon dark>mdi-cart-arrow-down</v-icon>
 									</v-btn>
 								</template>
