@@ -3,28 +3,42 @@
 		<v-col cols="12">
 			<v-row v-if="allMovies.length > 0">
 				<v-col cols="12" lg="3" md="4" sm="6" v-for="(movie, i) in allMovies" :key="i">
-					<v-card dark>
+					<v-card dark link :to="{ name: 'PreviewMovieDetails', params: { movieId: movie._id } }">
 						<v-img position="top center" aspect-ratio="1" :src="getThumbnail(movie.image)"></v-img>
-						<v-card-title class="pb-2">{{ movie.title }}</v-card-title>
+						<v-card-title class="pb-2">
+							<v-row>
+								<v-col md="10">
+									<div>{{ movie.title }}</div>
+								</v-col>
+								<v-col md="2">
+									<v-tooltip top>
+										<template v-slot:activator="{ on, attrs }">
+											<v-btn icon @click="addMovie(movie._id)" small color="white" v-bind="attrs" v-on="on">
+												<v-icon dark>mdi-plus</v-icon>
+											</v-btn>
+										</template>
+										<span class="font-weight-bold">Add to Shoplist</span>
+									</v-tooltip>
+								</v-col>
+							</v-row>
+						</v-card-title>
 						<v-card-text class="pb-1">
 							<div class="font-weight-bold">₱&nbsp;{{ movie.rentPrice | formatNumber }}</div>
 						</v-card-text>
-						<v-card-text class="pt-2 pb-1">
-							<v-row align="center" class="mx-0 mb-2">
-								<v-rating :value="4.5" color="amber" dense half-increments readonly size="14"></v-rating>
-							</v-row>
+						<v-card-text class="pt-2">
 							<div class="font-weight-bold">{{ movie.description.slice(0, 50) }}</div>
 						</v-card-text>
 						<v-card-actions dark>
+							<v-row align="center" class="mx-0 mb-2 pl-1">
+								<v-rating :value="4.5" color="amber" dense half-increments readonly size="14"></v-rating>
+							</v-row>
 							<v-spacer></v-spacer>
-							<v-tooltip top>
-								<template v-slot:activator="{ on, attrs }">
-									<v-btn icon @click="addMovie(movie._id)" small color="info" v-bind="attrs" v-on="on">
-										<v-icon dark>mdi-cart-arrow-down</v-icon>
-									</v-btn>
-								</template>
-								<span>Shop Movie</span>
-							</v-tooltip>
+							<template v-for="genre in movie.genre">
+								<v-chip class="ma-1 font-weight-bold blue-grey--text text--lighten-1" color="light-blue darken-4" label :key="genre._id">
+									<v-icon class="pr-1">mdi-tag-outline</v-icon>
+									{{ genre.title }}
+								</v-chip>
+							</template>
 						</v-card-actions>
 					</v-card>
 				</v-col>
@@ -130,6 +144,7 @@ export default {
 				}
 				return;
 			}
+
 			eventEmitter.$emit("display-login-form", {});
 		},
 		getImage() {

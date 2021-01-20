@@ -18,6 +18,15 @@ const routes = [
          layout: "LayoutDefault"
       }
    },
+   {
+      path: '/preview/:movieId',
+      name: 'PreviewMovieDetails',
+      props: true,
+      component: () => import(/*webpachChunkName: 'dashboard'*/'Views/dashboard/PreviewMovieDetails'),
+      meta: {
+         layout: "LayoutDefault"
+      }
+   },
 
    {
       path: '/admin/login',
