@@ -5,8 +5,10 @@ An application for movies, a movie listing with different Genres. Customers can 
 The application has an Administrator dashboard. The admin is responsible for managing the movie inventories, like adding movie inventory or updating movie details. The admin can also track or monitor client records.
 
 The application also implements the routing security of each user accounts. It can track which users can access a specific page.
+
+### Link to the site: 
 ```
-### Link to the site, <a target="_blank" href="https://custom-vueflix.netlify.app/">Click here</a>
+<a target="_blank" href="https://custom-vueflix.netlify.app/">Click here</a>
 ```
 ## Sample user accounts:
 
