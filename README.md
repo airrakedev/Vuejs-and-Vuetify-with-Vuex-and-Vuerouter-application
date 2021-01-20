@@ -5,27 +5,28 @@ An application for movies, a movie listing with different Genres. Customers can 
 The application has an Administrator dashboard. The admin is responsible for managing the movie inventories, like adding movie inventory or updating movie details. The admin can also track or monitor client records.
 
 The application also implements the routing security of each user accounts. It can track which users can access a specific page.
-
+```
 ### Link to the site, <a target="_blank" href="https://custom-vueflix.netlify.app/">Click here</a>
-
+```
 ## Sample user accounts:
 
 #### Clients:
+```
   email:john_travolta@gmail.com
-  <br/>
   pass: password
+```
  
 #### Admin: <a href="https://custom-vueflix.netlify.app/admin/login">Link here</a>
-  email: email@email.com
-  <br/>
+```
+  email: email@email.com  
   pass: password
-  
+```  
 ## To start using the application
-
+```
 1. npm install - on the root folder
 2. npm run serve - to start the application
 3. to properly run the application, you should fork the backend endpoint for this application on #A-Nodejs-Endpoint-Service
-
+```
 <img src="src/assets/thumbnail/Screen%20Shot%202020-09-13%20at%2011.13.28%20PM.png" />
 <img src="src/assets/thumbnail/Screen%20Shot%202020-09-13%20at%2010.54.22%20PM.png"/>
 <img src="src/assets/thumbnail/Screen%20Shot%202020-09-13%20at%2010.52.02%20PM.png"/>
