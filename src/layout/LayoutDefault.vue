@@ -90,11 +90,15 @@ export default {
 				sort: { title: 1 }
 			};
 			await store.dispatch("Admin/gettingAllMovies", params);
-			// this.routeHome();
+			this.whenBtnIsClick(0);
+			this.routeHome();
 		},
-		async movies(action) {
+		async movies(action, index) {
 			await this.fetchAllMovies();
 			store.commit("Admin/FILTER_MOVIE_ON_DISPLAY", action);
+
+			this.whenBtnIsClick(index);
+
 			this.routeHome();
 		},
 		showLoginForm() {
@@ -125,6 +129,16 @@ export default {
 			if (this.$route.name != "main-dashboard") {
 				this.$router.push({ name: homeTemplate });
 			}
+		},
+		whenBtnIsClick(index) {
+			const btnClick = document.getElementsByClassName("dynamic-category");
+			btnClick.forEach(element => {
+				element.classList.remove("light-blue");
+				element.classList.remove("lighten-2");
+			});
+			if (typeof index === "number") {
+				btnClick[index].className += " light-blue lighten-2";
+			}
 		}
 	},
 	mounted() {
@@ -133,6 +147,8 @@ export default {
 
 		this.displayRegistrationForm();
 		this.closeRegistrationForm();
+
+		this.whenBtnIsClick();
 	}
 };
 </script>
