@@ -1,7 +1,13 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <v-row v-if="allMovies.length > 0">
+      <v-row
+        v-if="!hadFetchMovies"
+        class="mt-5"
+      >
+        <h2 class="mb-5 pa-4 light-blue--text text--darken-3">Please wait while we're hitting the server...</h2>
+      </v-row>
+      <v-row v-if="hadFetchMovies && allMovies.length > 0">
         <v-col
           cols="12"
           lg="3"
@@ -83,7 +89,7 @@
         </v-col>
       </v-row>
 
-      <v-row v-else>
+      <v-row v-if="hadFetchMovies && allMovies.length < 1">
         <v-col
           cols="12"
           lg="3"
@@ -144,7 +150,8 @@ export default {
       fav: true,
       imageContain: true,
       message: false,
-      hints: true
+      hints: true,
+      hadFetchMovies: false
     };
   },
   computed: {
@@ -153,7 +160,6 @@ export default {
     }),
     allMovies () {
       const getAllMovies = store.getters["Admin/getAllMovies"];
-      console.log(getAllMovies, 'noono')
       return getAllMovies.docs;
     },
     isClientLogin () {
@@ -179,7 +185,12 @@ export default {
         page: 1,
         sort: { title: 1 }
       };
+      console.log('jdklfnskdnfl')
       const movies = await store.dispatch("Admin/gettingAllMovies", params);
+
+      if (movies) {
+        this.hadFetchMovies = true
+      }
     },
     async addMovie (id) {
       if (this.isClientLogin) {

@@ -1,5 +1,6 @@
 <template>
-  <v-row>
+
+  <v-row v-if="getAllMovies.docs.length > 0">
     <v-col cols="12">
       <v-card
         flat
@@ -27,6 +28,7 @@
 
 <script>
 import store from "Store";
+import { mapGetters } from 'vuex'
 export default {
   name: "AppUtilitiesCategoryNavigation",
   props: {
@@ -34,6 +36,9 @@ export default {
       type: Array,
       required: true
     }
+  },
+  computed: {
+    ...mapGetters('Admin', ['getAllMovies'])
   },
   data () {
     return {
