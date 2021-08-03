@@ -1,5 +1,4 @@
 <template>
-
   <v-row v-if="getAllMovies.docs.length > 0">
     <v-col cols="12">
       <v-card

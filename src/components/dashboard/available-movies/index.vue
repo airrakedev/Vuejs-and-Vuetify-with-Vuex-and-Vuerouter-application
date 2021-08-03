@@ -185,8 +185,10 @@ export default {
         page: 1,
         sort: { title: 1 }
       };
-      console.log('jdklfnskdnfl')
+
       const movies = await store.dispatch("Admin/gettingAllMovies", params);
+
+      console.log(movies, 'jdklfnskdnfl')
 
       if (movies) {
         this.hadFetchMovies = true

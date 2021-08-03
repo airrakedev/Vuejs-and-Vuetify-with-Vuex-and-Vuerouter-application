@@ -3,21 +3,31 @@
     <!-- ROUTER VIEW -->
     <v-main>
       <v-container>
+
         <!-- HEADER NAVIGATION -->
         <AppHeader></AppHeader>
+
         <!-- Category Navigation -->
-        <NavigationCategory :categoryNavigation="categoryButtons"> </NavigationCategory>
+        <NavigationCategory
+          v-if="isMovieAvailable && !pageNotFound"
+          :categoryNavigation="categoryButtons"
+        > </NavigationCategory>
 
         <slot></slot>
 
         <userRegistrationForm :dialog="registrationDialogStatus"></userRegistrationForm>
+
         <!-- USER LOGIN PAGE -->
         <userLoginForm :loginDialog="loginDialogStatus"></userLoginForm>
+
       </v-container>
     </v-main>
+
+    <!-- Footer -->
     <app-footer>
-      <span class="primary--text caption">&copy; Airrake 2021</span>
+      <span class="primary--text caption">&copy; Airrake {{new Date().getFullYear()}}</span>
     </app-footer>
+
   </v-app>
 </template>
 
@@ -34,6 +44,7 @@ const userLoginForm = () => import(/* webpackChunkName: 'user login' */ "Compone
 // APP
 import store from "Store";
 import { eventEmitter } from "Event";
+import { mapGetters } from 'vuex'
 
 export default {
   name: "AppLayoutDefault",
@@ -71,7 +82,8 @@ export default {
       menu: false,
       show: false,
       dialog: false,
-      loginDialog: false
+      loginDialog: false,
+      pageNotFound: false
     };
   },
   computed: {
@@ -80,6 +92,15 @@ export default {
     },
     registrationDialogStatus () {
       return this.dialog;
+    },
+    ...mapGetters('Admin', ['isMovieAvailable'])
+  },
+  watch: {
+    '$route': {
+      immediate: true,
+      handler (route) {
+        this.pageNotFound = route.name === "PageNotFound"
+      }
     }
   },
   methods: {
@@ -144,6 +165,7 @@ export default {
     }
   },
   mounted () {
+
     this.eventEmitterOn();
     this.eventEmitterOff();
 

@@ -1,6 +1,6 @@
 <template>
-	<!-- AVAILABLE MOVIES -->
-	<availableMovies></availableMovies>
+  <!-- AVAILABLE MOVIES -->
+  <availableMovies></availableMovies>
 </template>
 
 <script>
@@ -8,12 +8,12 @@
 import availableMovies from "Components/dashboard/available-movies";
 
 export default {
-	name: "main-dashboard",
-	components: {
-		availableMovies
-	},
-	data() {
-		return {};
-	}
+  name: "main-dashboard",
+  components: {
+    availableMovies
+  },
+  data () {
+    return {};
+  }
 };
 </script>
